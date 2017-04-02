@@ -9,7 +9,7 @@ var ClientSchema = mongoose.Schema({
   local: {
     hash: String,
     salt: String,
-  }
+  },
   facebook         : {
       id           : String,
       token        : String,
