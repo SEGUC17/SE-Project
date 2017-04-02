@@ -1,37 +1,20 @@
 var mongoose = require('mongoose');
 
 var ClientSchema = mongoose.Schema({
-
-    name:String,
-
+  firstName: String,
+  lastName: String,
+  email: String,
+  phone: String,
+  nationalID: String,
+  local: {
     hash: String,
-
     salt: String,
+  }
+  facebook         : {
+      id           : String,
+      token        : String,
+  },
 
-    email:{
-        type: String,
-        unique:true
-    },
-
-    phonenumber:{
-        type: String,
-        unique:true
-    },
-
-    username :{
-        type: String,
-        unique : true
-    },
-
-    password: {
-        type: String,
-        unique: true
-    },
-
-    nationalID: {
-        type: String,
-        unique: true
-    }
 
 });
 
