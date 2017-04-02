@@ -10,9 +10,9 @@ var ClientSchema = mongoose.Schema({
     hash: String,
     salt: String,
   },
-  facebook         : {
-      id           : String,
-      token        : String,
+  facebook: {
+      id: String,
+      token: String,
   },
 
 
