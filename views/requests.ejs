@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="eng">
+<head>
+    <meta charset = "UTF-8">
+    <title>Business Requests</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+    <script src="js/myApp.js"></script>
+</head>
+<body>
+<h1>hello</h1>
+<div ng-app="myApp">
+    <%for(var i=0; i<corp.length; i++){%>
+    <form ng-controller = "myCtrl">
+    <p>
+        Name: <%=corp[i].name%>  <br>
+        Email: <%=corp[i].email%> <br>
+        type: <%=corp[i].type%> <br>
+        <input type="button" id="login" value="Accept" ng-click="requestHandler(<%= corp[i].email %>)" />
+        <input type="button" id="login" value="Reject" ng-click="requestHandler(<%= corp[i].email %>)"/>
+    </p>
+    <%}%>
+
+    </form>
+</div>
+</body>
+</html>
