@@ -16,6 +16,13 @@ var CorporateSchema = mongoose.Schema({
 
     rating: Number,
 
+    hash: String,
+
+    salt: String,
+
+    request: Boolean,
+
+    accepted: Boolean,
 
     email:{
         type: String,

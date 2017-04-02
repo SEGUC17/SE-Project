@@ -4,6 +4,10 @@ var ClientSchema = mongoose.Schema({
 
     name:String,
 
+    hash: String,
+
+    salt: String,
+
     email:{
         type: String,
         unique:true
