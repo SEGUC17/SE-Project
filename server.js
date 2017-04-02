@@ -4,10 +4,10 @@ var router = require('./app/routes');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var DB_URI = "mongodb://localhost:27017/se-project";
-var bycrpt = require('bcrypt');
+var crypto = require('crypto');
 var passport = require('passport');
 var path = require('path');
-var cors  = require('cors');
+
 
 
 var app = express();
