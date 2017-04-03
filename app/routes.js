@@ -1,11 +1,29 @@
 var express = require('express');
 var router = express.Router();
+var controller = require('./controllers/controller');
 
+// Media controllers
+router.post('/addMedia/file',controller.addMedia);
+router.post('/addVideo/file',controller.addVideo);
+//
 
-
-
-
-
+router.get('/',controller.requests);
+router.get('/home',function(req,res){
+    var registered = false;
+    var loggedin = false;
+    res.render('login',{registered,loggedin});
+});
+router.post('/Signup',controller.SignUp);
+router.post('/login',controller.login);
+router.get('/register',function(req,res){
+    var registered = false;
+    res.render('register',{registered});
+});
+router.get('/logout',function(req,res){
+    var registered = false;
+    var loggedin = false;
+    res.render('login',{registered,loggedin});
+});
 
 
 module.exports = router;
