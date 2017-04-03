@@ -41,10 +41,6 @@ var CorporateSchema = mongoose.Schema({
         unique : true
     },
 
-    password: {
-        type: String,
-        unique: true
-    },
 
     business_name: {
         type: String,

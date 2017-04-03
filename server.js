@@ -8,7 +8,7 @@ var DB_URI = "mongodb://localhost:27017/se-project";
 var crypto = require('crypto');
 var passport = require('passport');
 var path = require('path');
-require('./config/passport')(passport)
+require('./config/passport')(passport);
 
 
 var app = express();
@@ -17,9 +17,9 @@ var app = express();
 // configure app
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(express.static(__dirname+ '/public'));
-app.use(session({secret: 'ADSADS'}))
-app.use(passport.initialize())
-app.use(passport.session())
+app.use(session({secret: 'ADSADS'}));
+app.use(passport.initialize());
+app.use(passport.session());
 mongoose.connect(DB_URI);
 app.use(router);
 
@@ -27,4 +27,4 @@ app.use(router);
 // start the server
 app.listen(8080, function(){
     console.log("server is listening on port 8080");
-})
+});

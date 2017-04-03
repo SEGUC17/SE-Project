@@ -5,18 +5,24 @@ var ClientSchema = mongoose.Schema({
   lastName: String,
   email: String,
   phone: String,
-  nationalID: String,
+      nationalID: String,
   local: {
-    hash: String,
-    salt: String,
+      username :{
+          type: String,
+          unique : true 
+      },
+
+      hash: String,
+    salt: String
   },
   facebook: {
       id: String,
-      token: String,
-  },
+      token: String
+  }
 
 
 });
+
 
 var Client = mongoose.model("client", ClientSchema);
 
