@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
     <!-- JS libraries -->
     <script src="./bower_components/angular/angular.js"></script>
+    <link href="http://vjs.zencdn.net/vjs-version/video-js.css" rel="stylesheet">
     <!-- Angular files -->
     <style >
       img {
@@ -50,7 +51,7 @@
     <div class="row">
       <div class="video-list">
       <% for(var i=0; i<corp.videos.length; i++){ %>
-        <video width="320" height="240" src= <%= '/uploads/videos/'+corp.videos[i] %> ></video>
+        <video class="video-js" controls preload="auto" data-setup="{}" width="320" height="240" src= <%= '/uploads/videos/'+corp.videos[i] %> ></video>
       </div>
       <% } %>
   </div>
