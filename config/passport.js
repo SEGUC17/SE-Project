@@ -77,7 +77,7 @@ module.exports = function(passport) {
                 next({success: false, error: "An unexpected error has occured"});
             }
             if (client) {
-              if (client.validPassword(password)) {
+              if (client.validPassword(client.local.salt, password, client.local.hash)) {
                 return next(null, client)
               }
               else {

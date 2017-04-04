@@ -12,5 +12,10 @@ router.post('/client/login', clientController.localLogin);
 
 router.post('/client/logout', clientController.logout)
 
+router.post('/client/recover', clientController.recoverPassword)
+
+router.post('/client/verifyToken', clientController.verifyRecoveryToken)
+
+router.post('/client/reset', clientController.resetPassword)
 
 module.exports = router;

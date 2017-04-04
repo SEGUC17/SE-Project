@@ -3,8 +3,8 @@ const MAIL_FROM = '"SE Project - Support" <3anateelse@gmail.com>'
 var nodemailer = require('nodemailer')
 
 var transporter = nodemailer.createTransport({
-  user: config.mailer.user,
-  pass: config.mailer.pass
+  service: 'gmail',
+  auth: config.mailer
 })
 
 
