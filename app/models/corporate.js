@@ -15,6 +15,7 @@ var projectSchema = mongoose.Schema({
     Accepted:Boolean,
     images:[],
     videos:[],
+    announcments: { data:[], time: []},
 })
 
 var Corporate = mongoose.model("Corporate", projectSchema);

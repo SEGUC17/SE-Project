@@ -7,7 +7,7 @@ var fs = require('fs');
 var app = express();
 var multer = require('multer');
 
-var upload = multer({ dest: 'uploads/' })
+// var upload = multer({ dest: 'uploads/' })
 
 // Loading Angular Components ..
 app.use('/bower_components', express.static(__dirname + '/bower_components'));

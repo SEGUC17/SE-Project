@@ -7,6 +7,12 @@ router.post('/addMedia/file',controller.addMedia);
 router.post('/addVideo/file',controller.addVideo);
 //
 
+// Announcments Routing
+router.get('/announcments',controller.getAnnouncments);
+router.post('/new/announcment',controller.newAnnouncment);
+
+//
+
 router.get('/',controller.requests);
 router.get('/home',function(req,res){
     var registered = false;

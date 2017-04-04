@@ -128,7 +128,7 @@ let controller = {
              success: true,
              message: 'Image Uploaded'
            }]
-           res.render('media', {loggedin,uploaded,uploaded_image: file,corp});
+           res.render('media', {loggedin,uploaded,corp});
          }
        })
 
@@ -162,9 +162,9 @@ let controller = {
           console.log(file)
 
           uploaded = true;
-          // Pushing Image Name String
+          // Pushing Video Name String
           corp.videos.push(new_video)
-          //Saving the new image to Corporate
+          //Saving the new Video to Corporate
           corp.save()
          //  console.log(req.file);
 
@@ -173,15 +173,53 @@ let controller = {
             success: true,
             message: 'Video Uploaded'
           }]
-          res.render('media', {loggedin,uploaded,uploaded_image: file,corp});
+          res.render('media', {loggedin,uploaded,corp});
         }
       })
 
 
     })
 
-  }
+  },
 
+  getAnnouncments:function(req, res){
+    corporate.findOne({email: email_session}, function(err, corp){
+      if(err || corp == null){
+          // res.send(err);
+          res.end('No corporate is loggedin !')
+          // console.log('Henna')
+      } else {
+        console.log('Reach Announcments of this corporate Successfully.')
+        res.render('announcments', {corp});
+      }
+
+  })
+
+
+},
+
+  newAnnouncment: function(req, res){
+    corporate.findOne({email: email_session}, function(err, corp){
+      if(err || corp == null){
+          res.end('No corporate is loggedin !')
+      } else {
+        console.log('new Announcments of this corporate is valid.')
+        var data = req.body.userinput;
+        var test_time = new Date()
+        var time_result = test_time.toLocaleDateString()
+        corp.announcments.data.push(data);
+        corp.announcments.time.push(time_result);
+        corp.save()
+        console.log('Announcments added.')
+        console.log(data)
+        console.log(time_result)
+        res.render('announcments',{corp})
+      }
+
+    })
+
+
+}
 
 }
 module.exports = controller;

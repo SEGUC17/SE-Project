@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Announcments</title>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
+  </head>
+  <body>
+
+    <% if(corp != null) {%>
+      <div class="Adding-Announcments">
+        <p>Add announcments and events</p>
+        <form  action="/new/announcment" method="post">
+          <input name="userinput" class="form-control" type="text" placeholder="Add announcments and events here .." class="input pass"/>
+      <hr>
+      <input type="submit" class="btn btn-success" value="submit" class="inputButton"/>
+      <hr>
+        </form>
+      </div>
+
+    <% for(var i=1; i<=corp.announcments.data.length;i++) {%>
+      <div class="card text-center">
+        <div class="card-header">
+          Featured Notification
+        </div>
+        <div class="card-block">
+          <h4 class="card-title">Announcments and Events</h4>
+          <p class="card-text"> <%= corp.announcments.data[i] %> </p>
+          <a href="#" class="btn btn-primary">View more!</a>
+        </div>
+        <div class="card-footer text-muted">
+          <%= corp.announcments.time[i] %>
+        </div>
+      </div>
+      <hr>
+    <% } %>
+    <% } %>
+  </body>
+</html>
