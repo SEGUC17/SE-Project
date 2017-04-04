@@ -5,15 +5,14 @@ var ClientSchema = mongoose.Schema({
   lastName: String,
   email: String,
   phone: String,
-      nationalID: String,
+  nationalID: String,
   local: {
       username :{
           type: String,
-          unique : true 
+          unique : true
       },
-
       hash: String,
-    salt: String
+      salt: String
   },
   facebook: {
       id: String,

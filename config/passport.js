@@ -8,7 +8,7 @@ module.exports = function(passport) {
   passport.serializeUser(function(user, next) {
       next(null, user.id);
   });
-  // used to deserialize the user 
+  // used to deserialize the user
   passport.deserializeUser(function(id, next) {
       Client.findById(id, function(err, user) {
           next(err, user);
@@ -17,64 +17,77 @@ module.exports = function(passport) {
 
   //Local User strategy to sign up
     passport.use('local-signup', new LocalStrategy({
-        firstField: 'firstName',
-        lastField:'lastName',
         usernameField: 'username',
         passwordField:'password',
-        emailField: 'email',
-        nationalIDField: 'nationalID',
-        phoneField:'phone',
-
         passReqToCallback: true
-
     },
-  function (req,res,username,password,done) {
-      process.nextTick(function () {
-          Client.findOne({'username': username}, function(err,client){
+    function (req,username,password,next) {
+        process.nextTick(function () {
+            var firstName = req.body.firstName
+            var lastName = req.body.lastName
+            var phone = req.body.phone
+            var email = req.body.email
+            if (firstName && lastName && phone && email) {
+              Client.findOne({$or:[{"username":username}, {"email":email}]}, function(err, user){
+                if (err) {
+                  console.log(err)
+                  next({success: false, error: "An unexpected error has occured"})
+                }
+                if (user) {
+                  next({success: false, error: "This username already exists!"})
+                }
+                else {
+                  var client = new Client();
+                  client.firstName = firstName
+                  client.lastName = lastName
+                  client.email = email
+                  client.phone = phone
+                  client.local.username = username
+                  client.local.salt = crypto.randomBytes(16).toString('hex')
+                  client.local.hash = crypto.pbkdf2Sync(password, client.local.salt, 1000, 64, 'sha512').toString('hex')
+                  console.log("Hey")
+                  client.save(function(err) {
+                    if(err) {
+                      console.log(err)
+                      next({success: false, error: 'An unexpected error has occured'})
+                    }
 
-              if(err)
-                  return next(err);
-              if(client){
-                  return next(null,false,res.console.log("email exists"))
-              }
-              else{
-                  var newClient = new Client();
-                  newClient.local.firstName = firstName;
-                  newClient.local.lastName =  lastName;
-                  newClient.local.phone = phone;
-                  newClient.local.email = email;
-                  salt = crypto.randomBytes(16).toString('hex');
-                  newClient.local.salt = salt;
-                  newClient.local.hash = crypto.pbkdf2Sync(password,salt,1000,64,'sha512').toString('hex');
-                  newClient.save(function (err) {
-                      if(err)
-                          throw err;
-                      return done(null,newClient);
+                    return next(null, client)
+                  })
+                }
+              })
+            }
+            else {
+              next({success: false, error: "Incomplete information entered"})
+            }
+        });
 
-                  });
-                   }
-      });
-  });
-
-}));
-
+    }));
 
     //Startegy for local Log IN
 
     passport.use('local-login', new LocalStrategy({
-        usernameField: 'username',
-        passwordField: 'password',
-        passReqToCallBack: true
-    },
-    function (req,res,username,password,done)
-    { Client.findOne({'local.username': username},function(err,client) {
-        if(err)
-            return done(err);
-        if(!client)
-            return done(null,false,res.console.log("No user found bro"));
-        if(!client.validPassword(password))
-        return done(null,false,res.console.log("wrong password"));
-    });
+          usernameField: 'username',
+          passwordField: 'password',
+      },
+      function (username,password,next){
+          Client.findOne({'local.username': username},function(err,client) {
+            if(err){
+                console.log(err)
+                next({success: false, error: "An unexpected error has occured"});
+            }
+            if (client) {
+              if (client.validPassword(password)) {
+                return next(null, client)
+              }
+              else {
+                return next({success: false, error: "Incorrect username/password combination entered"})
+              }
+            }
+            else {
+              return next({success: false, error: "No account exists for the entered username"})
+            }
+        });
 
     }));
 
@@ -90,11 +103,12 @@ module.exports = function(passport) {
       Client.findOne({'facebook.id': profile.id},
       function(err, client) {
         if (err) {
-          next(err);
+          console.log(err)
+          next({success: false, error: "An unexpected error has occured"})
         }
         //Client exists, hand it to the next callback
         if (client) {
-          next(null, client);
+          return next(null, client);
         }
         else {
           //Create a new client with the provided info from facebook
@@ -102,12 +116,12 @@ module.exports = function(passport) {
           newClient.facebook.id = profile.id;
           newClient.facebook.token = token;
           newClient.firstName = profile.name.givenName;
-              newClient.lastName = profile.name.familyName;
+          newClient.lastName = profile.name.familyName;
           newClient.email = profile.emails[0].value;
           newClient.save(function(err) {
               if (err) {
-                console.log(err);
-                next(err)
+                console.log(err)
+                return next({success: false, error: "An unexpected error has occured"})
               }
               return next(null, newClient)
           })
