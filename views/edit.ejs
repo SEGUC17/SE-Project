@@ -1,0 +1,58 @@
+<HTML>
+<HEAD>
+<TITLE>Karim</TITLE>
+</HEAD>
+<BODY BGCOLOR="FFFFFF">
+<HR>
+</div>
+<div class="col-xs-12 col-md-8">
+          <div class="row">
+              <% for(var i=0; i<Entertainments.length; i++){%>
+
+              </br>
+
+                      <form method="post" action='/editName'>
+                      <textarea><%=Entertainments[i].name%></textarea>
+                      <input name="name"  value="<%= Entertainments[i].name %>"></input>
+                          <input name="name1"  value="New Name"></input>
+                      <button type="submit" class="btn btn-primary card-link">See Profile</button>
+                    </br>
+                      </form>
+                      <form method="post" action='/editEmail'>
+                      <textarea><%=Entertainments[i].email%></textarea>
+                          <input name="name"  value="<%= Entertainments[i].name %>"></input>
+                      <input name="email"  value="<%= Entertainments[i].email %>"></input>
+                      <button type="submit" class="btn btn-primary card-link">See Profile</button>
+                      </form>
+
+                    </br>
+                    <form method="post" action='/editPhone'>
+                    <textarea><%=Entertainments[i].phone%></textarea>
+                        <input name="name"  value="<%= Entertainments[i].name %>"></input>
+                    <input name="phone"  value="New Phone"></input>
+                    <button type="submit" class="btn btn-primary card-link">See Profile</button>
+                    </form>
+
+                  </br>
+                  <form method="post" action='/editLocation'>
+                  <textarea><%=Entertainments[i].location%></textarea>
+                      <input name="name"  value="<%= Entertainments[i].name %>"></input>
+                  <input name="location"  value="New Location"></input>
+                  <button type="submit" class="btn btn-primary card-link">See Profile</button>
+                  </form>
+
+                </br>
+              </br>
+              <form method="post" action='/editPrice'>
+                  <textarea><%=Entertainments[i].price%></textarea>
+                  <input name="name"  type="hidden" value="<%= Entertainments[i].name %>"></input>
+                  <input name="price"  value="New Price"></input>
+                  <button type="submit" class="btn btn-primary card-link">See Profile</button>
+              </form>
+                  </div>
+              <% } %>
+          </div>
+      </div>
+<HR>
+</BODY>
+</HTML>
