@@ -6,7 +6,7 @@ module.exports = {
         callbackURL: 'http://localhost:8080/client/login/facebook/callback'
     },
     mailer: {
-      username: '3anateelse@gmail.com',
-      password: 'notsosecurepass'
+      user: '3anateelse@gmail.com',
+      pass: 'notsosecurepass'
     }
 };
