@@ -17,9 +17,8 @@ var ClientSchema = mongoose.Schema({
   facebook: {
       id: String,
       token: String
-  }
-
-
+  },
+  recoveryToken: String //To be used for password recovery
 });
 
 
