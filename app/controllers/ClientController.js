@@ -2,8 +2,17 @@ var passport = require('passport');
 var mailer = require('./MailController')
 var crypto = require('crypto')
 var Client = require('../models/client')
+var Entertainment = require('../models/entertainment')
 
 module.exports = {
+  checkAuthentication: function(req, res, next) {
+    if (req.isAuthenticated()) {
+      next()
+    }
+    else {
+      res.status(401).send("You are unauthorized to access this page")
+    }
+  },
   localSignup: function(req, res, next) {
     passport.authenticate('local-signup', function(err, user) {
       if (err) {
@@ -160,8 +169,38 @@ module.exports = {
       })
     }
     else {
-      res.json({success: false, error: "Incomplete information entered"})
+      res.json({success: false, error: "Invalid information received"})
     }
 
+  },
+  postReview: function(req, res, next) {
+    var serviceID = req.body.entertainment
+    var text = req.body.text
+    if (serviceID && text) {
+      Entertainment.findOne({_id: serviceID}, function(err, service) {
+        if (err) {
+          console.log(err)
+          res.json({success: false, error: "An unexpected error has occured"})
+        }
+        else if(service){
+          service.reviews.push({_creator: req.user._id, text: text})
+          service.save(function(err) {
+            if (err) {
+              console.log(err)
+              return res.json({success: false, error: "An unexpected error occured while saving the review"})
+            }
+            res.json({success: true})
+          })
+        }
+        else {
+          res.json({success: false, error: "No entertainment service found matching given ID"})
+        }
+      })
+    }
+    else {
+      res.json({success: false, error: "Invalid service ID/review text received"})
+    }
   }
+
+
 }
