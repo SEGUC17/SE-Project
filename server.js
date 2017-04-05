@@ -18,7 +18,7 @@ var app = express();
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json())
 app.use(express.static(__dirname+ '/public'));
-app.use(session({secret: 'ADSADS'}));
+app.use(session({secret: 'ADSADS', cookie: { maxAge : 3600000 * 48 }}));
 app.use(passport.initialize());
 app.use(passport.session());
 mongoose.connect(DB_URI);

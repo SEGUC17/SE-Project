@@ -8,11 +8,10 @@ var Review = require('../models/review')
 module.exports = {
   checkAuthentication: function(req, res, next) {
     if (req.isAuthenticated()) {
-      next()
+      if (req.session.client)
+        return next()
     }
-    else {
-      res.status(401).send("You are unauthorized to access this page")
-    }
+    res.status(401).send("You are unauthorized to access this page")
   },
   localSignup: function(req, res, next) {
     passport.authenticate('local-signup', function(err, user) {
@@ -25,6 +24,7 @@ module.exports = {
               res.json({success: false, error: "An unexpected error has occured"})
             }
             else {
+              req.session.client = true
               res.json({success: true, user: req.user})
             }
         })
@@ -45,6 +45,7 @@ module.exports = {
               res.json({success: false, error: "An unexpected error has occured"})
             }
             else {
+              req.session.client = true
               res.json({success: true, user: req.user})
             }
         })
