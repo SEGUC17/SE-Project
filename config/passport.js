@@ -36,6 +36,7 @@ module.exports = function(passport) {
             var phone = req.body.phone
             var email = req.body.email
             if (firstName && lastName && phone && email) {
+              //Find clients with the given username or email
               Client.findOne({$or:[{"username":username}, {"email":email}]}, function(err, user){
                 if (err) {
                   console.log(err)
@@ -45,12 +46,14 @@ module.exports = function(passport) {
                   next({success: false, error: "This username already exists!"})
                 }
                 else {
+                  //Create a new client with the given info
                   var client = new Client();
                   client.firstName = firstName
                   client.lastName = lastName
                   client.email = email
                   client.phone = phone
                   client.local.username = username
+                  //Generate a salt and use it to hash the password
                   client.local.salt = crypto.randomBytes(16).toString('hex')
                   client.local.hash = crypto.pbkdf2Sync(password, client.local.salt, 1000, 64, 'sha512').toString('hex')
                   client.save(function(err) {
@@ -72,7 +75,6 @@ module.exports = function(passport) {
     }));
 
     //Startegy for local Log IN
-
     passport.use('local-login', new LocalStrategy({
           usernameField: 'username',
           passwordField: 'password',
@@ -84,6 +86,7 @@ module.exports = function(passport) {
                 next({success: false, error: "An unexpected error has occured"});
             }
             if (client) {
+              //Validate that the entered password matches the stored one
               if (client.validPassword(client.local.salt, password, client.local.hash)) {
                 return next(null, client)
               }
@@ -184,11 +187,13 @@ module.exports = function(passport) {
             passwordField: 'password',
         },
         function (email,password,next){
+        //Find the corporate account with the given email
         corporate.findOne({'local.email': email},function(err,corp){
             if(err){
                 console.log(err);
             }
             if(corp){
+                //Validate that the entered password matches the stored one
                 if(corp.validPassword(corp.local.salt,password,corp.local.hash)){
                     return next(null,corp)
                 }else{
