@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
-var projectController = require('./controllers/controller');
-
+var searchController = require('./controllers/searchController');
+var adminRemoveController = require('./controllers/adminRemoveController');
 
 
 // add routes
