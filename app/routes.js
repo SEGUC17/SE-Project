@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var controller = require('./controllers/controller');
+var controller = require('./controllers/CorporateController');
 
 // Media controllers
 router.post('/addMedia/file',controller.addMedia);

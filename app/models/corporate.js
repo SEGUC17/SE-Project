@@ -1,21 +1,54 @@
 var mongoose = require('mongoose');
 var projectSchema = mongoose.Schema({
-    name:String,
-    email:{
-        type:String,
-        required:true,
-        unique:true
-    },
-    hash: String,
-    salt: String,
-    phone:String,
-    address: String,
-    type: String,
-    request:Boolean,
-    Accepted:Boolean,
-    images:[],
-    videos:[],
-    announcments: { data:[], time: []},
+  name:String,
+
+  about:String,
+
+  address:String,
+
+  type:String,
+
+  rating: Number,
+
+  hash: String,
+
+  salt: String,
+
+  request: Boolean,
+
+  accepted: Boolean,
+
+  email:{
+      type: String,
+      unique:true
+  },
+
+
+  phone_number:{
+      type: String,
+      unique:true
+  },
+
+
+  username :{
+      type: String,
+      unique : true
+  },
+
+
+  business_name: {
+      type: String,
+      unique: true
+  },
+
+  business_number:{
+      type:String,
+      unique: true
+  },
+
+  images:[],
+  videos:[],
+  announcments: { data:[], time: []},
 })
 
 var Corporate = mongoose.model("Corporate", projectSchema);
