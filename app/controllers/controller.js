@@ -68,7 +68,7 @@ let controller = {
     },
     accept:function(req,res){
         var e = req.params.cem.substring(1);
-        corporate.findOne({email:e},function(err,corp){
+        corporate.findOne({'local.email':e},function(err,corp){
             if(corp) {
                 corp.Accepted = true;
                 corp.request=false;
@@ -84,7 +84,7 @@ let controller = {
     },
     reject:function(req,res){
         var e = req.params.cem.substring(1);
-        corporate.findOne({email:e},function(err,corp){
+        corporate.findOne({'local.email':e},function(err,corp){
             if(corp) {
                 corp.Accepted = false;
                 corp.request=false;

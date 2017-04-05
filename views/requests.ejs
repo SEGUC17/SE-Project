@@ -11,10 +11,10 @@
     <%for(var i=0; i<corp.length; i++){%>
     <form>
     <p>Name: <%=corp[i].name%> </p> <br>
-        <p id="email" value="<%=corp[i].email%>">  Email: <%=corp[i].email%> </p><br>
+        <p id="email" value="<%=corp[i].email%>">  Email: <%=corp[i].local.email%> </p><br>
         <p>  type: <%=corp[i].type%></p> <br>
-        <a type = button href="/accept/:<%=corp[i].email%>" >Accept</a>
-        <a type = button href="/reject/:<%=corp[i].email%>">reject</a>
+        <a type = button href="/accept/:<%=corp[i].local.email%>" >Accept</a>
+        <a type = button href="/reject/:<%=corp[i].local.email%>">reject</a>
     <%}%>
     </form>
 </div>

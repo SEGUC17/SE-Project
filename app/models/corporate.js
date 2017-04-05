@@ -1,7 +1,11 @@
 var mongoose = require('mongoose');
 var crypto = require('crypto');
 var CorporateSchema = mongoose.Schema({
-    name:String,
+    name:{
+        type :String,
+        required:true,
+        unique: true
+    },
     local: {
         email: {
             type: String,
