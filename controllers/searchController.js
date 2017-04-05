@@ -1,9 +1,16 @@
-let vSearch = require('../models/schema');
 
 
+
+let vSearch = require('../models/schema'); 
+// Change the schema here with the app schema
+
+
+//Helps in comparing string by changing text to Reg. Expression
 function escapeRegex(text) = {
     return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
 };
+
+
 
 
 visitorSearch:function(req,res){
