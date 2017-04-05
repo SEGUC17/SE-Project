@@ -13,7 +13,7 @@ function escapeRegex(text) {
 
 
 
-varvisitorSearch:function(req,res){
+visitorSearch:function(req,res){
 		var noMatch=null;
 		const text = new RegExp(escapeRegex(req.query.search), 'gi');
 
