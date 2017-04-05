@@ -106,7 +106,11 @@ let controller = {
            if (err) {
              // An error occurred when uploading
              console.log('Error while Uploading media.')
-             return res.end("Error uploading file.");
+             res.json[{
+               success: false,
+               message: 'Uploading failed'
+             }]
+            //  return res.end("Error uploading file.");
            }
            console.log('Uploaded Image Successfully .')
           //  var result =  req.file.path;
@@ -128,7 +132,7 @@ let controller = {
              success: true,
              message: 'Image Uploaded'
            }]
-           res.render('media', {loggedin,uploaded,corp});
+          //  res.render('media', {loggedin,uploaded,corp});
          }
        })
 
@@ -173,7 +177,7 @@ let controller = {
             success: true,
             message: 'Video Uploaded'
           }]
-          res.render('media', {loggedin,uploaded,corp});
+          // res.render('media', {loggedin,uploaded,corp});
         }
       })
 
@@ -190,7 +194,11 @@ let controller = {
           // console.log('Henna')
       } else {
         console.log('Reach Announcments of this corporate Successfully.')
-        res.render('announcments', {corp});
+        res.json[{
+          success: true,
+          message: 'Announcments Viewed Successfully'
+        }]
+        // res.render('announcments', {corp});
       }
 
   })
@@ -213,7 +221,11 @@ let controller = {
         console.log('Announcments added.')
         console.log(data)
         console.log(time_result)
-        res.render('announcments',{corp})
+        res.json[{
+          success: true,
+          message: 'New Announcment Created!'
+        }]
+        // res.render('announcments',{corp})
       }
 
     })
