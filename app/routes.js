@@ -5,10 +5,10 @@ var adminRemoveController = require('./controllers/adminRemoveController');
 
 
 // add routes
-router.post('/visitor/search',projectController.searchController.visitorSearch);
-router.post('/client/search',projectController.searchController.clientSearch);
-router.post('/admin/search',projectController.searchController.adminSearch);
-router.get('/admin/RemoveClient',projectController.adminRemoveController.adminRemoveClient);
+router.post('/visitor/search',searchController.visitorSearch);
+router.post('/client/search',searchController.clientSearch);
+router.post('/admin/search',searchController.adminSearch);
+router.get('/admin/RemoveClient',adminRemoveController.adminRemoveClient);
 
 
 
