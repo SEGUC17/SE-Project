@@ -15,6 +15,7 @@
     "crypto": "0.0.3",
     "ejs": "^2.5.6",
     "express": "^4.14.1",
+    "express-session": "^1.15.2",
     "fs": "0.0.1-security",
     "kareem": "^1.2.1",
     "mongojs": "^2.4.0",

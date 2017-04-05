@@ -2,6 +2,7 @@ var express = require('express');
 var router = require('./app/routes');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+var session = require('express-session');
 var DB_URI = "mongodb://localhost:27017/MET";
 var fs = require('fs');
 var app = express();
@@ -14,7 +15,7 @@ app.set('view engine', 'ejs');
 
 // configure app
 app.use(bodyParser.urlencoded({extended:false}));
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 app.use(express.static(__dirname+ '/public'));
 app.use(session({secret: 'ADSADS'}));
 app.use(passport.initialize());
