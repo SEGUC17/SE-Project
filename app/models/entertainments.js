@@ -17,8 +17,11 @@ var entertainmentSchema = mongoose.Schema({
     },
 
     type:String,
-    rating:Number,
-numberOfRatings:Number
+    rating:[Number],
+numberOfRatings:{
+        type:Number,
+        default:0
+}
 
 
 })
@@ -26,3 +29,4 @@ numberOfRatings:Number
 var entertainments = mongoose.model("entertainment", entertainmentSchema);
 
 module.exports = entertainments;
+

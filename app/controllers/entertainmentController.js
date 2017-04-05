@@ -194,6 +194,49 @@ admin:function(req,res){
     else
     res.render('admin',{Entertainments});
   })
+},
+rate:function(req,res){
+    Entertainment.find(function(req,Entertainments){
+        res.render('rate',{Entertainments});
+    })
+},
+rateEntertainment:function (req,res) {
+    Entertainment.findOne({name:req.body.name},function (err,success) {
+        if(err)
+            console.log(err.message);
+        else{
+            if(success){
+                var num=success.rating.length;
+              var i=0;var rating=0;
+              for (i=0;i<num;i++){
+                  rating=rating+parseFloat(success.rating[i]);
+
+              }
+              rating=rating+parseFloat(req.body.rating);
+                success.rating[parseFloat(success.rating.length)]=req.body.rating;
+                num++;
+                success.markModified(success.rating);
+              rating=parseFloat(rating)/parseFloat(num);
+                success.numberOfRatings=rating;
+
+
+
+                success.save(function (err,req) {
+                    if(err)
+                        console.log(err.message);
+                    else{
+                        console.log(success.numberOfRatings);
+                        Entertainment.find(function (err,Entertainments) {
+                            res.render('rate',{Entertainments});
+                        })
+                    }
+
+                })
+            }
+        }
+
+    })
+
 }
 }
 module.exports=entertainmentController;
@@ -230,3 +273,4 @@ let projectController = {
         })
     }
 }*/
+
