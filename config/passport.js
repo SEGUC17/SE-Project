@@ -1,7 +1,7 @@
 var LocalStrategy = require('passport-local').Strategy;
 const crypto = require("crypto");
 const passport = require("passport");
-var corporate = require("../app/models/corporate");
+let corporate = require("../app/models/corporate");
 
 module.exports = function(passport) {
     passport.serializeUser(function (user, next) {
@@ -9,7 +9,7 @@ module.exports = function(passport) {
     });
     // used to deserialize the user
     passport.deserializeUser(function (id, next) {
-        Client.findById(id, function (err, user) {
+        corporate.findById(id, function (err, user) {
             next(err, user);
         });
     });
@@ -20,33 +20,35 @@ module.exports = function(passport) {
         passReqToCallback:true
     },
         function(req,email,password,next){
-            process.netTick(function(){
-                corporate.findOne({$or:[{'local.email':req.body.email},{"name":req.body.name}]},function(err,corp){
+            process.nextTick(function(){
+                corporate.findOne({ 'local.email' :  email }, function(err, corp) {
                     if(err){
                         console.log(err);
                     }
                     if(corp){
                         next({success:false,error:"This name already exists!"})
                     }else{
+                        console.log("alreadyhere");
+
                         var salt = crypto.randomBytes(16).toString('hex');
                         var hash = crypto.pbkdf2Sync(password, salt, 1000, 64, 'sha512').toString('hex');
-                        var corporate = new corporate();
-                            corporate.name = req.body.name;
-                            corporate.local.email = req.body.email;
-                            corporate.phone = req.body.phone;
-                            corporate.address = req.body.address;
-                            corporate.type = req.body.type;
-                            corporate.request = true;
-                            corporate.Accepted = false;
-                            corporate.local.salt = salt;
-                            corporate.local.hash = hash;
-                            corporate.save(function(err){
+                        var corp = new corporate();
+                        corp.name = req.body.name;
+                        corp.local.email = email;
+                        corp.phone = req.body.phone;
+                        corp.address = req.body.address;
+                        corp.type = req.body.type;
+                        corp.request = true;
+                        corp.Accepted = false;
+                        corp.local.salt = salt;
+                        corp.local.hash = hash;
+                        corp.save(function(err){
                                 if(err) {
-                                    console.log(err)
+                                    console.log(err);
                                     next({success: false, error: 'An unexpected error has occured'})
                                 }
 
-                                return next(null, client);
+                                return next(null, corp);
                             })
 
                     }
@@ -59,7 +61,7 @@ module.exports = function(passport) {
             usernameField: 'email',
             passwordField: 'password',
         },
-        function (req,username,password,next){
+        function (email,password,next){
         corporate.findOne({'local.email': email},function(err,corp){
             if(err){
                 console.log(err);

@@ -9,7 +9,7 @@ router.get('/home',function(req,res){
     var loggedin = false;
     res.render('login',{registered,loggedin});
 });
-router.post('/Signup',controller.localSignup);
+router.post('/Signup',controller.localSignUp);
 router.post('/login',controller.localLogin);
 router.get('/register',function(req,res){
     var registered = false;

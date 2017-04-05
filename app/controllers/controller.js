@@ -2,34 +2,31 @@ let corporate = require('../models/corporate');
 var crypto = require('crypto');
 var passport = require('passport');
 let controller = {
-    /*SignUp: function (req, res) {
+    SignUp: function (req, res) {
         var password = req.body.password;
         var salt = crypto.randomBytes(16).toString('hex');
         var hash = crypto.pbkdf2Sync(password, salt, 1000, 64, 'sha512').toString('hex');
-        let corp = new corporate({
-            name: req.body.name,
-            email: req.body.email,
-            hash: hash,
-            salt: salt,
-            phone: req.body.phone,
-            address: req.body.address,
-            type: req.body.type,
-            request: true,
-            Accepted: false
-        });
+        var corp = new corporate();
+            corp.name =  req.body.name;
+            corp.local.email = req.body.email;
+            corp.local.hash = hash;
+            corp.local.salt =  salt;
+            corp.phone = req.body.phone;
+            corp.address = req.body.address;
+            corp.type =  req.body.type;
+            corp.request = true;
+            corp.Accepted = false;
         corp.save(function (err, corp) {
             if (err) {
-                var registered = false;
-                res.render('register', {registered});
+                console.log(err);
+                res.json({success: false, error: "An unexpected error has occured1"})
             } else {
-                var registered = true;
-                var loggedin = false
-                res.render('login', {registered, loggedin});
+                res.json({success: true, user: req.corp})
             }
 
         })
     },
-    login: function (req, res) {
+    /*login: function (req, res) {
         corporate.findOne({email: req.body.email}, function (err, corp) {
             if (err) {
                 res.send(err.message);
@@ -102,19 +99,47 @@ let controller = {
             }
         })
     },
-        localSignup: function(req, res) {
+    localSignUp: function(req, res,next) {
             passport.authenticate('local-signup', function(err, user) {
-                successRedirect : '/profile';
-                failureRedirect : '/Signup';
-                failureFlash :true;
+                if (err) {
+                    res.json(err)
+                }
+                else if(user){
+                    req.login(user, function(err) {
+                        if (err) {
+                            console.log(err);
+                            res.json({success: false, error: "An unexpected error has occured1"})
+                        }
+                        else {
+                            res.json({success: true, user: req.user})
+                        }
+                    })
+                }
+                else {
+                    res.json({success: false, error: "An unexpected error has occured2"})
+                }
             })(req, res, next)
         },
-    localLogin: function(req, res) {
+    localLogin: function(req, res,next) {
         passport.authenticate('local-login', function(err, user) {
-            successRedirect : '/profile';
-            failureRedirect : '/login';
-            failureFlash :true;
+            if (err) {
+                res.json(err)
+            }
+            else if(user) {
+                req.logIn(user, function(err) {
+                    if (err) {
+                        console.log(err);
+                        res.json({success: false, error: "An unexpected error has occured"})
+                    }
+                    else {
+                        res.json({success: true, user: req.user})
+                    }
+                })
 
+            }
+            else {
+                res.json({success: false, error: "Authentication failed"})
+            }
         })(req, res, next)
     }
 
