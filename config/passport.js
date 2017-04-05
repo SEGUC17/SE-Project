@@ -7,13 +7,20 @@ let corporate = require("../app/models/corporate")
 
 module.exports = function(passport) {
   passport.serializeUser(function(user, next) {
-      next(null, user.id);
+      next(null, {id: user.id, corporate: user.name?true:false});
   });
   // used to deserialize the user
-  passport.deserializeUser(function(id, next) {
-      Client.findById(id, function(err, user) {
-          next(err, user);
-      });
+  passport.deserializeUser(function(user, next) {
+      if (user.corporate) {
+        corporate.findById(user.id, function(err, corporate) {
+          next(err, corporate);
+        })
+      }
+      else {
+        Client.findById(user.id, function(err, client) {
+            next(err, client);
+        });
+      }
   });
 
   //Local User strategy to sign up

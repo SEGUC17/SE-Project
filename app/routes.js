@@ -31,9 +31,9 @@ router.post('/corporate/signup',corporateController.localSignUp);
 
 router.post('/corporate/login',corporateController.localLogin);
 
-router.post('/corporate/accept/:cem', corporateController.checkAuthentication, corporateController.accept);
+router.post('/corporate/accept/:cem', corporateController.accept);
 
-router.post('/corporate/reject/:cem', corporateController.checkAuthentication, corporateController.reject);
+router.post('/corporate/reject/:cem', corporateController.reject);
 
 router.post('/corporate/reportReview', corporateController.checkAuthentication, corporateController.reportReview)
 
