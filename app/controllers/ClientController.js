@@ -3,6 +3,7 @@ var mailer = require('./MailController')
 var crypto = require('crypto')
 var Client = require('../models/client')
 var Entertainment = require('../models/entertainment')
+var Review = require('../models/review')
 
 module.exports = {
   checkAuthentication: function(req, res, next) {
@@ -180,17 +181,24 @@ module.exports = {
       Entertainment.findOne({_id: serviceID}, function(err, service) {
         if (err) {
           console.log(err)
-          res.json({success: false, error: "An unexpected error has occured"})
+          res.json({success: false, error: "An unexpected error occured while retrieving the entertainment service"})
         }
         else if(service){
-          service.reviews.push({_creator: req.user._id, text: text})
-          service.save(function(err) {
+          var review = new Review({_service: serviceID, _creator: req.user._id, text: text})
+          review.save(function(err, review) {
             if (err) {
-              console.log(err)
-              return res.json({success: false, error: "An unexpected error occured while saving the review"})
+              return res.json({success: false, error: "Failed to add a new review"})
             }
-            res.json({success: true})
+            service.reviews.push(review._id)
+            service.save(function(err) {
+              if (err) {
+                console.log(err)
+                return res.json({success: false, error: "An unexpected error occured while saving the review"})
+              }
+              res.json({success: true})
+            })
           })
+
         }
         else {
           res.json({success: false, error: "No entertainment service found matching given ID"})
@@ -200,6 +208,39 @@ module.exports = {
     else {
       res.json({success: false, error: "Invalid service ID/review text received"})
     }
+  },
+  editInfo: function(req, res, next) {
+    var clientID = req.body.clientID
+    var firstName = req.body.firstName
+    var lastName = req.body.lastName
+    var phone = req.body.phone
+    var nationalID = req.body.nationalID
+    if (clientID && firstName && lastName && phone && nationalID) {
+      Client.findOne({_id: clientID}, function(err, client) {
+        if (err) {
+          console.log(err)
+          res.json({success: false, error: "An unexpected error has occured"})
+        }
+        else if(client) {
+          client.firstName = firstName
+          client.lastName = lastName
+          client.phone = phone
+          client.nationalID = nationalID
+          client.save(function(err) {
+            if (err) {
+              res.json({success: false, error: "An unexpected error has occured"})
+            }
+            else {
+              res.json({success: true})
+            }
+          })
+        }
+      })
+    }
+    else {
+      res.json({success: false, error: "Incomplete information received"})
+    }
+
   }
 
 

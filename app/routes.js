@@ -21,4 +21,6 @@ router.post('/client/reset', clientController.resetPassword)
 
 router.post('/client/review', clientController.checkAuthentication, clientController.postReview)
 
+router.post('/client/edit', clientController.checkAuthentication, clientController.editInfo)
+
 module.exports = router;

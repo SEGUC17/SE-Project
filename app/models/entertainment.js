@@ -1,10 +1,5 @@
 var mongoose = require('mongoose');
 
-var reviewSchema = mongoose.Schema({
-  _creator: {type: String, ref: 'Client'},
-  text: String,
-})
-
 var entertainmentSchema = mongoose.Schema({
     email:{
       type:String,
@@ -20,12 +15,10 @@ var entertainmentSchema = mongoose.Schema({
       type:String,
       required:true
     },
-
     type:String,
     rating:Number,
     numberOfRatings:Number,
-    reviews: [reviewSchema]
-
+    reviews: [{type: String, ref: 'Review'}]
 })
 
 var Entertainment = mongoose.model("entertainment", entertainmentSchema);
