@@ -45,7 +45,6 @@ module.exports = function(passport) {
                   client.local.username = username
                   client.local.salt = crypto.randomBytes(16).toString('hex')
                   client.local.hash = crypto.pbkdf2Sync(password, client.local.salt, 1000, 64, 'sha512').toString('hex')
-                  console.log("Hey")
                   client.save(function(err) {
                     if(err) {
                       console.log(err)

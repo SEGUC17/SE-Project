@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 var clientController = require('./controllers/ClientController')
 var passport = require('passport')
+require('./models/entertainment')
+require('./models/review')
 
 router.get('/client/login/facebook', clientController.facebookLogin);
 router.get('/client/login/facebook/cb', clientController.facebookLogin);
