@@ -11,7 +11,7 @@ module.exports = {
         return next()
     }
     else {
-      return res.json({error: "Not authenticated", user: req.user})
+      return res.json({error: "Not authenticated"})
     }
     res.status(401).send("You are unauthorized to access this page")
 
@@ -142,7 +142,7 @@ module.exports = {
                   }
                   else {
                       req.session.corporate = true
-                      console.log("Corporate Auth" + req.isAuthenticated())
+                      //console.log("Corporate Auth" + req.isAuthenticated())
                       res.json({success: true, user: req.user})
                   }
               })
