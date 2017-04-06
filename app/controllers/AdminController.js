@@ -1,4 +1,9 @@
 var mongoose = require("mongoose")
+var corporate = require('../models/corporate')
+var Client = require('../models/client')
+var Entertainment = require('../models/entertainment')
+var admin = require('../models/admin')
+
 module.exports = {
   checkAuthentication(req, res, next) {
     if (req.session.admin) {
@@ -18,6 +23,19 @@ module.exports = {
           }
 
       })
+  },
+  removeClient:function (req,res){
+  	if(req.body.criteria){
+  		Client.findByIdAndRemove({"_id":req.body.criteria}, function(err,client){
+  			if(!client){
+  				res.json({success: false, message:"Sorry could'nt find that client"})
+  			}
+  			else {
+  				res.json({success: true, message:"Client removed successfully"});
+  			}
+  		})
+  	}
+
   },
   getAllCorporates:function(req, res){
      corporate.find({} ,function(err, corporates){
