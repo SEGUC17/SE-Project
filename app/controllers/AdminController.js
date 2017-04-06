@@ -47,7 +47,7 @@ module.exports = {
        })
   },
   getCorporate: function(req, res){
-     corporate.find({ _id: req.params.cem.substring(1)  } ,function(err, corporates){
+     corporate.find({ _id: req.body._id  } ,function(err, corporates){
          if(err)
           res.json({success: false, error: "enexpected error, corporate not found"}) //res.send(err.message);
          else
