@@ -12,7 +12,7 @@ var corporateController = require('./controllers/CorporateController');
 ///-----Visitor Viewing routes
 //////
 //route for viewing an entertainment service for a visitor
-router.post('/viewServiceVisitor/',EntertainmentController.getEntertainmentVisitor);
+router.post('/viewServiceVisitor',EntertainmentController.getEntertainmentVisitor);
 
 //route for viewing details about the corporate providing a service
 router.post('/viewCorporateVisitor/:cem',corporateController.getCorporateVisitor);
@@ -22,7 +22,7 @@ router.post('/viewCorporateVisitor/:cem',corporateController.getCorporateVisitor
 ///-----Client Viewing routes
 //////
 //route for viewing an entertainment service for a Client
-router.post('/viewServiceClient/,',EntertainmentController.getEntertainmentClient);
+router.post('/viewServiceClient,',EntertainmentController.getEntertainmentClient);
 
 //route for viewing details about the corporate providing a service
 router.post('/viewCorporateClient/:cem',corporateController.getCorporateClient);

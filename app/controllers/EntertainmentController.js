@@ -1,4 +1,4 @@
-let Entertainment = require('../models/Entertainment');
+let Entertainment = require('../models/entertainment');
 
 let EntertainmentController = {
 
