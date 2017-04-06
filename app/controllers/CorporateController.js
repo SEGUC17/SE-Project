@@ -1,17 +1,11 @@
-<<<<<<< HEAD
 var mongoose = require('mongoose')
 var Corporate = require('../models/corporate')
 var Review  = require('../models/review')
 var crypto = require('crypto')
 var passport = require('passport')
-
-var crypto = require('crypto');
-
-var email_session = "";
-
-
-//Files Uploader...
 var multer = require('multer');
+
+//Define media storage directories
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'public/uploads/images')
@@ -94,51 +88,6 @@ module.exports = {
 
       })
   },
-  requests: function (req, res) {
-      Corporate.find({request: true}, function (err, corp) {
-          if (corp) {
-              res.render('requests', {corp});
-          }else{
-              console.log("no");
-          }
-      });
-
-  },
-  accept:function(req,res){
-      var e = req.params.cem.substring(1);
-      Corporate.findOne({'local.email':e},function(err,corp){
-          if(corp) {
-              corp.Accepted = true;
-              corp.request=false;
-              corp.save(function(err,corp){
-                  if (err) {
-                      console.log(err)
-                      res.json({success: false, error: "An unexpected error occured while updating the corporation"})
-                  }else {
-                      res.json({success: true})
-                  }
-              })
-          }
-      })
-  },
-  reject:function(req,res){
-      var e = req.params.cem.substring(1);
-      Corporate.findOne({'local.email':e},function(err,corp){
-          if(corp) {
-              corp.Accepted = false;
-              corp.request=false;
-              corp.save(function(err,corp){
-                  if (err) {
-                      console.log(err);
-                      res.json({success: false, error: "An unexpected error occured while updating the corporation"})
-                  }else {
-                      res.json({success: true})
-                  }
-              })
-
-          }
-      })
-  },
   localSignUp: function(req, res,next) {
           passport.authenticate('corporate-signup', function(err, user) {
               if (err) {
@@ -191,62 +140,59 @@ module.exports = {
         res.json({success: true})
     })
   },
-
-
-
-      // Media Adding to corporate
-      addMedia:function(req, res){
-       upload(req, res, function (err) {
-         Corporate.findOne({email: email_session}, function(err, corp){
-           if(err){
-               res.send(err.message);
-               var loggedin = false;
-               res.render('login',loggedin);
-           }else {
-             var uploaded = false;
-             var loggedin = true;
-             if (err) {
-               // An error occurred when uploading
-               console.log('Error while Uploading media.')
-               res.json[{
-                 success: false,
-                 message: 'Uploading failed'
-               }]
-              //  return res.end("Error uploading file.");
-             }
-             console.log('Uploaded Image Successfully .')
-            //  var result =  req.file.path;
-            //  console.log(result)
-            var new_image = req.file.filename;
-             var file = '/uploads/images/' + req.file.filename;
-             console.log(__dirname+'/../')
-             console.log(file)
-
-             uploaded = true;
-             // Pushing Image Name String
-             corp.images.push(new_image)
-             //Saving the new image to Corporate
-             corp.save()
-            //  console.log(req.file);
-
-             //Checking Using Postman..
+    // Media Adding to corporate
+    addMedia:function(req, res){
+     upload(req, res, function (err) {
+       Corporate.findOne({email: req.user.local.email}, function(err, corp){
+         if(err){
+             res.send(err.message);
+             var loggedin = false;
+             res.render('login',loggedin);
+         }else {
+           var uploaded = false;
+           var loggedin = true;
+           if (err) {
+             // An error occurred when uploading
+             console.log('Error while Uploading media.')
              res.json[{
-               success: true,
-               message: 'Image Uploaded'
+               success: false,
+               message: 'Uploading failed'
              }]
-            //  res.render('media', {loggedin,uploaded,corp});
+            //  return res.end("Error uploading file.");
            }
-         })
+           console.log('Uploaded Image Successfully .')
+          //  var result =  req.file.path;
+          //  console.log(result)
+          var new_image = req.file.filename;
+           var file = '/uploads/images/' + req.file.filename;
+           console.log(__dirname+'/../')
+           console.log(file)
+
+           uploaded = true;
+           // Pushing Image Name String
+           corp.images.push(new_image)
+           //Saving the new image to Corporate
+           corp.save()
+          //  console.log(req.file);
+
+           //Checking Using Postman..
+           res.json[{
+             success: true,
+             message: 'Image Uploaded'
+           }]
+          //  res.render('media', {loggedin,uploaded,corp});
+         }
+   })
 
 
-       })
+     })
 
-     },
+   },
 
 
-     addVideo:function(req, res){
+   addVideo:function(req, res){
       video_upload(req, res, function (err) {
-        Corporate.findOne({email: email_session}, function(err, corp){
+        Corporate.findOne({email: req.user.local.email}, function(err, corp){
           if(err){
               res.send(err.message);
               var loggedin = false;
@@ -289,7 +235,7 @@ module.exports = {
     },
 
     getAnnouncments:function(req, res){
-      Corporate.findOne({email: email_session}, function(err, corp){
+      Corporate.findOne({email: req.user.local.email}, function(err, corp){
         if(err || corp == null){
             // res.send(err);
             res.end('No corporate is loggedin !')
@@ -309,7 +255,7 @@ module.exports = {
   },
 
     newAnnouncment: function(req, res){
-      Corporate.findOne({email: email_session}, function(err, corp){
+      Corporate.findOne({email: req.user.local.email}, function(err, corp){
         if(err || corp == null){
             res.end('No corporate is loggedin !')
         } else {
@@ -333,6 +279,175 @@ module.exports = {
       })
 
 
-  }
+  },
+  addService: function (req, res) { //1-add new Entertainment(Email is got from the session or passport)
+        let entertainment = new Entertainment(req.body);
+        entertainment.email = req.user.local.email;
+        entertainment.save(function (err, register) {
+            if (err) {
+                console.log(err);
+                res.send(err.message);
+            } else {
 
+                Entertainment.find({email: req.user.local.email}, function (err, Entertainments) {
+                    if (err)
+                        res.json({success: false, error: "Error occured while finding the service"})
+                    else
+                    //     res.render('index',{Entertainments});
+                        res.json[{success: true, Entertainments: Entertainments}];
+                })
+            }
+        })
+
+    },
+    getCorporationServices: function (req, res) {  //3- Get all the entertainment services related to some Corporate using his email(foreign key)
+        Entertainment.find({email: req.user.local.email}, function (err, Entertainments) {
+            if (err)
+                res.json({success: false, error: "Error occured while finding the services"})
+            else
+            //  res.render('index',{Entertainments});
+              res.json[{success: true, Entertainments: Entertainments}];
+        })
+    },
+    getService: function (req, res) { //4-get the entertainment page(either further details,remove,edit info)
+        Entertainment.findOne({_id: req.body.id}, function (req, Entertainments) {
+            res.json[{success: true, Entertainments: Entertainments}];
+
+        })
+    },
+    removeService: function (req, res) {//remove some entertainment service
+        //  console.log(req.body.name);
+        Entertainment.findOne({_id: req.body.id}, function (err, found) {
+            if (err)
+                res.json({success: false, error: "Error occured while finding the service"})
+            else {
+                if (found) {
+                    console.log("found");
+                    Entertainment.remove({_id: req.body.id}, function (err, success) {
+                        if (err)
+                            console.log(err);
+                        else {
+                            Entertainment.find({email: req.user.local.email}, function (err, Entertainments) {
+                                if (err) {
+                                    res.send(err)
+
+                                    //  console.log("karim");
+                                }
+                                else
+                                //      res.render('admin',{Entertainments});
+                                    res.json[{success: true, Entertainments: Entertainments}];
+                            })
+                        }
+                    })
+                }
+                else {
+                    res.json({success: false, error: "Failed to find service"})
+                }
+            }
+        })
+    },
+    editServiceName: function (req, res) { //edit le 7aga tania
+        var collection = Entertainment.findOne({_id: req.body.id}, function (err, success) {
+            if (err)
+                console.log(err);
+            else {
+                if (success) {
+                    success.name = req.body.name1;
+                    success.save(function (err, success) {
+                        if (err)
+                            console.log(err);
+                        else {
+                            Entertainment.find({_id: req.body.id}, function (err, Entertainments) {
+                                //      res.render('edit',{Entertainments});
+                                res.json[{success: true, Entertainments: Entertainments}];
+                            })
+                        }
+                    })
+
+                }
+                else {
+                    res.json({success: false, error: "Failed to find service"})
+                }
+            }
+
+        })
+    },
+    editServiceLocation: function (req, res) {//edit le7aga tania
+        var collection = Entertainment.findOne({_id: req.body.id}, function (err, success) {
+            if (err)
+                console.log(err);
+            else {
+                if (success) {
+                    success.location = req.body.location;
+                    success.save(function (err, success) {
+                        if (err)
+                            console.log(err);
+                        else {
+                            Entertainment.find({_id: req.body.id}, function (err, Entertainments) {
+                                //     res.render('edit',{Entertainments});
+                                res.json[{success: true, Entertainments: Entertainments}];
+                            })
+                        }
+                    })
+
+                }
+                else {
+                    res.json({success: false, error: "Failed to find service"})
+                }
+            }
+
+        })
+    },
+    editServicePhone: function (req, res) {//edit le7aga rab3a
+        var collection = Entertainment.findOne({_id: req.body.id}, function (err, success) {
+            if (err)
+                console.log(err);
+            else {
+                if (success) {
+                    success.phone = req.body.phone;
+                    success.save(function (err, success) {
+                        if (err)
+                            console.log(err);
+                        else {
+                            Entertainment.find({_id: req.body.id}, function (err, Entertainments) {
+                                //   res.render('edit',{Entertainments});
+                                res.json[{success: true, Entertainments: Entertainments}];
+                            })
+                        }
+                    })
+
+                }
+                else {
+                    res.json({success: false, error: "Failed to find service"})
+                }
+            }
+
+        })
+    },
+    editServicePrice: function (req, res) { //edit le7aga sata
+        var collection = Entertainment.findOne({_id: req.body.id}, function (err, success) {
+            if (err)
+                console.log(err);
+            else {
+                if (success) {
+                    success.price = req.body.price;
+                    success.save(function (err, success) {
+                        if (err)
+                            console.log(err);
+                        else {
+                            Entertainment.find({email: req.body.id}, function (err, Entertainments) {
+                                //  res.render('edit',{Entertainments});
+                                res.json[{success: true, Entertainments: Entertainments}];
+                            })
+                        }
+                    })
+
+                }
+                else {
+                    res.render('/');
+                }
+            }
+
+        })
+    },
 }

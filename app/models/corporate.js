@@ -1,5 +1,4 @@
 var mongoose = require('mongoose');
-<<<<<<< HEAD
 var crypto = require('crypto');
 var CorporateSchema = mongoose.Schema({
     name:{
@@ -31,5 +30,4 @@ CorporateSchema.methods.validPassword = function(salt, password, hash) {
     return enteredHash === hash;
 }
 var Corporate = mongoose.model("corporate", CorporateSchema);
-=======
 module.exports = Corporate;

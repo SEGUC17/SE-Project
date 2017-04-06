@@ -269,7 +269,46 @@ module.exports = {
       res.json({success: false, error: "Incomplete information received"})
     }
 
-  }
+  },
+  rateService:function (req,res) {//rate entertainment
+     Entertainment.findOne({_id:req.body.id},function (err,success) {
+         if(err)
+             console.log(err.message);
+         else{
+             if(success){
+              var num=parseFloat(success.rating.length);
+              success.rating.push(req.body.rating);
+              num++;
+              var i=0;
+              var rating=0;
+              for (i=0;i<num;i++){
+                  rating=rating+success.rating[i];
+              }
+              rating=rating/parseFloat(num);
+              success.actualRating=rating;
+              success.save(function (err,req) {
+                 if(err)
+                     console.log(err.message);
+                 else{
+                    // console.log(success.numberOfRatings);
+                     Entertainment.findOne({_id:req.body.id},function (err,Entertainments) {
+                         //res.render('rate',{Entertainments});
+                         res.json[{success:true,Entertainments:Entertainments}];
+                     })
+                 }
+               })
+             }
+         }
+
+     })
+
+   },
+	getService:function(req,res){
+    Entertainment.findOne({_id:req.body.id},function(err,Entertainments){
+      res.json[{success:true,Entertainments:Entertainments}];
+    })
+  },
+
 
 
 }
