@@ -259,7 +259,7 @@ module.exports = {
   },
 
     newAnnouncment: function(req, res){
-      Corporate.findOne({email: req.user.local.email}, function(err, corp){
+      Corporate.findOne({"local.email": req.user.local.email}, function(err, corp){
         if(err || corp == null){
             res.end('No corporate is loggedin !')
         } else {
