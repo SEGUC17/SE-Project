@@ -1,5 +1,40 @@
 var mongoose = require("mongoose")
 module.exports = {
+  checkAuthentication(req, res, next) {
+    if (req.session.admin) {
+      return next()
+    }
+    res.status(401).send('You are unauthorized to access this page')
+  },
+  login:function(req,res){//bayna men esmaha
+      admin.findOne({username:req.body.username,password:req.body.password},function (err,found) {
+          if(found){
+              req.session.admin=true;
+              req.user = found
+              res.json[{success:true}];
+          }
+          else{
+              res.json[{success:false}];
+          }
+
+      })
+  },
+  getAllCorporates:function(req, res){
+     corporate.find({} ,function(err, corporates){
+           if(err)
+           res.json({success: false, error: "enexpected error"}) //res.send(err.message);
+           else
+           res.json({success: true, corp: corporates});
+       })
+  },
+  getCorporate: function(req, res){
+     corporate.find({ _id: req.params.cem.substring(1)  } ,function(err, corporates){
+         if(err)
+          res.json({success: false, error: "enexpected error, corporate not found"}) //res.send(err.message);
+         else
+          res.json({success: true, corp: corporates});//render the view for admin
+      })
+  },
   getAllServices:function(req,res){//bagib kol el entertainments 3amatan le ay sherka 3shan ana admin we leya kol el sala7yat
         Entertainment.find(function(err,Entertainments){
             if(err)
@@ -9,7 +44,7 @@ module.exports = {
                 res.json[{success:true,Entertainments:Entertainments}];
         })
     },
-    getNewCorporationRequests: function (req, res) {
+    getNewCorporateRequests: function (req, res) {
         Corporate.find({request: true}, function (err, corp) {
             if (corp) {
                 res.json({success: true, corporations: corp})
@@ -18,7 +53,7 @@ module.exports = {
             }
         });
     },
-    acceptCorporation:function(req,res){
+    acceptCorporate:function(req,res){
         var e = req.params.cem.substring(1);
         Corporate.findOne({'local.email':e},function(err,corp){
             if(corp) {
@@ -35,7 +70,7 @@ module.exports = {
             }
         })
     },
-    rejectCorporation:function(req,res){
+    rejectCorporate:function(req,res){
         var e = req.params.cem.substring(1);
         Corporate.findOne({'local.email':e},function(err,corp){
             if(corp) {
@@ -51,18 +86,6 @@ module.exports = {
                 })
 
             }
-        })
-    },
-    loginAdmin:function(req,res){//bayna men esmaha
-        admin.findOne({username:req.body.username,password:req.body.password},function (err,found) {
-            if(found){
-                req.session.admin=true;
-                res.json[{success:true,}];
-            }
-            else{
-                res.json[{success:false}];
-            }
-
         })
     },
     removeService:function(req,res){//remove some entertainment service
@@ -103,7 +126,7 @@ module.exports = {
             res.json[{success:true,Entertainments:Entertainments}];
         })
     },
-    viewClients:function(req,res){//bagib kol el clients
+    getAllClients:function(req,res){//bagib kol el clients
         clients.find(function(req,clients){
             res.json[{sucesss:true,clients:clients}];
         })

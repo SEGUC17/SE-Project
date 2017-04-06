@@ -273,7 +273,6 @@ module.exports = {
             success: true,
             message: 'New Announcment Created!'
           }]
-          // res.render('announcments',{corp})
         }
 
       })
@@ -291,10 +290,9 @@ module.exports = {
 
                 Entertainment.find({email: req.user.local.email}, function (err, Entertainments) {
                     if (err)
-                        res.json({success: false, error: "Error occured while finding the service"})
+                      res.json({success: false, error: "Error occured while finding the service"})
                     else
-                    //     res.render('index',{Entertainments});
-                        res.json[{success: true, Entertainments: Entertainments}];
+                      res.json[{success: true, Entertainments: Entertainments}];
                 })
             }
         })
@@ -303,9 +301,8 @@ module.exports = {
     getCorporationServices: function (req, res) {  //3- Get all the entertainment services related to some Corporate using his email(foreign key)
         Entertainment.find({email: req.user.local.email}, function (err, Entertainments) {
             if (err)
-                res.json({success: false, error: "Error occured while finding the services"})
+              res.json({success: false, error: "Error occured while finding the services"})
             else
-            //  res.render('index',{Entertainments});
               res.json[{success: true, Entertainments: Entertainments}];
         })
     },
@@ -329,12 +326,9 @@ module.exports = {
                         else {
                             Entertainment.find({email: req.user.local.email}, function (err, Entertainments) {
                                 if (err) {
-                                    res.send(err)
-
-                                    //  console.log("karim");
+                                    res.json({success: false, error: "Error"})
                                 }
                                 else
-                                //      res.render('admin',{Entertainments});
                                     res.json[{success: true, Entertainments: Entertainments}];
                             })
                         }
@@ -444,7 +438,7 @@ module.exports = {
 
                 }
                 else {
-                    res.render('/');
+                    res.json({success: false, error: "Failed to find service"})
                 }
             }
 

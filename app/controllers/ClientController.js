@@ -303,12 +303,38 @@ module.exports = {
      })
 
    },
+   getAllCorporates:function(req, res){
+    corporate.find({} ,function(err, corporates){
+          if(err)
+            res.json({success: false, error: "enexpected error"}) //res.send(err.message);
+          else
+            res.json({success: true, corp: corporates});
+      })
+  },
+  getCorporate: function(req, res){
+    corporate.find({ _id: req.body.corporateID} ,function(err, corporate){
+      if(err)
+        res.json({success: false, error: "unexpected error, corporate not found"}) //res.send(err.message);
+      else
+        res.json({success: true, corporate: corporate}); //render the view for client
+    })
+  },
+  getCorporateServices:function(req,res){//get services of a specific Corporate
+       Entertainment.find({email:req.body.email},function (req,Entertainments) {
+           res.json[{success:true,Entertainments:Entertainments}];
+       })
+   },
 	getService:function(req,res){
     Entertainment.findOne({_id:req.body.id},function(err,Entertainments){
       res.json[{success:true,Entertainments:Entertainments}];
     })
   },
-
-
-
+  getAllServices:function(req, res){
+      Entertainment.find({} ,function(err, Entertainments){
+        if(err)
+          res.json({success: false, error: "unexpected error"}) //res.send(err.message);
+        else
+          res.json({success: true, Entertainments: Entertainments});
+        })
+    },
 }

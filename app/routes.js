@@ -5,7 +5,7 @@ var corporateController = require('./controllers/CorporateController')
 var adminController = require('./controllers/AdminController')
 var passport = require('passport')
 
-//Client Routes
+//Client & Visitor routes
 router.post('/client/login/facebook', clientController.facebookLogin);
 
 router.post('/client/login/facebook/cb', clientController.facebookLogin);
@@ -22,24 +22,38 @@ router.post('/client/verifyToken', clientController.verifyRecoveryToken)
 
 router.post('/client/reset', clientController.resetPassword)
 
+router.post('/client/corporates', clientController.getAllCorporates)
+
+router.post('/client/corporate', clientController.getCorporate)
+
+router.post('/client/service', clientController.getService)
+
+router.post('/client/services', clientController.getAllServices)
+
+//Client only Routes
 router.post('/client/review', clientController.checkAuthentication, clientController.postReview)
 
 router.post('/client/edit', clientController.checkAuthentication, clientController.editInfo)
 
-router.post('/client/service', clientController.checkAuthentication, clientController.getService);
+router.post('/client/service/rate', clientController.checkAuthentication, clientController.rateService)
 
-router.post('/client/service/rate', clientController.checkAuthentication, clientController.rateService);
+
 //Administrator Routes
+router.post('/admin/login', adminController.login)
 
-router.post('/admin/requests', adminController.getNewCorporationRequests);
+router.post('/admin/requests', adminController.checkAuthentication, adminController.getNewCorporateRequests);
 
-router.post('/admin/accept/:cem', adminController.acceptCorporation);
+router.post('/admin/accept/:cem', adminController.checkAuthentication, adminController.acceptCorporate);
 
-router.post('/admin/reject/:cem', adminController.rejectCorporation);
+router.post('/admin/reject/:cem', adminController.checkAuthentication, adminController.rejectCorporate);
 
-router.post('/admin/service/remove', adminController.removeService);
+router.post('/admin/service/remove', adminController.checkAuthentication, adminController.removeService);
 
-router.post('/admin/service', adminController.getAllServices);
+router.post('/admin/service', adminController.checkAuthentication, adminController.getAllServices);
+
+router.post('/admin/corporate/services', adminController.checkAuthentication, adminController.getCorporateServices)
+
+router.post('/admin/clients', adminController.checkAuthentication, adminController.getAllClients
 
 //Corporate Routes
 
