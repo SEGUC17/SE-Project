@@ -1,15 +1,15 @@
-let vSearch = require('../app/models/entertainmennt'); 
+let vSearch = require('../models/entertainment'); 
 // Change the schema here with the app schema
 
 
 //Helps in comparing string by changing text to Reg. Expression
-function escapeRegex(text) = {
+function escapeRegex(text){
     return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
 };
 
 
 
-visitorSearch:function(req,res){
+function visitorSearch(req,res){
 		var noMatch=null;
 		const text = new RegExp(escapeRegex(req.query.search), 'gi');
 
@@ -22,7 +22,7 @@ visitorSearch:function(req,res){
 					if(allItems.length < 1){
 						noMatch="No services match that criteria, please try again";
 					}
-					res.json({success:true,{items:allItems, noMatch:noMatch}})
+					res.json({success:true,items:allItems, noMatch:noMatch})
 				}
 			})
 
@@ -36,12 +36,12 @@ visitorSearch:function(req,res){
 					if(allItems.length < 1){
 						noMatch="No services match that criteria, please try again";
 					}
-					res.json({success:true,{items:allItems, noMatch:noMatch}})
+					res.json({success:true,items:allItems, noMatch:noMatch})
 				}
 				}
-			})
+			)}
 
-		} else {
+		 else {
 			if(req.query.criteria ==  "price"){
 
 			vSearch.find({"price":text},function(err, allItems){
@@ -51,12 +51,12 @@ visitorSearch:function(req,res){
 					if(allItems.length < 1){
 						noMatch="No services match that criteria, please try again";
 					}
-					res.json({success:true,{items:allItems, noMatch:noMatch}})
+					res.json({success:true,items:allItems, noMatch:noMatch})
 				}
 				}
-			})
+			)}
 
-		} else {
+		 else {
 			if(req.query.criteria == "type"){
 
 			vSearch.find({"type":text},function(err, allItems){
@@ -66,18 +66,18 @@ visitorSearch:function(req,res){
 					if(allItems.length < 1){
 						noMatch="No services match that criteria, please try again";
 					}
-					res.json({success:true,{items:allItems, noMatch:noMatch}})
+					res.json({success:true,items:allItems, noMatch:noMatch})
 				}
 				}
-			})
+			)}
 
-		} else {
+		 else {
 			if(!(req.query.search)){
 			vSearch.find({},function(err, allItems){
 				if(err){
 					console.log(err);
 				}else {
-					res.json({success:true,{items:allItems, noMatch:noMatch}})
+					res.json({success:true,items:allItems, noMatch:noMatch})
 				}
 			})
 		} }
@@ -85,8 +85,7 @@ visitorSearch:function(req,res){
 
 
 
-
-clientSearch:function(req,res){
+function clientSearch(req,res){
 		var noMatch=null;
 		const text = new RegExp(escapeRegex(req.query.search), 'gi');
 
@@ -99,7 +98,7 @@ clientSearch:function(req,res){
 					if(allItems.length < 1){
 						noMatch="No services match that criteria, please try again";
 					}
-					res.json({success:true,{items:allItems, noMatch:noMatch}})
+						res.json({success:true,items:allItems, noMatch:noMatch})
 				}
 			})
 
@@ -113,10 +112,10 @@ clientSearch:function(req,res){
 					if(allItems.length < 1){
 						noMatch="No services match that criteria, please try again";
 					}
-					res.json({success:true,{items:allItems, noMatch:noMatch}})
+						res.json({success:true,items:allItems, noMatch:noMatch})
 				}
 				}
-			})
+			)
 
 		} else {
 			if(req.query.criteria ==  "price"){
@@ -128,10 +127,10 @@ clientSearch:function(req,res){
 					if(allItems.length < 1){
 						noMatch="No services match that criteria, please try again";
 					}
-					res.json({success:true,{items:allItems, noMatch:noMatch}})
+						res.json({success:true,items:allItems, noMatch:noMatch})
 				}
 				}
-			})
+			)
 
 		} else {
 			if(req.query.criteria == "type"){
@@ -143,10 +142,10 @@ clientSearch:function(req,res){
 					if(allItems.length < 1){
 						noMatch="No services match that criteria, please try again";
 					}
-					res.json({success:true,{items:allItems, noMatch:noMatch}})
+						res.json({success:true,items:allItems, noMatch:noMatch})
 				}
 				}
-			})
+			)
 
 		} else {
 			if(!(req.query.search)){
@@ -154,7 +153,7 @@ clientSearch:function(req,res){
 				if(err){
 					console.log(err);
 				}else {
-					res.json({success:true,{items:allItems, noMatch:noMatch}})
+						res.json({success:true,items:allItems, noMatch:noMatch})
 				}
 			})
 		} }

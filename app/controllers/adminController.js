@@ -1,16 +1,16 @@
-let vSearch = require('../app/models/entertainmennt'); 
+let vSearch = require('../models/entertainment'); 
 // Change the schema here with the app schema
 
 
 //Helps in comparing string by changing text to Reg. Expression
-function escapeRegex(text) = {
+function escapeRegex(text) {
     return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
 };
 
 
-let aRemove = require('../app/models/client');
+let aRemove = require('../models/client');
 
-adminRemoveClient:function(req,res){
+function adminRemoveClient(req,res){
 
 	if(req.query.criteria){
 		aRemove.find({"username":req.query.criteria}, function(err,client){
@@ -27,7 +27,7 @@ adminRemoveClient:function(req,res){
 
 
 
-adminSearch:function(req,res){
+function adminSearch(req,res){
 		var noMatch=null;
 		const text = new RegExp(escapeRegex(req.query.search), 'gi');
 
@@ -40,7 +40,7 @@ adminSearch:function(req,res){
 					if(allItems.length < 1){
 						noMatch="No services match that criteria, please try again";
 					}
-					res.json({success:true,{items:allItems, noMatch:noMatch}})
+					res.json({success:true,items:allItems, noMatch:noMatch})
 				}
 			})
 
@@ -54,10 +54,10 @@ adminSearch:function(req,res){
 					if(allItems.length < 1){
 						noMatch="No services match that criteria, please try again";
 					}
-					res.json({success:true,{items:allItems, noMatch:noMatch}})
+					res.json({success:true,items:allItems, noMatch:noMatch})
 				}
 				}
-			})
+			)
 
 		} else {
 			if(req.query.criteria ==  "price"){
@@ -69,10 +69,10 @@ adminSearch:function(req,res){
 					if(allItems.length < 1){
 						noMatch="No services match that criteria, please try again";
 					}
-					res.json({success:true,{items:allItems, noMatch:noMatch}})
+					res.json({success:true,items:allItems, noMatch:noMatch})
 				}
 				}
-			})
+			)
 
 		} else {
 			if(req.query.criteria == "type"){
@@ -84,10 +84,10 @@ adminSearch:function(req,res){
 					if(allItems.length < 1){
 						noMatch="No services match that criteria, please try again";
 					}
-					res.json({success:true,{items:allItems, noMatch:noMatch}})
+					res.json({success:true,items:allItems, noMatch:noMatch})
 				}
 				}
-			})
+			)
 
 		} else {
 			if(!(req.query.search)){
@@ -95,7 +95,7 @@ adminSearch:function(req,res){
 				if(err){
 					console.log(err);
 				}else {
-					res.json({success:true,{items:allItems, noMatch:noMatch}})
+					res.json({success:true,items:allItems, noMatch:noMatch})
 				}
 			})
 		} }
