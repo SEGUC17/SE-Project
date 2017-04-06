@@ -313,7 +313,7 @@ module.exports = {
       })
   },
   getCorporate: function(req, res){
-    corporate.find({ _id: req.body.corporateID} ,function(err, corporate){
+    corporate.find({ _id: req.body._id} ,function(err, corporate){
       if(err)
         res.json({success: false, error: "unexpected error, corporate not found"}) //res.send(err.message);
       else
