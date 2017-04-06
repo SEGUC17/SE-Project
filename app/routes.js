@@ -3,6 +3,7 @@ var router = express.Router();
 var clientController = require('./controllers/ClientController')
 var corporateController = require('./controllers/CorporateController')
 var adminController = require('./controllers/AdminController')
+var searchController = require('./controllers/SearchController')
 var passport = require('passport')
 
 //Client & Visitor routes
@@ -53,7 +54,7 @@ router.post('/admin/service', adminController.checkAuthentication, adminControll
 
 router.post('/admin/corporate/services', adminController.checkAuthentication, adminController.getCorporateServices)
 
-router.post('/admin/clients', adminController.checkAuthentication, adminController.getAllClients
+router.post('/admin/clients', adminController.checkAuthentication, adminController.getAllClients)
 
 //Corporate Routes
 
@@ -89,6 +90,8 @@ router.post('/corporate/services', corporateController.getCorporationServices);
 
 router.post('/corporate/service', corporateController.getService);
 
+//Search router
+router.post('/search', searchController.search)
 
 //export router
 
