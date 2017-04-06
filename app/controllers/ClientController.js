@@ -287,7 +287,7 @@ module.exports = {
               }
               rating=rating/parseFloat(num);
               success.actualRating=rating;
-              success.save(function (err,req) {
+              success.save(function (err,ress) {
                  if(err)
                      console.log(err.message);
                  else{
