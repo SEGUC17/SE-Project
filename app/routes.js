@@ -1,19 +1,24 @@
 var express = require('express');
 var router = express.Router();
-var z=require('./controller/entertainmentController');
-router.post('/entertainment',z.add);
-router.get('/' ,z.get);
-router.post('/remove',z.remove);
-router.get('/admin',z.admin);
-router.get('/rate',z.rate);
-router.post('/editEmail',z.editEmail);
-router.post('/editPrice',z.editPrice);
-router.post('/editPhone',z.editPhone);
-router.post('/editLocation',z.editLocation);
-router.post('/editName',z.editName);
-router.post('/rateEntertainment',z.rateEntertainment);
-router.get('/edit',z.edit);
+//var z=require('./controller/entertainmentController');
+var adminController=requrire('./controller/AdminController');
+var corporateContorller=requrire('./controller/CorporateController');
+var clientController=requrire('./controller/ClientController');
 
-
+router.post('/entertainment',corporateContorller.add);
+router.get('/home' ,corporateContorller.get);
+router.post('/admin/remove',adminController.remove);
+router.post('/corporate/remove',corporateContorller.remove);
+router.get('/admin',adminController.getAllServices);
+//router.get('/rate',z.rate);
+router.post('/editEmail',corporateContorller.editEmail);
+router.post('/editPrice',corporateContorller.editPrice);
+router.post('/editPhone',corporateContorller.editPhone);
+router.post('/editLocation',corporateContorller.editLocation);
+router.post('/editName',corporateContorller.editName);
+router.post('/rateEntertainment',clientController.rateEntertainment);
+router.get('/edit',corporateContorller.edit);
+router.get('/addEntertainment',corporateContorller.addEntertainment);
+router.get('/corporate/entertainment',corporateContorller.getEntertainment);
+router.get('viewClients',corporateContorller.viewClients);
 module.exports = router;
-

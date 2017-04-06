@@ -206,26 +206,27 @@ rateEntertainment:function (req,res) {
             console.log(err.message);
         else{
             if(success){
-                var num=success.rating.length;
-              var i=0;var rating=0;
-              for (i=0;i<num;i++){
-                  rating=rating+parseFloat(success.rating[i]);
+             console.log(success.rating);
+                var num=parseFloat(success.rating.length);
+             success.rating.push(req.body.rating);
 
-              }
-              rating=rating+parseFloat(req.body.rating);
-                success.rating[parseFloat(success.rating.length)]=req.body.rating;
-                num++;
-                success.markModified(success.rating);
-              rating=parseFloat(rating)/parseFloat(num);
-                success.numberOfRatings=rating;
-
-
-
+                console.log(success.rating);
+             console.log(success.rating.length);
+             num++;
+             var i=0;
+             var rating=0;
+             for (i=0;i<num;i++){
+                 rating=rating+success.rating[i];
+                 console.log(rating);
+             }
+             rating=rating/parseFloat(num);
+                success.actualRating=rating;
+                console.log(rating);
                 success.save(function (err,req) {
                     if(err)
                         console.log(err.message);
                     else{
-                        console.log(success.numberOfRatings);
+                       // console.log(success.numberOfRatings);
                         Entertainment.find(function (err,Entertainments) {
                             res.render('rate',{Entertainments});
                         })

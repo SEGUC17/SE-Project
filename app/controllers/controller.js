@@ -1,72 +1,276 @@
-let corporate = require('../models/corporate');
-var crypto = require('crypto');
-let controller = {
-    SignUp: function (req, res) {
-        var password = req.body.password;
-        var salt = crypto.randomBytes(16).toString('hex');
-        var hash = crypto.pbkdf2Sync(password, salt, 1000, 64, 'sha512').toString('hex');
-        let corp = new corporate({
-            name: req.body.name,
-            email: req.body.email,
-            hash: hash,
-            salt: salt,
-            phone: req.body.phone,
-            address: req.body.address,
-            type: req.body.type,
-            request: true,
-            Accepted: false
-        });
-        corp.save(function (err, corp) {
-            if (err) {
-                var registered = false;
-                res.render('register', {registered});
-            } else {
-                var registered = true;
-                var loggedin = false
-                res.render('login', {registered, loggedin});
-            }
+let Entertainment = require('../models/entertainments');
+let entertainmentController={
+  add:function(req,res){
+    let entertainment=new Entertainment(req.body);
+    entertainment.save(function(err,register){
+      if(err){
+      console.log(err);
+      res.send(err.message);
+  }    else{
 
+    Entertainment.find(function(err,Entertainments){
+      if(err)
+      res.send(err)
+      else
+      res.render('index',{Entertainments});
+    })
+    }
+  })
+
+},
+get:function(req,res){
+  Entertainment.find(function(err,Entertainments){
+    if(err)
+    res.send(err)
+    else
+    res.render('index',{Entertainments});
+  })
+},
+remove:function(req,res){
+  console.log(req.body.name);
+  Entertainment.findOne({name:req.body.name},function(err,found){
+
+    if(err)
+    res.send(err);
+    else{
+      if(found){
+        console.log("found");
+        Entertainment.remove({name:req.body.name},function(err,success){
+          if(err)
+          console.log(err);
+          else{
+            Entertainment.find(function(err,Entertainments){
+              if(err){
+              res.send(err)
+
+              console.log("karim");
+                      }
+                else
+              res.render('admin',{Entertainments});
+            })
+          }
         })
-    },
-    login: function (req, res) {
-        corporate.findOne({email: req.body.email}, function (err, corp) {
-            if (err) {
-                res.send(err.message);
-                var loggedin = false;
-                res.render('login', loggedin);
-            } else {
-                if (corp) {
-                    var salt = corp.salt;
-                    console.log(salt);
-                    var hash = crypto.pbkdf2Sync(req.body.password, salt, 1000, 64, 'sha512').toString('hex');
-                    if (hash === corp.hash) {
-                        var loggedin = true;
-                        var registered = false;
-                        res.render('login', {loggedin, registered});
-                    } else {
-                        var loggedin = false;
-                        var registered = false
-                        res.render('login', {loggedin, registered});
-                    }
-                } else {
-                    var loggedin = false;
-                    var registered = false;
-                    res.render('login', {loggedin, registered});
-                }
-            }
+      }
+      else{
+        res.render('admin',{});
+      }
+    }
+  })
+},
+editEmail:function(req,res){
+  var collection=Entertainment.findOne({name:req.body.name},function(err,success){
+    if(err)
+    console.log(err);
+    else{
+      if(success){
+        success.email=req.body.email;
+        success.save(function(err,success){
+          if(err)
+          console.log(err);
+          else{
+            Entertainment.find(function(err,Entertainments){
+              res.render('edit',{Entertainments});
+          })
+          }
         })
-
-    },
-
-    requests: function (req, res) {
-        corporate.find({request: true}, function (err, corp) {
-            if (corp) {
-                res.render('requests', {corp});
-            }else{
-                console.log("no");
-            }
-        });
 
     }
+    else{
+      res.render('/');
+    }
+  }
+
+  })
+},
+    editName:function(req,res){
+        var collection=Entertainment.findOne({name:req.body.name},function(err,success){
+            if(err)
+                console.log(err);
+            else{
+                if(success){
+                    success.name=req.body.name1;
+                    success.save(function(err,success){
+                        if(err)
+                            console.log(err);
+                        else{
+                            Entertainment.find(function(err,Entertainments){
+                                res.render('edit',{Entertainments});
+                            })
+                        }
+                    })
+
+                }
+                else{
+                    res.render('/');
+                }
+            }
+
+        })
+    },
+    editLocation:function(req,res){
+        var collection=Entertainment.findOne({name:req.body.name},function(err,success){
+            if(err)
+                console.log(err);
+            else{
+                if(success){
+                    success.location=req.body.location;
+                    success.save(function(err,success){
+                        if(err)
+                            console.log(err);
+                        else{
+                            Entertainment.find(function(err,Entertainments){
+                                res.render('edit',{Entertainments});
+                            })
+                        }
+                    })
+
+                }
+                else{
+                    res.render('/');
+                }
+            }
+
+        })
+    },
+    editPhone:function(req,res){
+        var collection=Entertainment.findOne({name:req.body.name},function(err,success){
+            if(err)
+                console.log(err);
+            else{
+                if(success){
+                    success.phone=req.body.phone;
+                    success.save(function(err,success){
+                        if(err)
+                            console.log(err);
+                        else{
+                            Entertainment.find(function(err,Entertainments){
+                                res.render('edit',{Entertainments});
+                            })
+                        }
+                    })
+
+                }
+                else{
+                    res.render('/');
+                }
+            }
+
+        })
+    },
+    editPrice:function(req,res){
+        var collection=Entertainment.findOne({name:req.body.name},function(err,success){
+            if(err)
+                console.log(err);
+            else{
+                if(success){
+                    success.price=req.body.price;
+                    success.save(function(err,success){
+                        if(err)
+                            console.log(err);
+                        else{
+                            Entertainment.find(function(err,Entertainments){
+                                res.render('edit',{Entertainments});
+                            })
+                        }
+                    })
+
+                }
+                else{
+                    res.render('/');
+                }
+            }
+
+        })
+    },
+edit:function(req,res){
+  Entertainment.find(function(req,Entertainments){
+    res.render('edit',{Entertainments});
+  })
+},
+admin:function(req,res){
+  Entertainment.find(function(err,Entertainments){
+    if(err)
+    res.send(err)
+    else
+    res.render('admin',{Entertainments});
+  })
+},
+rate:function(req,res){
+    Entertainment.find(function(req,Entertainments){
+        res.render('rate',{Entertainments});
+    })
+},
+rateEntertainment:function (req,res) {
+    Entertainment.findOne({name:req.body.name},function (err,success) {
+        if(err)
+            console.log(err.message);
+        else{
+            if(success){
+                var num=success.rating.length;
+              var i=0;var rating=0;
+              for (i=0;i<num;i++){
+                  rating=rating+parseFloat(success.rating[i]);
+
+              }
+              rating=rating+parseFloat(req.body.rating);
+                success.rating[parseFloat(success.rating.length)]=req.body.rating;
+                num++;
+                success.markModified(success.rating);
+              rating=parseFloat(rating)/parseFloat(num);
+                success.numberOfRatings=rating;
+
+
+
+                success.save(function (err,req) {
+                    if(err)
+                        console.log(err.message);
+                    else{
+                        console.log(success.numberOfRatings);
+                        Entertainment.find(function (err,Entertainments) {
+                            res.render('rate',{Entertainments});
+                        })
+                    }
+
+                })
+            }
+        }
+
+    })
+
 }
-module.exports = controller;
+}
+module.exports=entertainmentController;
+/*let Project = require('../models/Project');
+let Portfolio=require('../models/Portfolio');
+let projectController = {
+
+    getAllProjects:function(req, res){
+
+        Project.find(function(err, projects){
+
+            if(err)
+                res.send(err.message);
+            else
+            console.log(projects[2].username);
+                res.render('index', {projects});
+        })
+    },
+
+    createProject:function(req, res){
+        let project = new Project(req.body);
+
+        project.save(function(err, project){
+            if(err){
+                res.send(err.message)
+                console.log(err);
+                console.log("karim");
+            }
+            else{
+
+                console.log(project);
+                res.redirect('/');
+            }
+        })
+    }
+}*/
+
