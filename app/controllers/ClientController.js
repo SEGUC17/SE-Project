@@ -293,7 +293,7 @@ module.exports = {
                     // console.log(success.numberOfRatings);
                      Entertainment.findOne({_id:req.body.id},function (err,Entertainments) {
                          //res.render('rate',{Entertainments});
-                         res.json[{success:true,Entertainments:Entertainments}];
+                         res.json({success:true,Entertainments:Entertainments});
                      })
                  }
                })
@@ -321,12 +321,12 @@ module.exports = {
   },
   getCorporateServices:function(req,res){//get services of a specific Corporate
        Entertainment.find({email:req.body.email},function (req,Entertainments) {
-           res.json[{success:true,Entertainments:Entertainments}];
+           res.json({success:true,Entertainments:Entertainments};
        })
    },
 	getService:function(req,res){
     Entertainment.findOne({_id:req.body.id},function(err,Entertainments){
-      res.json[{success:true,Entertainments:Entertainments}];
+      res.json({success:true,Entertainments:Entertainments});
     })
   },
   getAllServices:function(req, res){

@@ -16,10 +16,10 @@ module.exports = {
           if(found){
               req.session.admin=true;
               req.user = found
-              res.json[{success:true}];
+              res.json({success:true});
           }
           else{
-              res.json[{success:false}];
+              res.json({success:false});
           }
 
       })
@@ -59,7 +59,7 @@ module.exports = {
                 res.send(err)
             else
             //  res.render('admin',{Entertainments});
-                res.json[{success:true,Entertainments:Entertainments}];
+                res.json({success:true,Entertainments:Entertainments});
         })
     },
     getNewCorporateRequests: function (req, res) {
@@ -127,7 +127,7 @@ module.exports = {
                                 }
                                 else
                                 //      res.render('admin',{Entertainments});
-                                    res.json[{success:true,Entertainments:Entertainments}];
+                                    res.json({success:true,Entertainments:Entertainments});
                             })
                         }
                     })
@@ -141,12 +141,12 @@ module.exports = {
     getCorporateServices:function(req,res){//get services of a specific Corporate
         Entertainment.find({email:req.body.email},function (req,Entertainments) {
 
-            res.json[{success:true,Entertainments:Entertainments}];
+            res.json({success:true,Entertainments:Entertainments});
         })
     },
     getAllClients:function(req,res){//bagib kol el clients
         Client.find(function(req,clients){
-            res.json[{sucesss:true,clients:clients}];
+            res.json({sucesss:true,clients:clients});
         })
     }
 }

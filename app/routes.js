@@ -42,11 +42,11 @@ router.post('/client/service/rate', clientController.checkAuthentication, client
 //Administrator Routes
 router.post('/admin/login', adminController.login)
 
-router.get('/admin/requests', corporateController.checkAuthentication, adminController.getNewCorporateRequests);
+router.get('/admin/requests', adminController.checkAuthentication, adminController.getNewCorporateRequests);
 
-router.post('/admin/accept', corporateController.checkAuthentication, adminController.acceptCorporate);
+router.post('/admin/accept', adminController.checkAuthentication, adminController.acceptCorporate);
 
-router.post('/admin/reject', corporateController.checkAuthentication, adminController.rejectCorporate);
+router.post('/admin/reject', adminController.checkAuthentication, adminController.rejectCorporate);
 
 router.post('/admin/service/remove', adminController.checkAuthentication, adminController.removeService);
 

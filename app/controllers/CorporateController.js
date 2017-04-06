@@ -158,10 +158,10 @@ module.exports = {
            if (err) {
              // An error occurred when uploading
              console.log('Error while Uploading media.')
-             res.json[{
+             res.json({
                success: false,
                message: 'Uploading failed'
-             }]
+             })
             //  return res.end("Error uploading file.");
            }
            console.log('Uploaded Image Successfully .')
@@ -180,10 +180,10 @@ module.exports = {
           //  console.log(req.file);
 
            //Checking Using Postman..
-           res.json[{
+           res.json({
              success: true,
              message: 'Image Uploaded'
-           }]
+           })
           //  res.render('media', {loggedin,uploaded,corp});
          }
    })
@@ -225,10 +225,10 @@ module.exports = {
            //  console.log(req.file);
 
             //Checking Using Postman..
-            res.json[{
+            res.json({
               success: true,
               message: 'Video Uploaded'
-            }]
+            })
             // res.render('media', {loggedin,uploaded,corp});
           }
         })
@@ -246,10 +246,10 @@ module.exports = {
             // console.log('Henna')
         } else {
           console.log('Reach Announcments of this corporate Successfully.')
-          res.json[{
+          res.json({
             success: true,
             message: 'Announcments Viewed Successfully'
-          }]
+          })
           // res.render('announcments', {corp});
         }
 
@@ -273,10 +273,10 @@ module.exports = {
           console.log('Announcments added.')
           console.log(data)
           console.log(time_result)
-          res.json[{
+          res.json({
             success: true,
             message: 'New Announcment Created!'
-          }]
+          })
         }
 
       })
@@ -296,7 +296,7 @@ module.exports = {
                     if (err)
                       res.json({success: false, error: "Error occured while finding the service"})
                     else
-                      res.json[{success: true, Entertainments: Entertainments}];
+                      res.json({success: true, Entertainments: Entertainments});
                 })
             }
         })
@@ -307,12 +307,12 @@ module.exports = {
             if (err)
               res.json({success: false, error: "Error occured while finding the services"})
             else
-              res.json[{success: true, Entertainments: Entertainments}];
+              res.json({success: true, Entertainments: Entertainments});
         })
     },
     getService: function (req, res) { //4-get the entertainment page(either further details,remove,edit info)
         Entertainment.findOne({_id: req.body.id}, function (req, Entertainments) {
-            res.json[{success: true, Entertainments: Entertainments}];
+            res.json({success: true, Entertainments: Entertainments});
 
         })
     },
@@ -333,7 +333,7 @@ module.exports = {
                                     res.json({success: false, error: "Error"})
                                 }
                                 else
-                                    res.json[{success: true, Entertainments: Entertainments}];
+                                    res.json({success: true, Entertainments: Entertainments});
                             })
                         }
                     })
@@ -357,7 +357,7 @@ module.exports = {
                         else {
                             Entertainment.find({_id: req.body.id}, function (err, Entertainments) {
                                 //      res.render('edit',{Entertainments});
-                                res.json[{success: true, Entertainments: Entertainments}];
+                                res.json({success: true, Entertainments: Entertainments});
                             })
                         }
                     })
@@ -383,7 +383,7 @@ module.exports = {
                         else {
                             Entertainment.find({_id: req.body.id}, function (err, Entertainments) {
                                 //     res.render('edit',{Entertainments});
-                                res.json[{success: true, Entertainments: Entertainments}];
+                                res.json({success: true, Entertainments: Entertainments});
                             })
                         }
                     })
@@ -409,7 +409,7 @@ module.exports = {
                         else {
                             Entertainment.find({_id: req.body.id}, function (err, Entertainments) {
                                 //   res.render('edit',{Entertainments});
-                                res.json[{success: true, Entertainments: Entertainments}];
+                                res.json({success: true, Entertainments: Entertainments});
                             })
                         }
                     })
@@ -435,7 +435,7 @@ module.exports = {
                         else {
                             Entertainment.find({email: req.body.id}, function (err, Entertainments) {
                                 //  res.render('edit',{Entertainments});
-                                res.json[{success: true, Entertainments: Entertainments}];
+                                res.json({success: true, Entertainments: Entertainments});
                             })
                         }
                     })
