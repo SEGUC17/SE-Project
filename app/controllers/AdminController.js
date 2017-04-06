@@ -169,11 +169,25 @@ module.exports = {
     removeReview: function(req, res) {
       var reviewID = req.body.reviewID
       if (reviewID) {
-        Review.findByIdAndRemove({_id: reviewID}, function(err) {
+        Review.findByIdAndRemove({_id: reviewID}, function(err, review) {
           if (err) {
             res.json({success: false, error: "Failed to remove review"})
           }
           else {
+            Entertainment.findOne({_id: review._service}, function(err, service) {
+              if (!err && service) {
+                var index = service.reviews.indexOf(review._id)
+                if (index > -1) {
+                  service.reviews.splice(index, 1)
+                  service.save(function(err) {
+                    if (err) {
+                      console.log(err)
+                    }
+                  })
+                }
+                console.log("Removed index ")
+              }
+            })
             res.json({success: true})
           }
         })

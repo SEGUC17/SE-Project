@@ -49,8 +49,10 @@ router.post('/admin/accept', adminController.checkAuthentication, adminControlle
 router.post('/admin/reject', adminController.checkAuthentication, adminController.rejectCorporate);
 
 router.post('/admin/service/remove', adminController.checkAuthentication, adminController.removeService);
+ 
+router.post('/admin/service', adminController.checkAuthentication, clientController.getService);
 
-router.post('/admin/service', adminController.checkAuthentication, adminController.getAllServices);
+router.post('/admin/services', adminController.checkAuthentication, adminController.getAllServices);
 
 router.post('/admin/corporate/services', adminController.checkAuthentication, adminController.getCorporateServices)
 
