@@ -38,7 +38,6 @@ router.post('/client/edit', clientController.checkAuthentication, clientControll
 
 router.post('/client/service/rate', clientController.checkAuthentication, clientController.rateService)
 
-
 //Administrator Routes
 router.post('/admin/login', adminController.login)
 
@@ -49,7 +48,7 @@ router.post('/admin/accept', adminController.checkAuthentication, adminControlle
 router.post('/admin/reject', adminController.checkAuthentication, adminController.rejectCorporate);
 
 router.post('/admin/service/remove', adminController.checkAuthentication, adminController.removeService);
- 
+
 router.post('/admin/service', adminController.checkAuthentication, clientController.getService);
 
 router.post('/admin/services', adminController.checkAuthentication, adminController.getAllServices);
@@ -78,9 +77,9 @@ router.post('/corporate/addMedia/file',corporateController.addMedia);
 
 router.post('/corporate/addVideo/file',corporateController.addVideo);
 
-router.post('/corporate/announcments', corporateController.getAnnouncments);
+router.post('/corporate/announcments', corporateController.checkAuthentication, corporateController.getAnnouncments);
 
-router.post('/corporate/new/announcment', corporateController.newAnnouncment);
+router.post('/corporate/new/announcment', corporateController.checkAuthentication, corporateController.newAnnouncment);
 
 router.post('/corporate/service/add', corporateController.addService);
 

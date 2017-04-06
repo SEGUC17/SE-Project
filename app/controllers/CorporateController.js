@@ -239,7 +239,7 @@ module.exports = {
     },
 
     getAnnouncments:function(req, res){
-      Corporate.findOne({email: req.user.local.email}, function(err, corp){
+      Corporate.findOne({"local.email": req.user.local.email}, function(err, corp){
         if(err || corp == null){
             // res.send(err);
             res.end('No corporate is loggedin !')
@@ -248,7 +248,7 @@ module.exports = {
           console.log('Reach Announcments of this corporate Successfully.')
           res.json({
             success: true,
-            message: 'Announcments Viewed Successfully'
+            announcements: corp.announcments
           })
           // res.render('announcments', {corp});
         }
