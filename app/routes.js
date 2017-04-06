@@ -18,35 +18,27 @@ router.post('/client/logout', clientController.logout)
 
 router.post('/client/recover', clientController.recoverPassword)
 =======
-var controller = require('./controllers/CorporateController');
 
 // Media controllers
-router.post('/addMedia/file',controller.addMedia);
-router.post('/addVideo/file',controller.addVideo);
+router.post('/addMedia/file',corporateController.addMedia);
+router.post('/addVideo/file',corporateController.addVideo);
 //
 
 // Announcments Routing
-router.get('/announcments',controller.getAnnouncments);
-router.post('/new/announcment',controller.newAnnouncment);
+router.get('/announcments',corporateController.getAnnouncments);
+router.post('/new/announcment',corporateController.newAnnouncment);
 
 //
 
-router.get('/',controller.requests);
+router.get('/',corporateController.requests);
 router.get('/home',function(req,res){
     var registered = false;
     var loggedin = false;
     res.render('login',{registered,loggedin});
 });
-router.post('/Signup',controller.SignUp);
-router.post('/login',controller.login);
 router.get('/register',function(req,res){
     var registered = false;
     res.render('register',{registered});
-});
-router.get('/logout',function(req,res){
-    var registered = false;
-    var loggedin = false;
-    res.render('login',{registered,loggedin});
 });
 >>>>>>> roshdy
 

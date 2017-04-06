@@ -4,14 +4,11 @@ var router = require('./app/routes');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 <<<<<<< HEAD
-var DB_URI = "mongodb://localhost:27017/se-project";
 var crypto = require('crypto');
 var passport = require('passport');
 var path = require('path');
 require('./config/passport')(passport);
 var cors  = require('cors');
-
-
 =======
 var DB_URI = "mongodb://localhost:27017/MET";
 var fs = require('fs');
@@ -44,8 +41,3 @@ app.use(router);
 app.listen(8080, function(){
     console.log("server is listening on port 8080");
 });
-=======
-app.listen(2342, function(){
-    console.log("server is listening on port 2342");
-})
->>>>>>> roshdy
