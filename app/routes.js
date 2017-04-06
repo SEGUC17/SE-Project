@@ -56,7 +56,11 @@ router.post('/admin/corporate/services', adminController.checkAuthentication, ad
 
 router.post('/admin/clients', adminController.checkAuthentication, adminController.getAllClients)
 
-router.post('/admin/remove', adminController.checkAuthentication, adminController.removeClient);
+router.post('/admin/remove', adminController.checkAuthentication, adminController.removeClient)
+
+router.get('/admin/reviews', adminController.checkAuthentication, adminController.getReportedReviews)
+
+router.post('/admin/review/remove', adminController.checkAuthentication, adminController.removeReview)
 
 //Corporate Routes
 

@@ -3,6 +3,7 @@ var corporate = require('../models/corporate')
 var Client = require('../models/client')
 var Entertainment = require('../models/entertainment')
 var admin = require('../models/admin')
+var Review = require('../models/review')
 
 module.exports = {
   checkAuthentication(req, res, next) {
@@ -148,5 +149,34 @@ module.exports = {
         Client.find(function(req,clients){
             res.json({sucesss:true,clients:clients});
         })
+    },
+    getReportedReviews: function(req, res) {
+      Review.find({reported: true}, function(err, reviews) {
+        if (err) {
+          res.json({success: false, error: "Failed to retrieve reviews"})
+        }
+        else if(reviews) {
+          res.json({success: true, reviews: reviews})
+        }
+        else {
+          res.json({success: true, reviews: []})
+        }
+      })
+    },
+    removeReview: function(req, res) {
+      var reviewID = req.body.reviewID
+      if (reviewID) {
+        Review.findByIdAndRemove({_id: reviewID}, function(err) {
+          if (err) {
+            res.json({success: false, error: "Failed to remove review"})
+          }
+          else {
+            res.json({success: true})
+          }
+        })
+      }
+      else {
+        res.json({success: false, error: "Invalid review ID received"})
+      }
     }
 }

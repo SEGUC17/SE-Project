@@ -4,6 +4,7 @@ var crypto = require('crypto')
 var Client = require('../models/client')
 var Entertainment = require('../models/entertainment')
 var Review = require('../models/review')
+var corporate = require('../models/corporate')
 
 module.exports = {
   //Checks if the user is authenticated before accessing any protected client routes
