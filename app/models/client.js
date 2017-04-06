@@ -1,45 +1,4 @@
 var mongoose = require('mongoose');
-<<<<<<< HEAD
-
-var ClientSchema = mongoose.Schema({
-
-    name:String,
-
-    hash: String,
-
-    salt: String,
-
-    email:{
-        type: String,
-        unique:true
-    },
-
-    phonenumber:{
-        type: String,
-        unique:true
-    },
-
-    username :{
-        type: String,
-        unique : true
-    },
-
-    password: {
-        type: String,
-        unique: true
-    },
-
-    nationalID: {
-        type: String,
-        unique: true
-    }
-
-});
-
-var Client = mongoose.model("client", ClientSchema);
-
-module.exports = Client;
-=======
 var crypto = require('crypto');
 
 var ClientSchema = mongoose.Schema({
@@ -71,4 +30,3 @@ ClientSchema.methods.validPassword = function(salt, password, hash) {
 var Client = mongoose.model("client", ClientSchema);
 
 module.exports = Client;
->>>>>>> Denden
