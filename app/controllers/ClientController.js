@@ -321,7 +321,7 @@ module.exports = {
   },
   getCorporateServices:function(req,res){//get services of a specific Corporate
        Entertainment.find({email:req.body.email},function (req,Entertainments) {
-           res.json({success:true,Entertainments:Entertainments};
+           res.json({success:true,Entertainments:Entertainments});
        })
    },
 	getService:function(req,res){
