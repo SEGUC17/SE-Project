@@ -3,7 +3,11 @@ var Corporate = require('../models/corporate')
 var Review  = require('../models/review')
 var crypto = require('crypto')
 var passport = require('passport')
-var multer = require('multer');
+var multer = require('multer')
+var Client = require('../models/client')
+var Entertainment = require('../models/entertainment')
+var admin = require('../models/admin')
+
 
 //Define media storage directories
 var storage = multer.diskStorage({
