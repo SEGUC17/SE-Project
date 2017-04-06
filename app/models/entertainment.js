@@ -16,7 +16,7 @@ var entertainmentSchema = mongoose.Schema({
       required:true
     },
     type:String,
-    rating:Number,
+    rating:[Number],
     actualRating:{type: Number, default: 0},
     reviews: [{type: String, ref: 'Review'}]
 })
