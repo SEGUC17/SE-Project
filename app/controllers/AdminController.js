@@ -1,37 +1,45 @@
-let vSearch = require('../models/entertainment'); 
+let Entertainment = require('../models/entertainment'); 
+let Client = require('../models/client');
 // Change the schema here with the app schema
 
-
-//Helps in comparing string by changing text to Reg. Expression
 function escapeRegex(text) {
     return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
-};
+}
 
 
-let aRemove = require('../models/client');
+module.exports = {
 
-function adminRemoveClient(req,res){
+adminRemoveClient:function (req,res){
 
-	if(req.query.criteria){
-		aRemove.find({"username":req.query.criteria}, function(err,client){
-			if(err){
+	if(req.body.criteria){
+		// aRemove.findOne({"_id":req.body.criteria}, function(err,client){
+		// 	if(client.length==0){
+		// 		res.json({success: false, message:"Sorry could'nt find that client"})
+		// 	} else {
+		// 		aRemove.remove({"_id":req.body.criteria});
+		// 		res.json({success: true, message:"Client removed successfully"});
+		// 	}
+		// })
+
+		aRemove.findByIdAndRemove({"_id":req.body.criteria}, function(err,client){
+			if(!client){
 				res.json({success: false, message:"Sorry could'nt find that client"})
-			} else {
-				aRemove.remove({"username":req.query.criteria});
+			}
+			else {
 				res.json({success: true, message:"Client removed successfully"});
 			}
 		})
 	}
 
 }
+,
 
 
-
-function adminSearch(req,res){
+ adminSearch:function(req,res){
 		var noMatch=null;
-		const text = new RegExp(escapeRegex(req.query.search), 'gi');
+	const text = new RegExp(escapeRegex(req.body.search), 'gi');
 
-		if(req.query.criteria == "name"){
+		if(req.body.criteria == "name"){
 
 			vSearch.find({"name":text},function(err, allItems){
 				if(err){
@@ -45,7 +53,7 @@ function adminSearch(req,res){
 			})
 
 		} else {
-			if(req.query.criteria == "location"){
+			if(req.body.criteria == "location"){
 
 			vSearch.find({"location":text},function(err, allItems){
 				if(err){
@@ -60,9 +68,9 @@ function adminSearch(req,res){
 			)
 
 		} else {
-			if(req.query.criteria ==  "price"){
+			if(req.body.criteria ==  "price"){
 
-			vSearch.find({"price":text},function(err, allItems){
+			vSearch.find({"price":req.body.search},function(err, allItems){
 				if(err){
 					console.log(err);
 				}else {
@@ -75,7 +83,7 @@ function adminSearch(req,res){
 			)
 
 		} else {
-			if(req.query.criteria == "type"){
+			if(req.body.criteria == "type"){
 
 			vSearch.find({"type":text},function(err, allItems){
 				if(err){
@@ -90,7 +98,7 @@ function adminSearch(req,res){
 			)
 
 		} else {
-			if(!(req.query.search)){
+			if(!(req.body.search)){
 			vSearch.find({},function(err, allItems){
 				if(err){
 					console.log(err);
@@ -99,4 +107,4 @@ function adminSearch(req,res){
 				}
 			})
 		} }
-				} }}}				
+				} }}}}

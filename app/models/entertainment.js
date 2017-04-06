@@ -19,7 +19,7 @@ var entertainmentSchema = mongoose.Schema({
     rating:[Number],
     actualRating:{type: Number, default: 0},
     reviews: [{type: String, ref: 'Review'}]
-})
+});
 
 var Entertainment = mongoose.model("entertainment", entertainmentSchema);
 
