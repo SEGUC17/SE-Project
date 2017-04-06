@@ -63,7 +63,7 @@ module.exports = {
         })
     },
     getNewCorporateRequests: function (req, res) {
-        Corporate.find({request: true}, function (err, corp) {
+        corporate.find({request: true}, function (err, corp) {
             if (corp) {
                 res.json({success: true, corporations: corp})
             }else{
@@ -72,8 +72,8 @@ module.exports = {
         });
     },
     acceptCorporate:function(req,res){
-        var e = req.params.cem.substring(1);
-        Corporate.findOne({'local.email':e},function(err,corp){
+        var e = req.body.email;
+        corporate.findOne({'local.email':e},function(err,corp){
             if(corp) {
                 corp.Accepted = true;
                 corp.request=false;
@@ -89,8 +89,8 @@ module.exports = {
         })
     },
     rejectCorporate:function(req,res){
-        var e = req.params.cem.substring(1);
-        Corporate.findOne({'local.email':e},function(err,corp){
+        var e = req.body.email;
+        corporate.findOne({'local.email':e},function(err,corp){
             if(corp) {
                 corp.Accepted = false;
                 corp.request=false;
@@ -145,7 +145,7 @@ module.exports = {
         })
     },
     getAllClients:function(req,res){//bagib kol el clients
-        clients.find(function(req,clients){
+        Client.find(function(req,clients){
             res.json[{sucesss:true,clients:clients}];
         })
     }
