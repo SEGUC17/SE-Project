@@ -36,6 +36,9 @@ module.exports = {
   			}
   		})
   	}
+    else {
+      res.json({success: false, error: "Invalid clientID received"})
+    }
 
   },
   getAllCorporates:function(req, res){
