@@ -147,7 +147,7 @@ module.exports = {
     // Media Adding to corporate
     addMedia:function(req, res){
      upload(req, res, function (err) {
-       Corporate.findOne({email: req.user.local.email}, function(err, corp){
+       Corporate.findOne({"local.email": req.user.local.email}, function(err, corp){
          if(err){
              res.send(err.message);
              var loggedin = false;
@@ -196,7 +196,7 @@ module.exports = {
 
    addVideo:function(req, res){
       video_upload(req, res, function (err) {
-        Corporate.findOne({email: req.user.local.email}, function(err, corp){
+        Corporate.findOne({"local.email": req.user.local.email}, function(err, corp){
           if(err){
               res.send(err.message);
               var loggedin = false;
