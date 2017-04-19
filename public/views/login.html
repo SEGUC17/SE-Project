@@ -1,0 +1,67 @@
+		<!-- //header -->
+		<div class="banner-top">
+			<div class="container">
+				<div class="slider">
+					<div class="callbacks_container">
+						<ul class="rslides callbacks callbacks1" id="slider4">
+							<li>
+
+								<div class="main-w3l">
+									<div class="w3layouts-main">
+										<h2>Login</h2>
+										<div class="content-agileits">
+											<form action="/register" method="POST" data-toggle="validator" role="form">
+
+												<div class="form-group w3layouts w3 w3l">
+													<input name="username" type="text" class="form-control" id="username" placeholder="Username" data-error="Enter Your Username" required>
+													<div class="help-block with-errors"></div>
+												</div>
+
+
+
+												<div class="form-group w3layouts w3 w3l">
+													<input name="password" type="password" data-minlength="8" class="form-control" id="password" placeholder="Password" required>
+
+												</div>
+												<div class="form-group">
+													<button type="submit" class="btn btn-lg">Login</button>
+												</div>
+												<button class="loginBtn loginBtn--facebook">
+													Login with Facebook
+												</button>
+												<p>Don't Have an Account ?<a href="register">Register Now</a></p>
+											</form>
+
+										</div>
+									</div>
+								</div>
+							</li>
+
+						</ul>
+					</div>
+					<script src="js/responsiveslides.min.js"></script>
+					<script>
+                        // You can also use "$(window).load(function() {"
+                        $(function () {
+                            // Slideshow 4
+                            $("#slider4").responsiveSlides({
+                                auto: true,
+                                pager:true,
+                                nav:true,
+                                speed: 500,
+                                namespace: "callbacks",
+                                before: function () {
+                                    $('.events').append("<li>before event fired.</li>");
+                                },
+                                after: function () {
+                                    $('.events').append("<li>after event fired.</li>");
+                                }
+                            });
+
+                        });
+					</script>
+
+					<!--banner Slider starts Here-->
+				</div>
+			</div>
+		</div>
