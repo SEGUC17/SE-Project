@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html ng-app = "myApp">
+<head>
+    <meta charset="utf-8" />
+    <title>Login</title>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
+    <style type="text/css">
+        body {
+            padding-top: 100px;
+        }
+        .form-container {
+            width: 400px;
+            margin: auto;
+        }
+        .credits {
+            border-top: 1px solid #ddd;
+            margin-top: 40px;
+            padding-top: 20px;
+        }
+        .alert {
+                    padding: 20px;
+                    background-color: #02695e;
+                    /* Red */
+                    color: white;
+                    margin-bottom: 15px;
+                }
+                /* The close button */
+                .closebtn {
+                    margin-left: 15px;
+                    color: white;
+                    font-weight: bold;
+                    float: right;
+                    font-size: 22px;
+                    line-height: 20px;
+                    cursor: pointer;
+                    transition: 0.3s;
+                }
+                /* When moving the mouse over the close button */
+                .closebtn:hover {
+                    color: black;
+                }
+    </style>
+</head>
+<body>
+<div class="form-container">
+    <h2>Login</h2>
+
+
+    <form ng-submit= "loginUser(logData)" ng-controller = "Login" >
+
+      <div ng-if = "logStatus == false" class="alert">
+                     <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> Email or password is incorrect
+         </div>
+      <div   class="alert" ng-if = "logStatus == true">
+                     <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> You loggedin successfully
+         </div>
+        <div class="form-group">
+            <label for="email">email</label>
+            <input type="email" name="email" id="email" ng-model ="logData.email" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password" ng-model ="logData.password" class="form-control" />
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Login</button>
+            <a href="/register" class="btn btn-link">Register</a>
+        </div>
+    </form>
+</div>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+<script src = "js/controllers/CorpMembers.js"></script>
+</html>
