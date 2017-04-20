@@ -59,12 +59,12 @@
     <script src="appRoutes.js"></script>
     <script src="app.js"></script>
 </head>
-<body ng-app="MainApp">
+<body ng-app="MainApp" >
 
 
 
 
-  <div class="jarallax banner">
+  <div class="jarallax banner" ng-controller = "main">
     <div class="">
       <!-- header -->
       <div class="header">
@@ -84,13 +84,38 @@
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse nav-wil" id="bs-example-navbar-collapse-1">
+            <div ng-if="online == 0" class="collapse navbar-collapse nav-wil" id="bs-example-navbar-collapse-1">
               <nav>
                 <ul class="nav navbar-nav">
                   <li class="active"><a href="/">Home</a></li>
                   <li><a href="/services" >Play</a></li>
                   <li><a href="/login_client" >Login</a></li>
                   <li><a href="/register_client" >Register</a></li>
+
+                </ul>
+              </nav>
+            </div>
+
+            <div ng-if="online == 1" class="collapse navbar-collapse nav-wil" id="bs-example-navbar-collapse-1">
+              <nav>
+                <ul class="nav navbar-nav">
+                  <li class="active"><a href="/">Home</a></li>
+                  <li><a href="/services" >Play</a></li>
+                  <li><a href="/profile_client" >My Account</a></li>
+                  <li><a ng-controller="logout_Client" ng-click="regClientlogout()" href="/" >Logout</a></li>
+                </ul>
+              </nav>
+            </div>
+
+
+            <div ng-if="online == 2" class="collapse navbar-collapse nav-wil" id="bs-example-navbar-collapse-1">
+              <nav>
+                <ul class="nav navbar-nav">
+                  <li class="active"><a href="/">Home</a></li>
+                  <li><a href="/services" >Play</a></li>
+                  <li><a href="/login_client" >My Account</a></li>
+                  <li><a ng-controller="logout_Corporate" ng-click="regCorporatelogout()" href="/" >Logout</a></li>
+
                 </ul>
               </nav>
             </div>

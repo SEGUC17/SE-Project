@@ -36,7 +36,11 @@ app.controller("Login_Client", function($scope,$window, $http) {
     }
   else{
         var client=response.data.user;
+        var online=1;
         localStorage.setItem("client", JSON.stringify(client));
+        localStorage.setItem("online", JSON.stringify(online));
+
+
         $window.location.href = "/profile_client"}
     }, function errorCallback(response) {//needs handling
 
@@ -59,6 +63,28 @@ app.controller("forget_Client", function($scope,$window, $http) {
 
       console.log(response.data.success);
       $window.location.href = '/change_password';
+
+    }, function errorCallback(response) {//needs handling
+
+      console.log(response.data.success);
+
+
+  })
+
+  }
+})
+
+
+app.controller("logout_Client", function($scope,$window, $http) {
+  console.log("hi");
+  $scope.regClientlogout= function(){
+    $http.post('/client/logout').then(function successCallback(response){
+
+var online=0;
+
+localStorage.setItem("online", JSON.stringify(online));
+$window.location.reload();
+
 
     }, function errorCallback(response) {//needs handling
 
@@ -97,9 +123,23 @@ app.controller("profile_client", function($scope,$window, $http) {
 
 
   var client = JSON.parse(localStorage.getItem("client"));
+  var online1 = JSON.parse(localStorage.getItem("online"));
   console.log(client);
+  console.log(online1);
   $scope.client = client;
  console.log(client.email);
+
+})
+
+app.controller("main", function($scope,$window, $http) {
+
+
+
+
+  var online = JSON.parse(localStorage.getItem("online"));
+  $scope.online=online;
+  console.log(online  );
+
 
 })
 
