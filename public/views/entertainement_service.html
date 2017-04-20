@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+<title><%= student.name %> Portfolio</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3.css">
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!-- Meta tag Keywords -->
+<!-- css files -->
+
+
+<script>
+    function myFunction(id) {
+        var x = document.getElementById(id);
+        if (x.className.indexOf("w3-show") == -1) {
+            x.className += " w3-show";
+            x.previousElementSibling.className += " w3-red";
+        } else {
+            x.className = x.className.replace(" w3-show", "");
+            x.previousElementSibling.className =
+                x.previousElementSibling.className.replace(" w3-red", "");
+        }
+    }
+</script>
+
+
+
+<!--light-box-files -->
+<script>
+    $(function() {
+        $('.gallery-grid a').Chocolat();
+    });
+</script>
+
+<!-- //js -->
+<script src="js/responsiveslides.min.js"></script>
+<script>
+    $(function () {
+        $("#slider").responsiveSlides({
+            auto: true,
+            pager:false,
+            nav: true,
+            speed: 1000,
+            namespace: "callbacks",
+            before: function () {
+                $('.events').append("<li>before event fired.</li>");
+            },
+            after: function () {
+                $('.events').append("<li>after event fired.</li>");
+            }
+        });
+    });
+</script>
+
+<script type="text/javascript" src="js/move-top.js"></script>
+<script type="text/javascript" src="js/easing.js"></script>
+<script type="text/javascript">
+    jQuery(document).ready(function($) {
+        $(".scroll").click(function(event){
+            event.preventDefault();
+            $('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+        });
+    });
+</script>
+
+<style>
+	html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
+	.btn-file {
+		position: relative;
+		overflow: hidden;
+	}
+	.btn-file input[type=file] {
+		position: absolute;
+		top: 0;
+		right: 0;
+		min-width: 100%;
+		min-height: 100%;
+		font-size: 100px;
+		text-align: right;
+		filter: alpha(opacity=0);
+		opacity: 0;
+		outline: none;
+		background: white;
+		cursor: inherit;
+		display: block;
+	}
+</style>
+<body class="">
+
+
+
+
+
+<div>
+
+
+</div>
+
+<!-- Page Container -->
+<div class="w3-content w3-margin-top" style="max-width:1400px;">
+
+	<!-- The Grid -->
+	<div class="w3-row-padding">
+		<!-- Left Column -->
+		<div class="w3-third">
+
+			<div class="w3-white w3-text-grey w3-card-4">
+				<div class="w3-display-container w3-center">
+					<img src="    " style="width:250px; height:240px;" alt="Avatar" class="w3-center">
+					<br>
+					<div class="w3-display-bottomleft w3-container w3-text-black">
+					</div>
+				</div>
+				<br><br>
+				<div class="w3-container">
+					<p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i>Name : <%= student.name %></p>
+					<p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i>Username : <%= student.username %></p>
+					<p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i>Major : <%= student.major %></p>
+					<p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i>ID : <%= student.id %></p>
+					<p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i>ID : <%= student.id %></p>
+					<hr>
+				</div>
+			</div><br>
+
+
+
+
+
+
+			<div class="w3-container">
+
+
+				<h2>Reserve a Time</h2>
+
+				<button onclick="myFunction('Demo4')" class="w3-btn-block w3-left-align">Reserve</button>
+				<div id="Demo4" class="w3-hide w3-container">
+					<h3 style="margin-bottom:40px;">Reserve</h3>
+
+            //Reservation with pay button//
+
+				</div>
+<br><br>
+
+
+        <h2>Rate this Service</h2>
+
+        <button onclick="myFunction('Demo3')" class="w3-btn-block w3-left-align">Reserve</button>
+        <div id="Demo3" class="w3-hide w3-container">
+          <h3 style="margin-bottom:40px;">Rate</h3>
+
+            //Reservation with input form and rate button//
+
+        </div>
+        <br><br>
+
+			</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			<!-- End Left Column -->
+		</div>
+
+		<!-- Right Column -->
+		<div class="w3-twothird">
+
+
+
+
+			<div class="w3-container w3-card-2 w3-white w3-margin-bottom">
+				<h2 class="w3-text-grey w3-padding-16"><i class="fa fa-certificate fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>About</h2>
+
+
+			<p>About the service</p>
+    </div>
+
+
+
+
+
+
+
+
+
+		<div class="w3-container w3-card-2 w3-white	 w3-margin-bottom">
+				<h2 class="w3-text-grey w3-padding-16"><i class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Screenshots</h2>
+
+				<div class="w3-row-padding">
+
+
+
+					<div class="w3-third w3-container w3-margin-bottom">
+
+						<img src="Screenshot" style="width:150px; height: 100px; cursor: pointer;">
+
+					</div>
+
+
+
+
+
+				</div>
+			</div>
+
+
+
+
+
+			<div class="w3-container w3-card-2 w3-white">
+				<h2 class="w3-text-grey w3-padding-16"><i class="fa fa-certificate fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Reviews</h2>
+
+
+
+				<div class="w3-row-padding">
+
+					<div class=" w3-container w3-margin-bottom">
+							<div class="w3-container w3-white">
+								<h3 class="">Name</h3>
+                <p class="w3-teal">Review</p>
+                <br>
+					</div>
+
+				</div>
+
+
+
+			</div>
+
+
+
+
+
+
+
+			</div>
+
+			<!-- End Right Column -->
+		</div>
+
+		<!-- End Grid -->
+	</div>
+
+	<!-- End Page Container -->
+</div>
+<br><br><br><br>
+
+
+</body>
+</html>
