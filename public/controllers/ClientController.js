@@ -1,36 +1,36 @@
 var app = angular.module("ClientApp", []);
 
-app.controller("Register", function($scope,$window, $http) {
-  console.log("hi");
+app.controller("Register_Client", function($scope,$window, $http) {
   $scope.regClient= function(regData){
-    $http.post('/client/signup',regData).success(function(response){
-      status = response.success;
-      if(status == true){
-        console.log(status);
-        $scope.regStatus = true;
-      }else{
-        $scope.regStatus = false;
-      }
-    })
+    $http.post('/client/signup',regData).then(function successCallback(response){
+
+      console.log(response.data.success);
+
+    }, function errorCallback(response) {//needs handling
+
+      console.log(response.data.success);
+
+  })
 
   }
 })
 
 
-app.controller("Login", function($scope,$window, $http) {
+app.controller("Login_Client", function($scope,$window, $http) {
   console.log("hi");
   $scope.regClient= function(regData){
-    $http.post('/client/login',regData).success(function(response){
-      console.log("hi");
+    $http.post('/client/login',regData).then(function successCallback(response){
 
-      status = response.success;
-      if(status == "true"){
-        console.log(status);
-        $scope.regStatus = true;
-      }else{
-        $scope.regStatus = false;
-      }
-    })
+      $scope.client=response.data.user;
+      console.log($scope.client);
+
+
+    }, function errorCallback(response) {//needs handling
+
+      console.log(response.data.success);
+
+
+  })
 
   }
 })

@@ -24,6 +24,27 @@ $routeProvider
         controller : ''
     })
 
+    .when('/register_corporate', {
+        templateUrl: 'views/register_corporate.html',
+        controller : ''
+    })
+
+    .when('/login_corporate', {
+        templateUrl: 'views/login_corporate.html',
+        controller : ''
+    })
+
+    .when('/entertainement_service', {
+        templateUrl: 'views/entertainement_service.html',
+        controller : ''
+    })
+
+
+    .when('/profile_client', {
+        templateUrl: 'views/profile_client.html',
+        controller : ''
+    })
+
 $locationProvider.html5Mode(true);
 
 }]);
