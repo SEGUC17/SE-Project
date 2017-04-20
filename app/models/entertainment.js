@@ -7,7 +7,7 @@ var entertainmentSchema = mongoose.Schema({
     },
     name:{
       type:String,
-      required:true
+      required:true,
     },
     phone:String,
     price:Number,
@@ -16,6 +16,8 @@ var entertainmentSchema = mongoose.Schema({
       required:true
     },
     type:String,
+    images:[String],
+    videos:[String],
     rating:[Number],
     actualRating:{type: Number, default: 0},
     reviews: [{type: String, ref: 'Review'}]

@@ -144,14 +144,13 @@ module.exports = {
         res.json({success: true})
     })
   },
-    // Media Adding to corporate
+    // Media Adding to corporate's Entertainment
     addMedia:function(req, res){
      upload(req, res, function (err) {
-       Corporate.findOne({"local.email": req.user.local.email}, function(err, corp){
+       Entertainment.findOne({"email": req.user.local.email, _id:req.body.id}, function(err, entertainment){
          if(err){
              res.send(err.message);
-             var loggedin = false;
-             res.render('login',loggedin);
+             res.json({success: false, error: "Error occured while finding the services"})
          }else {
            var uploaded = false;
            var loggedin = true;
@@ -164,27 +163,35 @@ module.exports = {
              })
             //  return res.end("Error uploading file.");
            }
-           console.log('Uploaded Image Successfully .')
           //  var result =  req.file.path;
           //  console.log(result)
+
           var new_image = req.file.filename;
-           var file = '/uploads/images/' + req.file.filename;
-           console.log(__dirname+'/../')
-           console.log(file)
+          var file = '/uploads/images/' + req.file.filename;
+            //  console.log(__dirname+'/../')
+            //  console.log(file)
 
-           uploaded = true;
-           // Pushing Image Name String
-           corp.images.push(new_image)
-           //Saving the new image to Corporate
-           corp.save()
+          uploaded = true;
+          console.log(req.user.local.email)
+          console.log(req.body.id)
+          console.log(entertainment)
+          console.log("Debugg")
+          // Pushing Image Name String
+          entertainment.images.push(new_image)
+          //Saving the new image to Corporate
+          entertainment.save()
           //  console.log(req.file);
+          //Checking Using Postman..
+          res.json({
+            success: true,
+            message: 'Image Uploaded',
+            id: req.body.id,
+            image: new_image
+          })
+            //  res.render('media', {loggedin,uploaded,corp});
 
-           //Checking Using Postman..
-           res.json({
-             success: true,
-             message: 'Image Uploaded'
-           })
-          //  res.render('media', {loggedin,uploaded,corp});
+
+
          }
    })
 
@@ -196,7 +203,7 @@ module.exports = {
 
    addVideo:function(req, res){
       video_upload(req, res, function (err) {
-        Corporate.findOne({"local.email": req.user.local.email}, function(err, corp){
+        Entertainment.findOne({"email": req.user.local.email, _id:req.body.id}, function(err, entertainment){
           if(err){
               res.send(err.message);
               var loggedin = false;
@@ -219,15 +226,17 @@ module.exports = {
 
             uploaded = true;
             // Pushing Video Name String
-            corp.videos.push(new_video)
+            entertainment.videos.push(new_video)
             //Saving the new Video to Corporate
-            corp.save()
+            entertainment.save()
            //  console.log(req.file);
 
             //Checking Using Postman..
             res.json({
               success: true,
-              message: 'Video Uploaded'
+              message: 'Video Uploaded',
+              id: req.body.id,
+              video: new_video
             })
             // res.render('media', {loggedin,uploaded,corp});
           }
