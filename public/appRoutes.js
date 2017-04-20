@@ -45,6 +45,17 @@ $routeProvider
         controller : ''
     })
 
+    .when('/forget_password', {
+        templateUrl: 'views//forget_password.html',
+        controller : ''
+    })
+
+    .when('/change_password', {
+        templateUrl: 'views/change_password.html',
+        controller : ''
+    })
+
+
 $locationProvider.html5Mode(true);
 
 }]);
