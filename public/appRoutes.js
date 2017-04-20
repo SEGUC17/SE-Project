@@ -20,7 +20,7 @@ $routeProvider
     })
 
     .when('/services', {
-        templateUrl: 'views/corporates.html',
+        templateUrl: 'views/entertainement_services.html',
         controller : ''
     })
 

@@ -1,1 +1,1 @@
-angular.module('MainApp', ['ngRoute', 'appRoutes', 'ClientApp', 'myApp']);
+angular.module('MainApp', ['ngRoute', 'appRoutes', 'ClientApp', 'CorporateApp', 'AdminApp']);
