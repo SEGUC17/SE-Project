@@ -42,7 +42,7 @@ $routeProvider
 
     .when('/profile_client', {
         templateUrl: 'views/profile_client.html',
-        controller : ''
+        controller : 'profile_client'
     })
 
     .when('/forget_password', {

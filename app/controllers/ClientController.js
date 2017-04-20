@@ -260,7 +260,7 @@ module.exports = {
               res.json({success: false, error: "An unexpected error has occured"})
             }
             else {
-              res.json({success: true})
+              res.json({success: true, user: client})
             }
           })
         }

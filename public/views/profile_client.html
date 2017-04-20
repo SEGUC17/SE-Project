@@ -18,13 +18,13 @@
             <i class="fa fa-remove"></i>
         </a>
         <img src="/images/profile_client.png" style="width:45%;" class="w3-round"><br><br>
-        <h4><b>{{client.email}}</b></h4>
+        <h4><b>{{client.username}}</b></h4>
     </div>
     <div class="w3-bar-block">
-        <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-padding w3-text-teal"><i class="fa fa-th-large fa-fw w3-margin-right"></i>first+last</a>
-        <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-user fa-fw w3-margin-right"></i>phone</a>
-        <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-user fa-fw w3-margin-right"></i>national_id</a>
-        <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-envelope fa-fw w3-margin-right"></i>email</a>
+        <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-padding w3-text-teal"><i class="fa fa-th-large fa-fw w3-margin-right"></i>{{client.firstName }}  {{client.lastName }}</a>
+        <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-user fa-fw w3-margin-right"></i>{{client.phone}}</a>
+        <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-user fa-fw w3-margin-right"></i>{{client.nationalID}}</a>
+        <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-envelope fa-fw w3-margin-right"></i>{{client.email}}</a>
     </div>
 </nav>
 
@@ -41,32 +41,32 @@
         <h4 id="contact"><b>Edit Yor Account Info</b></h4>
 
         <hr class="w3-opacity">
-        <form action="/action_page.php" target="_blank">
+        <form ng-submit= "editClient(regClient)" target="_blank" ng-controller = "edit_Client">
             <div class="w3-section">
                 <label>First Name</label>
                 <div class="form-group w3layouts w3 w3l">
-                  <input name="firstName" type="text" class="form-control" id="firstName" placeholder="firstName" data-error="Enter Your firstName" required>
+                  <input name="firstName" type="text" class="form-control" id="firstName" placeholder="firstName" data-error="Enter Your firstName" ng-model= "regClient.firstName" required>
                   <div class="help-block with-errors"></div>
                 </div>
             </div>
             <div class="w3-section">
                 <label>Last Name</label>
                 <div class="form-group w3layouts w3 w3l">
-                  <input name="lastName" type="text" class="form-control" id="lastName" placeholder="lastName" data-error="Enter Your lastName" required>
+                  <input name="lastName" type="text" class="form-control" id="lastName" placeholder="lastName" data-error="Enter Your lastName" ng-model= "regClient.lastName" required>
                   <div class="help-block with-errors"></div>
                 </div>
             </div>
             <div class="w3-section">
                 <label>Nationl ID</label>
                 <div class="form-group agileinfo wthree w3-agileits agile">
-                  <input name="nationalID" type="text" class="form-control" id="nationalID" placeholder="nationalID" data-error="Enter Your National ID" required>
+                  <input name="nationalID" type="text" class="form-control" id="nationalID" placeholder="nationalID" data-error="Enter Your National ID" ng-model= "regClient.nationalID" required>
                   <div class="help-block with-errors"></div>
                 </div>
             </div>
             <div class="w3-section">
                 <label>Phone Number</label>
                 <div class="form-group agileinfo wthree w3-agileits agile">
-                  <input name="phone" type="text" class="form-control" id="phone" placeholder="phone" data-error="Enter Your phone" required>
+                  <input name="phone" type="text" class="form-control" id="phone" placeholder="phone" data-error="Enter Your phone" ng-model= "regClient.phone" required>
                   <div class="help-block with-errors"></div>
                 </div>
             </div>

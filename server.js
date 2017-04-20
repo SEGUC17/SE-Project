@@ -7,7 +7,7 @@ var crypto = require('crypto');
 var passport = require('passport');
 var path = require('path');
 require('./config/passport')(passport);
-var DB_URI = "mongodb://localhost:27017/se-project";
+var DB_URI = "mongodb://localhost:27017/sea-project";
 var app = express();
 
 // Loading Angular Components ..
