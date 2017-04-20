@@ -1,4 +1,6 @@
 # SE-Project
 
-To run the project type npm install
-                   then nodemon
+To run the project type
+#npm install               
+#bower install 
+#nodemon
