@@ -1,0 +1,15 @@
+
+<body  ng-controller="AORCorp">
+<form ng-repeat="(i,x) in data" >
+  <p> Name: {{x.name}}</p>
+  <p>  Address: {{x.address}} </p>
+  <p>  Type: {{x.type}} </p>
+  <p>  Email: {{x.local.email}} </p>
+<button type= "submit" ng-click = "accept(data[i].local.email)">Accept</button>
+<button type= "submit" ng-click = "reject(data[i].local.email)">Reject</button>
+</form>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+<script src = "controllers/AdminController.js"></script>
+
+</body>
