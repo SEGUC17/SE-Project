@@ -1,0 +1,108 @@
+<!-- public/index.html -->
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <base href="/">
+
+    <title>Funzilla</title>
+
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="keywords" content="T club Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
+		Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+		<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+		<!-- bootstrap-css -->
+		<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+		<!--// bootstrap-css -->
+		<!-- css -->
+		<link rel="stylesheet" href="css/style.css" type="text/css" media="all" />
+		<!--// css -->
+		<!-- gallery -->
+		<link type="text/css" rel="stylesheet" href="css/cm-overlay.css" />
+		<!-- //gallery -->
+		<!-- font-awesome icons -->
+		<link href="css/font-awesome.css" rel="stylesheet">
+		<!-- //font-awesome icons -->
+		<!-- font -->
+		<link href="//fonts.googleapis.com/css?family=Alegreya+Sans+SC:100,100i,300,300i,400,400i,500,500i,700,700i,800,800i,900,900i" rel="stylesheet">
+		<link href="//fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
+		<!-- //font -->
+		<script src="js/jquery-1.11.1.min.js"></script>
+		<script src="js/bootstrap.js"></script>
+		<script src="js/SmoothScroll.min.js"></script>
+		<script type="text/javascript">
+			jQuery(document).ready(function($) {
+				$(".scroll").click(function(event){
+					event.preventDefault();
+					$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+				});
+			});
+		</script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="libs/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css"> <!-- custom styles -->
+
+    <!-- JS -->
+    <script src="libs/angular/angular.min.js"></script>
+    <script src="libs/angular-route/angular-route.min.js"></script>
+
+    <!-- ANGULAR CUSTOM -->
+    <script src="controllers/ClientController.js"></script>
+    <script src="controllers/CorpMembers.js"></script>
+    <script src="appRoutes.js"></script>
+    <script src="app.js"></script>
+</head>
+<body ng-app="MainApp">
+
+
+    <!-- HEADER -->
+
+    <!-- ANGULAR DYNAMIC CONTENT -->
+    <div ng-view></div>
+
+
+    <div class="contact" id="mail">
+  		<div class="container">
+  			<div class="w3-agile-heading">
+  				<h3>Contact</h3>
+  			</div>
+  			<div class="w3layouts-contact-grids">
+  				<div class="col-sm-3 w3layouts-contact-grid">
+  					<i class="fa fa-map" aria-hidden="true"></i>
+  					<h5>Address</h5>
+  					<p>Address</p>
+  				</div>
+  				<div class="col-sm-3 w3layouts-contact-grid">
+  					<i class="fa fa-phone" aria-hidden="true"></i>
+  					<h5>Phone/Fax</h5>
+  					<p>Phone</p>
+  					<p>Phone</p>
+  				</div>
+  				<div class="col-sm-3 w3layouts-contact-grid">
+  					<i class="fa fa-envelope" aria-hidden="true"></i>
+  					<h5>Email</h5>
+  					<p><a href="mailto:info@example.com"> mail@example.com</a></p>
+  				</div>
+  				<div class="col-sm-3 w3layouts-contact-grid">
+  					<i class="fa fa-share-alt" aria-hidden="true"></i>
+  					<h5>Social</h5>
+  					<p>Touch With Us</p>
+  					<div class="agileinfo-social-grids">
+  						<ul>
+  							<li><a href="#"><i class="fa fa-facebook"></i></a></li>
+  							<li><a href="#"><i class="fa fa-twitter"></i></a></li>
+  							<li><a href="#"><i class="fa fa-rss"></i></a></li>
+  							<li><a href="#"><i class="fa fa-vk"></i></a></li>
+  						</ul>
+  					</div>
+  				</div>
+  				<div class="clearfix"> </div>
+  			</div>
+  		</div>
+  	</div>
+
+
+</body>
+</html>

@@ -4,7 +4,11 @@ var clientController = require('./controllers/ClientController')
 var corporateController = require('./controllers/CorporateController')
 var adminController = require('./controllers/AdminController')
 var searchController = require('./controllers/SearchController')
+var rootController = require('./controllers/rootController')
 var passport = require('passport')
+
+//Get index page
+router.get('*',rootController.a);
 
 //Client & Visitor routes
 router.post('/client/login/facebook', clientController.facebookLogin);

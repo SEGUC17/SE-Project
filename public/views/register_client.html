@@ -68,10 +68,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<div class="collapse navbar-collapse nav-wil" id="bs-example-navbar-collapse-1">
 						<nav>
 							<ul class="nav navbar-nav">
-								<li class="active"><a href="index.html">Home</a></li>
-								<li><a href="" >Play</a></li>
-								<li><a href="#gallery" >Login</a></li>
-								<li><a href="#team" >Register</a></li>
+								<li class="active"><a href="/">Home</a></li>
+								<li><a href="/services" >Play</a></li>
+								<li><a href="/login_client" >Login</a></li>
+								<li><a href="/register_client" >Register</a></li>
 							</ul>
 						</nav>
 					</div>
@@ -94,26 +94,41 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 										<h2>Login</h2>
 										<div class="content-agileits">
 											<form action="/register" method="POST" data-toggle="validator" role="form">
-
+												<div class="form-group w3layouts w3 w3l">
+													<input name="name" type="text" class="form-control" id="name" placeholder="Name" data-error="Enter Your Name" required>
+													<div class="help-block with-errors"></div>
+												</div>
 												<div class="form-group w3layouts w3 w3l">
 													<input name="username" type="text" class="form-control" id="username" placeholder="Username" data-error="Enter Your Username" required>
 													<div class="help-block with-errors"></div>
 												</div>
-
+												<div class="form-group w3l agileinfo wthree w3-agileits">
+													<input name="email" type="email" class="form-control" id="email" placeholder="Email" data-error="This email address is invalid" required>
+													<div class="help-block with-errors"></div>
+												</div>
+												<div class="form-group agileinfo wthree w3-agileits agile">
+													<input name="national_id" type="text" class="form-control" id="national_id" placeholder="National ID" data-error="Enter Your National ID" required>
+													<div class="help-block with-errors"></div>
+												</div>
 
 
 												<div class="form-group w3layouts w3 w3l">
 													<input name="password" type="password" data-minlength="8" class="form-control" id="password" placeholder="Password" required>
+													<div class="help-block " style="color: yellow;">Minimum of 8 characters</div>
+												</div>
+
+												<div class="form-group w3layouts w3 w3l">
+													<input type="password" class="form-control" id="passwordconfirm" data-match="#password" data-match-error="Whoops, these don't match" placeholder="Confirm Password" required>
 
 												</div>
+
+
+
 												<div class="form-group">
-													<button type="submit" class="btn btn-lg">Login</button>
+													<button type="submit" class="btn btn-lg">Register</button>
 												</div>
-												<button class="loginBtn loginBtn--facebook">
-													Login with Facebook
-												</button>
-												<p>Don't Have an Account ?<a href="register">Register Now</a></p>
 											</form>
+
 
 										</div>
 									</div>
@@ -143,7 +158,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
                         });
 					</script>
-
 					<!--banner Slider starts Here-->
 				</div>
 			</div>
