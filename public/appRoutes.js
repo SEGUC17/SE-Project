@@ -36,7 +36,7 @@ $routeProvider
 
     .when('/entertainement_service', {
         templateUrl: 'views/entertainement_service.html',
-        controller : ''
+        controller : 'service_corporate'
     })
 
 

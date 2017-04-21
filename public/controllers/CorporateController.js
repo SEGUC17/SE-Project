@@ -166,3 +166,40 @@ app.controller("Login_Corporate", function($scope, $window,$http){
 
      }
    })
+
+
+
+
+
+   app.controller("getCorpService", function($scope,$window, $http) {
+     $scope.service;
+     $scope.getCorpService= function(regData){
+       $http({
+         method: 'POST',
+         url: '/corporate/service',
+         data: "id=" + regData._id,
+         headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+     }).then(function successCallback(response){
+
+       var service_corp=response.data.Entertainments;
+       console.log(service_corp);
+       localStorage.setItem("service_corp", JSON.stringify(service_corp));
+      $window.location.href = "/entertainement_service";
+
+       }, function errorCallback(response) {//needs handling
+
+         console.log(response.data.success);
+
+
+     })
+
+     }
+   })
+
+
+
+   app.controller("service_corporate", function($scope,$window, $http) {
+     var service_corp = JSON.parse(localStorage.getItem("service_corp"));
+     console.log(service_corp);
+     $scope.service_corp = service_corp;
+   })
