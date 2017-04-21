@@ -55,6 +55,11 @@ $routeProvider
         controller : ''
     })
 
+    .when('/profile_corporate', {
+        templateUrl: 'views/profile_corporate.html',
+        controller : 'profile_corporate'
+    })
+
 
 $locationProvider.html5Mode(true);
 

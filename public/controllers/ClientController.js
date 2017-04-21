@@ -101,11 +101,15 @@ $window.location.reload();
 
 app.controller("verify_Client", function($scope,$window, $http) {
   console.log("hi");
-  $scope.regClient= function(regData){
-    $http.post('/client/verifyToken',regData).then(function successCallback(response){
+  $scope.verifyClient= function(regData){
+    $http.post('/client/reset',regData).then(function successCallback(response){
 
 
       console.log(response.data.success);
+      if(response.data.success==true){
+        alert("Password has been changed Successfully");
+        $window.location.href = '/';
+      }
 
 
     }, function errorCallback(response) {//needs handling
@@ -119,9 +123,30 @@ app.controller("verify_Client", function($scope,$window, $http) {
 })
 
 
+
+
+
+app.controller("login_facebook", function($scope,$window, $http) {
+  console.log("hi");
+  $scope.login_facebook= function(){
+
+    $http.post('/client/login/facebook').then(function successCallback(response){
+
+
+      console.log(response.data.success);
+    }, function errorCallback(response) {//needs handling
+
+      console.log(response.data.success);
+
+
+  })
+
+  }
+})
+
+
+
 app.controller("profile_client", function($scope,$window, $http) {
-
-
   var client = JSON.parse(localStorage.getItem("client"));
   var online1 = JSON.parse(localStorage.getItem("online"));
   console.log(client);
@@ -131,17 +156,16 @@ app.controller("profile_client", function($scope,$window, $http) {
 
 })
 
+
+
 app.controller("main", function($scope,$window, $http) {
-
-
-
-
   var online = JSON.parse(localStorage.getItem("online"));
   $scope.online=online;
-  console.log(online  );
-
-
+  console.log(online);
 })
+
+
+
 
 
 app.controller("edit_Client", function($scope,$window, $http) {
@@ -149,7 +173,7 @@ app.controller("edit_Client", function($scope,$window, $http) {
   $scope.editClient= function(regData){
     $http.post('/client/edit',regData).then(function successCallback(response){
 
-      var client=response.data.user;
+    var client=response.data.user;
     localStorage.setItem("client", JSON.stringify(client));
 
       console.log(response.data.success);

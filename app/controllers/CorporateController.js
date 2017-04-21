@@ -70,6 +70,7 @@ module.exports = {
   },
   SignUp: function (req, res) {
       var password = req.body.password;
+      var default_pic = "/images/profile_client.png";
       var salt = crypto.randomBytes(16).toString('hex');
       var hash = crypto.pbkdf2Sync(password, salt, 1000, 64, 'sha512').toString('hex');
       var corp = new Corporate();
@@ -80,6 +81,7 @@ module.exports = {
           corp.phone = req.body.phone;
           corp.address = req.body.address;
           corp.type =  req.body.type;
+          corp.profileimage =default_pic;
           corp.request = true;
           corp.Accepted = false;
       corp.save(function (err, corp) {
@@ -284,7 +286,8 @@ module.exports = {
           console.log(time_result)
           res.json({
             success: true,
-            message: 'New Announcment Created!'
+            message: 'New Announcment Created!',
+            user:corp
           })
         }
 

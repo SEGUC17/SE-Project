@@ -1,46 +1,137 @@
 <!DOCTYPE html>
 <html>
+<title></title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3.css">
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!-- Meta tag Keywords -->
+<!-- css files -->
+
+
+<script>
+    function myFunction(id) {
+        var x = document.getElementById(id);
+        if (x.className.indexOf("w3-show") == -1) {
+            x.className += " w3-show";
+            x.previousElementSibling.className += " w3-red";
+        } else {
+            x.className = x.className.replace(" w3-show", "");
+            x.previousElementSibling.className =
+                x.previousElementSibling.className.replace(" w3-red", "");
+        }
+    }
+</script>
+
+
+
+
+
+<!-- //js -->
+<script src="js/responsiveslides.min.js"></script>
+<script>
+    $(function () {
+        $("#slider").responsiveSlides({
+            auto: true,
+            pager:false,
+            nav: true,
+            speed: 1000,
+            namespace: "callbacks",
+            before: function () {
+                $('.events').append("<li>before event fired.</li>");
+            },
+            after: function () {
+                $('.events').append("<li>after event fired.</li>");
+            }
+        });
+    });
+</script>
+
+<script type="text/javascript" src="js/move-top.js"></script>
+<script type="text/javascript" src="js/easing.js"></script>
+<script type="text/javascript">
+    jQuery(document).ready(function($) {
+        $(".scroll").click(function(event){
+            event.preventDefault();
+            $('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+        });
+    });
+</script>
+
 <style>
-    body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
+	html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
+	.btn-file {
+		position: relative;
+		overflow: hidden;
+	}
+	.btn-file input[type=file] {
+		position: absolute;
+		top: 0;
+		right: 0;
+		min-width: 100%;
+		min-height: 100%;
+		font-size: 100px;
+		text-align: right;
+		filter: alpha(opacity=0);
+		opacity: 0;
+		outline: none;
+		background: white;
+		cursor: inherit;
+		display: block;
+	}
 </style>
-<body class="w3-light-grey w3-content" style="max-width:1600px" ng-controller = "Login_Client">
+<br><br><br>
+<body class="" >
 
 
-<!-- Sidebar/menu -->
-<nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidebar"><br>
-    <div class="w3-container">
-        <a href="#" onclick="w3_close()" class="w3-hide-large w3-right w3-jumbo w3-padding w3-hover-grey" title="close menu">
-            <i class="fa fa-remove"></i>
-        </a>
-        <img src="/images/profile_client.png" style="width:45%;" class="w3-round"><br><br>
-        <h4><b>{{client.username}}</b></h4>
-    </div>
-    <div class="w3-bar-block">
-        <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-padding w3-text-teal"><i class="fa fa-th-large fa-fw w3-margin-right"></i>{{client.firstName }}  {{client.lastName }}</a>
-        <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-user fa-fw w3-margin-right"></i>{{client.phone}}</a>
-        <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-user fa-fw w3-margin-right"></i>{{client.nationalID}}</a>
-        <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-envelope fa-fw w3-margin-right"></i>{{client.email}}</a>
-    </div>
-</nav>
 
-<!-- Overlay effect when opening sidebar on small screens -->
-<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
 
-<!-- !PAGE CONTENT! -->
-<div class="w3-main" style="margin-left:300px">
 
-<br>
+<div>
 
-    <!-- Contact Section -->
-    <div class="w3-container w3-padding-large w3-grey">
-        <h4 id="contact"><b>Edit Yor Account Info</b></h4>
 
-        <hr class="w3-opacity">
+</div>
+
+<!-- Page Container -->
+<div class="w3-content w3-margin-top" style="max-width:1400px;">
+
+	<!-- The Grid -->
+	<div class="w3-row-padding">
+		<!-- Left Column -->
+		<div class="w3-third">
+
+			<div class="w3-white w3-text-grey w3-card-4">
+				<div class="w3-display-container w3-center">
+					<img src="/images/profile_client.png" style="width:250px; height:240px;" alt="Avatar" class="w3-circle w3-center">
+					<br>
+					<div class="w3-display-bottomleft w3-container w3-text-black">
+					</div>
+				</div>
+				<br><br>
+				<div class="w3-container">
+					<p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i>Name : {{client.firstName }} {{client.lastName }}</p>
+					<p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i>Phone : {{client.phone}}</p>
+					<p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i>National ID : {{client.nationalID}}</p>
+					<p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i>Username : {{client.username}}</p>
+					<p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i>Email : {{client.email}}</p>
+					<hr>
+				</div>
+			</div><br>
+			<!-- End Left Column -->
+		</div>
+
+		<!-- Right Column -->
+		<div class="w3-twothird">
+
+
+
+
+			<div class="w3-container w3-card-2 w3-white w3-margin-bottom">
+				<h2 class="w3-text-grey w3-padding-16"><i class="fa fa-certificate fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Edit Your Information</h2>
+
         <form ng-submit= "editClient(regClient)" target="_blank" ng-controller = "edit_Client">
             <div class="w3-section">
                 <label>First Name</label>
@@ -72,25 +163,22 @@
             </div>
             <button type="submit" class="w3-button w3-black w3-margin-bottom"><i class="fa fa-paper-plane w3-margin-right"></i>Edit Info</button>
         </form>
+
+
     </div>
 
-    <!-- End page content -->
+
+
+			<!-- End Right Column -->
+		</div>
+
+		<!-- End Grid -->
+	</div>
+
+	<!-- End Page Container -->
 </div>
+<br><br><br><br>
 
-<br><br><br>
-
-<script>
-    // Script to open and close sidebar
-    function w3_open() {
-        document.getElementById("mySidebar").style.display = "block";
-        document.getElementById("myOverlay").style.display = "block";
-    }
-
-    function w3_close() {
-        document.getElementById("mySidebar").style.display = "none";
-        document.getElementById("myOverlay").style.display = "none";
-    }
-</script>
 
 </body>
 </html>

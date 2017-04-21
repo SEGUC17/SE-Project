@@ -39,7 +39,7 @@ app.controller("Login_Corporate", function($scope, $window,$http){
             var online=2;
             localStorage.setItem("corporate", JSON.stringify(corporate));
             localStorage.setItem("online", JSON.stringify(online));
-            $window.location.href = "/";
+            $window.location.href = "/profile_corporate";
           }
 
           console.log(response.data.success);
@@ -52,6 +52,40 @@ app.controller("Login_Corporate", function($scope, $window,$http){
        }
 
    });
+
+
+
+
+
+   app.controller("profile_corporate", function($scope,$window, $http) {
+     var corporate = JSON.parse(localStorage.getItem("corporate"));
+     var online1 = JSON.parse(localStorage.getItem("online"));
+     console.log(corporate);
+     console.log(online1);
+     $scope.corporate = corporate;
+    console.log(corporate.email);
+
+   })
+
+
+
+   app.controller("addannounce", function($scope,$window, $http) {
+     $scope.addannounce= function(regData){
+       $http.post('/corporate/new/announcment', regData).then(function successCallback(response){
+
+         var corporate=response.data.user;
+         localStorage.setItem("corporate", JSON.stringify(corporate));
+
+         $window.location.reload();
+
+       //  $window.location.reload();
+
+       }, function errorCallback(response) {//needs handling
+
+         console.log(response.data.success);
+     })
+     }
+   })
 
 
    app.controller("logout_Corporate", function($scope,$window, $http) {
@@ -73,4 +107,41 @@ app.controller("Login_Corporate", function($scope, $window,$http){
      })
 
      }
+   })
+
+
+   app.controller("addservice", function($scope,$window, $http) {
+     $scope.addservice= function(regData){
+       $http.post('/corporate/service/add', regData).then(function successCallback(response){
+
+         console.log(response.data.success);
+         $window.location.reload();
+
+       }, function errorCallback(response) {//needs handling
+
+         console.log(response.data.success);
+
+
+     })
+
+     }
+   })
+
+
+   app.controller("getCorporateServices", function($scope,$window, $http) {
+       console.log("hi");
+       $http.post('/corporate/services').then(function successCallback(response){
+
+         $scope.entertainement_services_corp=response.data.Entertainments;
+
+
+
+       }, function errorCallback(response) {//needs handling
+
+         console.log(response.data.success);
+
+
+     })
+
+
    })

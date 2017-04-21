@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+<title><%= student.name %> Portfolio</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3.css">
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!-- Meta tag Keywords -->
+<!-- css files -->
+
+
+<script>
+    function myFunction(id) {
+        var x = document.getElementById(id);
+        if (x.className.indexOf("w3-show") == -1) {
+            x.className += " w3-show";
+            x.previousElementSibling.className += " w3-red";
+        } else {
+            x.className = x.className.replace(" w3-show", "");
+            x.previousElementSibling.className =
+                x.previousElementSibling.className.replace(" w3-red", "");
+        }
+    }
+</script>
+
+
+
+
+<!-- //js -->
+<script src="js/responsiveslides.min.js"></script>
+<script>
+    $(function () {
+        $("#slider").responsiveSlides({
+            auto: true,
+            pager:false,
+            nav: true,
+            speed: 1000,
+            namespace: "callbacks",
+            before: function () {
+                $('.events').append("<li>before event fired.</li>");
+            },
+            after: function () {
+                $('.events').append("<li>after event fired.</li>");
+            }
+        });
+    });
+</script>
+
+<script type="text/javascript" src="js/move-top.js"></script>
+<script type="text/javascript" src="js/easing.js"></script>
+<script type="text/javascript">
+    jQuery(document).ready(function($) {
+        $(".scroll").click(function(event){
+            event.preventDefault();
+            $('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+        });
+    });
+</script>
+
+<style>
+	html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
+	.btn-file {
+		position: relative;
+		overflow: hidden;
+	}
+	.btn-file input[type=file] {
+		position: absolute;
+		top: 0;
+		right: 0;
+		min-width: 100%;
+		min-height: 100%;
+		font-size: 100px;
+		text-align: right;
+		filter: alpha(opacity=0);
+		opacity: 0;
+		outline: none;
+		background: white;
+		cursor: inherit;
+		display: block;
+	}
+</style>
+<body class="" >
+
+
+
+<br><br>
+
+<div>
+
+
+</div>
+
+<!-- Page Container -->
+<div class="w3-content w3-margin-top" style="max-width:1400px;">
+
+	<!-- The Grid -->
+	<div class="w3-row-padding">
+		<!-- Left Column -->
+		<div class="w3-third">
+
+			<div class="w3-white w3-text-grey w3-card-4">
+				<div class="w3-display-container w3-center">
+					<img src="{{corporate.profileimage}}" style="width:250px; height:240px;" alt="Avatar" class="w3-circle w3-center">
+					<br>
+					<div class="w3-display-bottomleft w3-container w3-text-black">
+					</div>
+				</div>
+				<br><br>
+				<div class="w3-container">
+					<p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i>Name : {{corporate.name}} </p>
+					<p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i>Phone : {{corporate.phone}}</p>
+					<p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i>Address : {{corporate.address}}</p>
+					<p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i>Type : {{corporate.type}}</p>
+					<p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i>Email : {{corporate.local.email}}</p>
+					<hr>
+				</div>
+			</div><br>
+
+
+
+      <div class="w3-container">
+
+
+        <h3>Update Profile Picture</h3>
+				<button onclick="myFunction('Demo4')" class="w3-btn-block w3-left-align">Change Avatar</button>
+				<div id="Demo4" class="w3-hide w3-container">
+					<h3 style="margin-bottom:40px;"></h3>
+					<form  enctype="multipart/form-data">
+						<input type="file" name="profileimage" accept="image/*">
+						<input type="text" name="student" class="w3-hide" value='<%= student%>'>
+						<input type="text" name="email" class="w3-hide" value='<%= student.email%>'>
+						<br>
+						<input type="submit" value="Change" name="submit" class="btn btn-default">
+						<br>
+					</form>
+				</div>
+<br><br>
+
+
+				<h3>Add a Service</h3>
+
+				<button onclick="myFunction('Demo1')" class="w3-btn-block w3-left-align">Add</button>
+				<div id="Demo1" class="w3-hide w3-container">
+          <div class="w3-container w3-card-2 w3-white w3-margin-bottom">
+            <form ng-submit= "addservice(regData)" target="_blank" ng-controller = "addservice">
+                <div class="w3-section">
+                    <label>Name</label>
+                    <div class="form-group w3layouts w3 w3l">
+                      <input name="name" type="text" class="form-control" id="firstName" placeholder="Name" data-error="Enter the Name" ng-model= "regData.name" required>
+                      <div class="help-block with-errors"></div>
+                    </div>
+                </div>
+                <div class="w3-section">
+                    <label>Type</label>
+                    <div class="form-group w3layouts w3 w3l">
+                      <input name="type" type="text" class="form-control" id="lastName" placeholder="Type" data-error="Enter the Type" ng-model= "regData.type" required>
+                      <div class="help-block with-errors"></div>
+                    </div>
+                </div>
+                <div class="w3-section">
+                    <label>Location</label>
+                    <div class="form-group agileinfo wthree w3-agileits agile">
+                      <input name="location" type="text" class="form-control" id="nationalID" placeholder="Location" data-error="Enter the location" ng-model= "regData.location" required>
+                      <div class="help-block with-errors"></div>
+                    </div>
+                </div>
+                <div class="w3-section">
+                    <label>Phone Number</label>
+                    <div class="form-group agileinfo wthree w3-agileits agile">
+                      <input name="phone" type="text" class="form-control" id="phone" placeholder="phone" data-error="Enter the phone" ng-model= "regData.phone" required>
+                      <div class="help-block with-errors"></div>
+                    </div>
+                </div>
+                <div class="w3-section">
+                    <label>Price</label>
+                    <div class="form-group agileinfo wthree w3-agileits agile">
+                      <input name="price" type="number" class="form-control" id="phone" placeholder="Price" data-error="Enter the Price" ng-model= "regData.price" required>
+                      <div class="help-block with-errors"></div>
+                    </div>
+                </div>
+                <button type="submit" class="w3-button w3-black w3-margin-bottom"><i class="fa fa-paper-plane w3-margin-right"></i>Add</button>
+            </form>
+
+
+        </div>
+          <br><br>
+				</div>
+
+			</div>
+			<!-- End Left Column -->
+		</div>
+
+
+
+		<!-- Right Column -->
+		<div class="w3-twothird">
+
+
+
+
+			<div class="w3-container w3-card-2 w3-white w3-margin-bottom">
+				<h2 class="w3-text-grey w3-padding-16"><i class="fa fa-certificate fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Announcements</h2>
+
+
+        <div ng-repeat ="x in corporate.announcments.time track by $index"   class="w3-container w3-card-2 w3-white w3-round w3-margin"><br>
+          <h5>{{x}}</h5>
+          <p>{{corporate.announcments.data[$index]}}</p>
+        </div>
+
+
+        <div class="w3-row-padding">
+          <div class="w3-col m12">
+            <div class="w3-card-2 w3-round w3-white">
+              <div class="w3-container w3-padding">
+
+                <form ng-submit= "addannounce(regData)" target="_blank" ng-controller = "addannounce">
+                <div class="w3-section">
+                    <div class="form-group w3layouts w3 w3l">
+                      <input name="userinput" type="text" class="form-control" id="lastName" placeholder="Add Announcement" data-error="Enter Your data" ng-model= "regData.userinput" required>
+                      <div class="help-block with-errors"></div>
+                    </div>
+                </div>
+                <button type="submit" class="w3-button w3-black w3-margin-bottom"><i class="fa fa-paper-plane w3-margin-right"></i>Add</button>
+              </form>
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+<br>
+
+    </div>
+
+
+
+
+
+
+
+
+
+		<div class="w3-container w3-card-2 w3-white	 w3-margin-bottom" ng-controller ="getCorporateServices">
+				<h2 class="w3-text-grey w3-padding-16"><i class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>My Services</h2>
+
+				<div class="w3-row-padding">
+<br>
+					<div ng-repeat="x in entertainement_services_corp track by $index" class="w3-third w3-container w3-margin-bottom">
+
+						<img src="/images/enter.png" class="w3-circle" style="width:120px; height: 100px; cursor: pointer;">
+            <br><br>
+            <p>Name :- {{x.name}}</p>
+            <p>Rating :- {{x.actualRating}}</p>
+
+					</div>
+
+				</div>
+			</div>
+
+
+
+			<!-- End Right Column -->
+		</div>
+
+		<!-- End Grid -->
+	</div>
+
+	<!-- End Page Container -->
+</div>
+<br><br>
+
+
+</body>
+</html>
