@@ -89,13 +89,15 @@ router.post('/corporate/service/add', corporateController.addService);
 
 router.post('/corporate/service/remove',corporateController.removeService);
 
-router.post('/corporate/service/price', corporateController.editServicePrice);
+// router.post('/corporate/service/price', corporateController.editServicePrice);
+//
+// router.post('/corporate/service/phone', corporateController.editServicePhone);
+//
+// router.post('/corporate/service/location', corporateController.editServiceLocation);
+//
+// router.post('/corporate/service/name',corporateController.editServiceName);
 
-router.post('/corporate/service/phone', corporateController.editServicePhone);
-
-router.post('/corporate/service/location', corporateController.editServiceLocation);
-
-router.post('/corporate/service/name',corporateController.editServiceName);
+router.post('/corporate/service/edit',corporateController.editService);
 
 router.post('/corporate/services', corporateController.getCorporationServices);
 

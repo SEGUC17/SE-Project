@@ -356,108 +356,41 @@ module.exports = {
             }
         })
     },
-    editServiceName: function (req, res) { //edit le 7aga tania
-        var collection = Entertainment.findOne({_id: req.body.id}, function (err, success) {
-            if (err)
-                console.log(err);
-            else {
-                if (success) {
-                    success.name = req.body.name1;
-                    success.save(function (err, success) {
-                        if (err)
-                            console.log(err);
-                        else {
-                            Entertainment.find({_id: req.body.id}, function (err, Entertainments) {
-                                //      res.render('edit',{Entertainments});
-                                res.json({success: true, Entertainments: Entertainments});
-                            })
-                        }
-                    })
 
-                }
-                else {
-                    res.json({success: false, error: "Failed to find service"})
-                }
-            }
-
+    editService: function(req, res, next) {
+      var phone = req.body.phone;
+      var price = req.body.price;
+      var location = req.body.location;
+      var name = req.body.name;
+      if (name && price && location && phone) {
+        //Find the associated client
+        Entertainment.findOne({_id:req.body.id}, function(err, service) {
+          if (err) {
+            console.log(err)
+            res.json({success: false, error: "An unexpected error has occured"})
+          }
+          else if(service) {
+            //Update the client's info and save it to the db
+            service.name = name
+            service.location = location
+            service.phone = phone
+            service.price = price
+            service.save(function(err) {
+              if (err) {
+                res.json({success: false, error: "An unexpected error has occuredzz"})
+              }
+              else {
+                res.json({success: true, Entertainments: service})
+              }
+            })
+          }
         })
+      }
+      else {
+        res.json({success: false, error: "Incomplete information received"})
+      }
+
     },
-    editServiceLocation: function (req, res) {//edit le7aga tania
-        var collection = Entertainment.findOne({_id: req.body.id}, function (err, success) {
-            if (err)
-                console.log(err);
-            else {
-                if (success) {
-                    success.location = req.body.location;
-                    success.save(function (err, success) {
-                        if (err)
-                            console.log(err);
-                        else {
-                            Entertainment.find({_id: req.body.id}, function (err, Entertainments) {
-                                //     res.render('edit',{Entertainments});
-                                res.json({success: true, Entertainments: Entertainments});
-                            })
-                        }
-                    })
 
-                }
-                else {
-                    res.json({success: false, error: "Failed to find service"})
-                }
-            }
 
-        })
-    },
-    editServicePhone: function (req, res) {//edit le7aga rab3a
-        var collection = Entertainment.findOne({_id: req.body.id}, function (err, success) {
-            if (err)
-                console.log(err);
-            else {
-                if (success) {
-                    success.phone = req.body.phone;
-                    success.save(function (err, success) {
-                        if (err)
-                            console.log(err);
-                        else {
-                            Entertainment.find({_id: req.body.id}, function (err, Entertainments) {
-                                //   res.render('edit',{Entertainments});
-                                res.json({success: true, Entertainments: Entertainments});
-                            })
-                        }
-                    })
-
-                }
-                else {
-                    res.json({success: false, error: "Failed to find service"})
-                }
-            }
-
-        })
-    },
-    editServicePrice: function (req, res) { //edit le7aga sata
-        var collection = Entertainment.findOne({_id: req.body.id}, function (err, success) {
-            if (err)
-                console.log(err);
-            else {
-                if (success) {
-                    success.price = req.body.price;
-                    success.save(function (err, success) {
-                        if (err)
-                            console.log(err);
-                        else {
-                            Entertainment.find({email: req.body.id}, function (err, Entertainments) {
-                                //  res.render('edit',{Entertainments});
-                                res.json({success: true, Entertainments: Entertainments});
-                            })
-                        }
-                    })
-
-                }
-                else {
-                    res.json({success: false, error: "Failed to find service"})
-                }
-            }
-
-        })
-    },
 }

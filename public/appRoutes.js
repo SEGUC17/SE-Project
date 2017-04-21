@@ -21,7 +21,7 @@ $routeProvider
 
     .when('/services', {
         templateUrl: 'views/entertainement_services.html',
-        controller : ''
+        controller : 'getservices'
     })
 
     .when('/register_corporate', {
@@ -37,6 +37,16 @@ $routeProvider
     .when('/entertainement_service', {
         templateUrl: 'views/entertainement_service.html',
         controller : 'service_corporate'
+    })
+
+    .when('/entertainement_service_client', {
+        templateUrl: 'views/entertainement_service_client.html',
+        controller : 'serviceprofile'
+    })
+
+    .when('/entertainement_service_visitor', {
+        templateUrl: 'views/entertainement_service_visitor.html',
+        controller : 'serviceprofile'
     })
 
 
@@ -63,6 +73,16 @@ $routeProvider
     .when('/Admin_Views_CorporateRequests', {
         templateUrl: 'views/admin_Corporate_requests.html',
         controller : 'AORCorp'
+    })
+
+    .when('/corporates', {
+        templateUrl: 'views/corporates.html',
+        controller : 'getcorporates'
+    })
+
+    .when('/profile_corporate_any', {
+        templateUrl: 'views/profile_corporate_any.html',
+        controller : 'corporateprofile'
     })
 
 

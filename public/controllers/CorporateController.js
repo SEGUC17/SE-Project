@@ -203,3 +203,55 @@ app.controller("Login_Corporate", function($scope, $window,$http){
      console.log(service_corp);
      $scope.service_corp = service_corp;
    })
+
+
+
+   app.controller("reportreview", function($scope,$window, $http) {
+     $scope.reportreview= function(regData){
+       $http({
+         method: 'POST',
+         url: '/corporate/reportReview',
+         data: "reviewID=" + regData._id,
+         headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+     }).then(function successCallback(response){
+         $window.location.reload();
+
+       }, function errorCallback(response) {//needs handling
+
+         console.log(response.data.success);
+
+
+     })
+
+     }
+   })
+
+
+
+
+
+
+   app.controller("editservice", function($scope,$window, $http) {
+     console.log("hi");
+     $scope.editservice= function(regData){
+
+       var service_corp = JSON.parse(localStorage.getItem("service_corp"));
+
+       regData.id = service_corp._id;
+
+
+       $http.post('/corporate/service/edit', regData).then(function successCallback(response){
+
+         var service_corp = response.data.Entertainments;
+        localStorage.setItem("service_corp", JSON.stringify(service_corp));
+        $window.location.reload();
+
+       }, function errorCallback(response) {//needs handling
+
+         console.log(response.data.success);
+
+
+     })
+
+     }
+   })

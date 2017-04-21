@@ -41,7 +41,7 @@ app.controller("Login_Client", function($scope,$window, $http) {
         localStorage.setItem("online", JSON.stringify(online));
 
 
-        $window.location.href = "/profile_client"}
+        $window.location.href = "/"}
     }, function errorCallback(response) {//needs handling
 
       console.log(response.data.success);
@@ -177,6 +177,169 @@ app.controller("edit_Client", function($scope,$window, $http) {
     localStorage.setItem("client", JSON.stringify(client));
 
       console.log(response.data.success);
+      $window.location.reload();
+
+    }, function errorCallback(response) {//needs handling
+
+      console.log(response.data.success);
+
+
+  })
+
+  }
+})
+
+
+
+
+app.controller("getcorporates", function($scope,$window, $http) {
+
+  $http.post('/client/corporates').then(function successCallback(response){
+
+    $scope.corporates = response.data.corp;
+
+  }, function errorCallback(response) {//needs handling
+    console.log(response.data.success);
+})
+
+
+})
+
+
+
+app.controller("getcorporate", function($scope,$window, $http) {
+  $scope.service;
+  $scope.getcorporate= function(regData){
+    $http({
+      method: 'POST',
+      url: '/client/corporate',
+      data: "_id=" + regData._id,
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+  }).then(function successCallback(response){
+
+    var corporate=response.data.corporate;
+    console.log(corporate);
+    localStorage.setItem("corporate_any", JSON.stringify(corporate));
+
+
+        $window.location.href = "/profile_corporate_any";
+
+
+    }, function errorCallback(response) {//needs handling
+
+      console.log(response.data.success);
+
+
+  })
+
+  }
+})
+
+
+app.controller("corporateprofile", function($scope,$window, $http) {
+  var corporate = JSON.parse(localStorage.getItem("corporate_any"));
+  console.log(corporate);
+  $scope.corporatet = corporate;
+})
+
+
+
+
+
+
+app.controller("getservices", function($scope,$window, $http) {
+
+  $http.post('/client/services').then(function successCallback(response){
+
+    $scope.services = response.data.Entertainments;
+
+  }, function errorCallback(response) {//needs handling
+    console.log(response.data.success);
+})
+
+
+})
+
+
+
+
+
+app.controller("getservice", function($scope,$window, $http) {
+  $scope.service;
+  $scope.getservice= function(regData){
+    $http({
+      method: 'POST',
+      url: '/client/service',
+      data: "id=" + regData._id,
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+  }).then(function successCallback(response){
+
+    var service=response.data.Entertainments;
+    console.log(service);
+    localStorage.setItem("service_any", JSON.stringify(service));
+
+    var online = JSON.parse(localStorage.getItem("online"));
+
+    if(online==1){
+      $window.location.href = "/entertainement_service_client";
+    }
+    else{
+      $window.location.href = "/entertainement_service_visitor";
+    }
+
+
+    }, function errorCallback(response) {//needs handling
+
+      console.log(response.data.success);
+
+
+  })
+
+  }
+})
+
+
+app.controller("serviceprofile", function($scope,$window, $http) {
+  var service = JSON.parse(localStorage.getItem("service_any"));
+  console.log(service);
+  $scope.service = service;
+})
+
+
+app.controller("add_rating", function($scope,$window, $http) {
+  $scope.addrating= function(regData){
+    var service = JSON.parse(localStorage.getItem("service_any"));
+    regData.id=service._id;
+    console.log(service._id);
+    $http.post('/client/service/rate', regData).then(function successCallback(response){
+
+      console.log(response.data.success);
+      $window.location.reload();
+
+    }, function errorCallback(response) {//needs handling
+
+      console.log(response.data.success);
+
+
+  })
+
+  }
+})
+
+
+
+app.controller("add_review", function($scope,$window, $http) {
+  $scope.addreview= function(regData){
+    var service = JSON.parse(localStorage.getItem("service_any"));
+    regData.entertainment=service._id;
+    console.log(service._id);
+    $http.post('/client/review', regData).then(function successCallback(response){
+      console.log(response.data.success);
+
+      service.reviews.push(regData.text);
+
+      localStorage.setItem("service_any", JSON.stringify(service));
+
       $window.location.reload();
 
     }, function errorCallback(response) {//needs handling

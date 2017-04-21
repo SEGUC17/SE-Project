@@ -48,39 +48,22 @@
 <div class="w3-content" style="max-width:1532px;">
 
   <div class="w3-container w3-margin-top" id="rooms">
-    <h3>Entertainment Services</h3>
-    <p>Book Entertainment at home is our slogan. We offer the best services in the for our lovely clients.</p>
+    <h3>Corporates</h3>
+    <p>Here are our Coroporate partners</p>
   </div>
 
-  <div class="w3-row-padding">
-    <div class="w3-col m2">
-      <label><i class="fa fa-male"></i>Field</label>
-      <input class="w3-input w3-border" type="text" placeholder="Search">
-    </div>
 
-
-    <div class="w3-col m2">
-      <label><i class="fa fa-search"></i> Search</label>
-      <button class="w3-button w3-block w3-black">Search</button>
-    </div>
-  </div>
 
   <div class="w3-row-padding w3-padding-16">
 
-<br><br>
 
-
-    <div ng-repeat ="(i,x) in services track by $index" class="w3-quarter w3-margin-bottom">
-
-      <button ng-controller="getservice" ng-click="getservice(services[i])" <img src="/images/enter.png" class="" style="width:200px;  cursor: pointer;"> </button>
-
-      <div class="w3-container ">
+    <div ng-repeat="(i,x) in corporates track by $index" ng-controller="getcorporates" class="w3-third w3-margin-bottom">
+      <button ng-controller="getcorporate" ng-click="getcorporate(corporates[i])" <img src="/images/enter.png" class="w3-circle" style="width:120px; height: 200px; cursor: pointer;"> </button>
+      <div class="w3-container w3-white">
         <h3>{{x.name}}</h3>
-        <h3>{{x.actualRating}}</h3>
-        <br>
+
       </div>
     </div>
-
 
 
   </div>

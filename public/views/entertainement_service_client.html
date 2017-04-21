@@ -40,8 +40,8 @@ function carousel() {
 								<li>
 
 									<div class="banner_text">
-										<h3>{{service_corp.name}}</h3>
-                    <h3>{{service_corp.actualRating}}</h3>
+										<h3>{{service.name}}</h3>
+                    <h3>{{service.actualRating}}</h3>
                     <span style="font-size:300%;color:yellow;">&starf;</span><span style="font-size:300%;color:yellow;">&starf;</span><span style="font-size:300%;color:yellow;">&starf;</span><span style="font-size:300%;color:yellow;">&starf;</span><span style="font-size:300%;color:yellow;">&starf;</span>
 										<div class="w3-button">
 
@@ -94,47 +94,26 @@ function carousel() {
          <h4 class="w3-center">{{service_corp.name}}</h4>
          <p class="w3-center"><img src="/images/enter.png" class="w3-circle" style="width:200px" alt="Avatar"></p>
          <hr>
-         <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i>Location :- {{service_corp.location}}</p>
-         <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i>{{service_corp.email}}</p>
-         <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i>Rating :- {{service_corp.actualRating}}</p>
-         <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i>Phone :- {{service_corp.phone}}</p>
-         <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i>Price :- {{service_corp.price}}</p>
-         <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i>Type :- {{service_corp.type}}</p>
+         <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i>Location :- {{service.location}}</p>
+         <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i>{{service.email}}</p>
+         <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i>Rating :- {{service.actualRating}}</p>
+         <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i>Phone :- {{service.phone}}</p>
+         <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i>Price :- {{service.price}}</p>
+         <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i>Type :- {{service.type}}</p>
         </div>
       </div>
       <br>
 
-      <!-- Accordion -->
+
       <div class="w3-card-2 w3-round">
         <div class="w3-white">
-          <button onclick="myFunction('Demo1')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-circle-o-notch fa-fw w3-margin-right"></i>Edit Service</button>
-          <div id="Demo1" class="w3-hide w3-container">
-            <form ng-submit= "editservice(regData)" target="_blank" ng-controller = "editservice">
+          <button onclick="myFunction('Demo3')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-circle-o-notch fa-fw w3-margin-right"></i>Rate Service</button>
+          <div id="Demo3" class="w3-hide w3-container">
+            <form ng-submit= "addrating(regData)" target="_blank" ng-controller = "add_rating">
                 <div class="w3-section">
-                    <label>Name</label>
-                    <div class="form-group w3layouts w3 w3l">
-                      <input name="name" type="text" class="form-control" id="firstName" placeholder="Name" data-error="Enter the Name" ng-model= "regData.name" required>
-                      <div class="help-block with-errors"></div>
-                    </div>
-                </div>
-                <div class="w3-section">
-                    <label>Location</label>
+                    <label>Rating</label>
                     <div class="form-group agileinfo wthree w3-agileits agile">
-                      <input name="location" type="text" class="form-control" id="nationalID" placeholder="Location" data-error="Enter the location" ng-model= "regData.location" required>
-                      <div class="help-block with-errors"></div>
-                    </div>
-                </div>
-                <div class="w3-section">
-                    <label>Phone Number</label>
-                    <div class="form-group agileinfo wthree w3-agileits agile">
-                      <input name="phone" type="text" class="form-control" id="phone" placeholder="phone" data-error="Enter the phone" ng-model= "regData.phone" required>
-                      <div class="help-block with-errors"></div>
-                    </div>
-                </div>
-                <div class="w3-section">
-                    <label>Price</label>
-                    <div class="form-group agileinfo wthree w3-agileits agile">
-                      <input name="price" type="number" class="form-control" id="phone" placeholder="{{service_corp._id}}" data-error="Enter the Price" ng-model= "regData.price" required>
+                      <input name="rating" type="number" min="1" max="10" class="form-control" id="rating" placeholder="Rating" data-error="Enter the Rating" ng-model= "regData.rating" required>
                       <div class="help-block with-errors"></div>
                     </div>
                 </div>
@@ -145,36 +124,14 @@ function carousel() {
       </div>
       <br>
 
+
       <div class="w3-card-2 w3-round">
         <div class="w3-white">
-          <button onclick="myFunction('Demo2')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-circle-o-notch fa-fw w3-margin-right"></i>Add Image</button>
+          <button onclick="myFunction('Demo2')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-circle-o-notch fa-fw w3-margin-right"></i>Book Service</button>
           <div id="Demo2" class="w3-hide w3-container">
-            <form  enctype="multipart/form-data">
-              <input type="file" name="profileimage" accept="image/*">
-              <input type="text" name="student" class="w3-hide" value='<%= student%>'>
-              <input type="text" name="email" class="w3-hide" value='<%= student.email%>'>
-              <br>
-              <input type="submit" value="Change" name="submit" class="btn btn-default">
-              <br>
-            </form>
-          </div>
-        </div>
-      </div>
 
-      <br>
+Booking
 
-      <div class="w3-card-2 w3-round">
-        <div class="w3-white">
-          <button onclick="myFunction('Demo3')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-circle-o-notch fa-fw w3-margin-right"></i>Add Video</button>
-          <div id="Demo3" class="w3-hide w3-container">
-            <form  enctype="multipart/form-data">
-              <input type="file" name="profileimage" accept="image/*">
-              <input type="text" name="student" class="w3-hide" value='<%= student%>'>
-              <input type="text" name="email" class="w3-hide" value='<%= student.email%>'>
-              <br>
-              <input type="submit" value="Add" name="submit" class="btn btn-default">
-              <br>
-            </form>
           </div>
         </div>
       </div>
@@ -210,17 +167,32 @@ function carousel() {
 
 
 
-  <div class="w3-container w3-card-2 w3-white w3-round w3-margin"><br>
-    <h2>Reviews</h2>
-    <div ng-repeat="(i,x) in service_corp.reviews track by $index" >
-    <p> {{x.text}}</p>
-    <button ng-controller="reportreview" ng-click="reportreview(regData)" type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa "></i>Report</button>
-
-    <br><br>
-  </div>
-</div>
+      <div class="w3-container w3-card-2 w3-white w3-round w3-margin"><br>
+        <h2>Reviews</h2>
+        <div ng-repeat="x in service.reviews" >
+        <p> {{x.text}}</p>
+        <br><br>
+      </div>
+    </div>
 
 
+      <div class="w3-row-padding">
+        <div class="w3-col m12">
+          <div class="w3-card-2 w3-round w3-white">
+            <div class="w3-container w3-padding">
+              <form ng-submit= "addreview(regData)" target="_blank" ng-controller = "add_review">
+              <div class="w3-section">
+                  <div class="form-group w3layouts w3 w3l">
+                    <input name="text" type="text" class="form-control" id="text" placeholder="Review" data-error="Enter Your Review" ng-model= "regData.text" required>
+                    <div class="help-block with-errors"></div>
+                  </div>
+              </div>
+              <button type="submit" class="w3-button w3-black w3-margin-bottom"><i class="fa fa-paper-plane w3-margin-right"></i>Post</button>
+            </form>
+            </div>
+          </div>
+        </div>
+      </div>
 
 
     <!-- End Middle Column -->

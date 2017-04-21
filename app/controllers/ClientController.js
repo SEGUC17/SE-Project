@@ -216,7 +216,8 @@ module.exports = {
               return res.json({success: false, error: "Failed to add a new review"})
             }
             //Add it to the service's reviews array
-            service.reviews.push(review._id)
+            service.reviews.push(review)
+            console.log(review);
             service.save(function(err) {
               if (err) {
                 console.log(err)
@@ -313,7 +314,7 @@ module.exports = {
       })
   },
   getCorporate: function(req, res){
-    corporate.find({ _id: req.body._id} ,function(err, corporate){
+    corporate.findOne({ _id: req.body._id} ,function(err, corporate){
       if(err)
         res.json({success: false, error: "unexpected error, corporate not found"}) //res.send(err.message);
       else
