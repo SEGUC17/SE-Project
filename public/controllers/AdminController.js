@@ -37,8 +37,15 @@ app.controller("AORCorp", function($scope,$window, $http) { // admin accept or r
     })
     }
 
-    $http.get("/admin/requests").success(function(response){
-      $scope.data = response.corporations;
+    $http.post("/admin/requests").then(function successCallback(response){
+        var y = response.data.corporations;
+        console.log(y);
+        $scope.data = y;
+      }, function errorCallback(response) {//needs handling
+
+        console.log(response.data.success);
+
+
     })
 
 

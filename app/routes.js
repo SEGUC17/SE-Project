@@ -45,7 +45,7 @@ router.post('/client/service/rate', clientController.checkAuthentication, client
 //Administrator Routes
 router.post('/admin/login', adminController.login)
 
-router.get('/admin/requests', adminController.checkAuthentication, adminController.getNewCorporateRequests);
+router.post('/admin/requests', adminController.checkAuthentication, adminController.getNewCorporateRequests);
 
 router.post('/admin/accept', adminController.checkAuthentication, adminController.acceptCorporate);
 

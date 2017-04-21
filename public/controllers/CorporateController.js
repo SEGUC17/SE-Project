@@ -145,3 +145,24 @@ app.controller("Login_Corporate", function($scope, $window,$http){
 
 
    })
+
+
+   app.controller("removeservice", function($scope,$window, $http) {
+     $scope.removeservice= function(regData){
+       $http({
+         method: 'POST',
+         url: '/corporate/service/remove',
+         data: "id=" + regData._id,
+         headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+     }).then(function successCallback(response){
+         $window.location.reload();
+
+       }, function errorCallback(response) {//needs handling
+
+         console.log(response.data.success);
+
+
+     })
+
+     }
+   })

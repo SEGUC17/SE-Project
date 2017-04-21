@@ -60,6 +60,12 @@ $routeProvider
         controller : 'profile_corporate'
     })
 
+    .when('/Admin_Views_CorporateRequests', {
+        templateUrl: 'views/admin_Corporate_requests.html',
+        controller : 'AORCorp'
+    })
+
+
 
 $locationProvider.html5Mode(true);
 
