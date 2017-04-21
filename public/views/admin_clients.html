@@ -1,0 +1,16 @@
+//admin can view clients and remove them (NEEDS A TEMPLATE)
+
+<div  ng-controller="adminClients">
+<form ng-repeat="(i,x) in data" >
+  <p> FirstName: {{x.firstName}}</p>
+  <p>  LastName: {{x.lastName}} </p>
+  <p>  Email: {{x.local.email}} </p>
+  <p>  Phone: {{x.phone}} </p>
+  <p>  NationalID: {{x.nationalID}} </p>
+<button type= "submit" ng-click = "remove(data[i]._id)">Remove</button>
+</form>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+<script src = "controllers/AdminController.js"></script>
+
+</div>
