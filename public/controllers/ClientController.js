@@ -313,6 +313,8 @@ app.controller("add_rating", function($scope,$window, $http) {
     console.log(service._id);
     $http.post('/client/service/rate', regData).then(function successCallback(response){
 
+
+      localStorage.setItem("service_any", JSON.stringify(response.data.Entertainments));
       console.log(response.data.success);
       $window.location.reload();
 
@@ -336,9 +338,10 @@ app.controller("add_review", function($scope,$window, $http) {
     $http.post('/client/review', regData).then(function successCallback(response){
       console.log(response.data.success);
 
-      service.reviews.push(regData.text);
+      localStorage.setItem("service_any", JSON.stringify(response.data.service));
 
-      localStorage.setItem("service_any", JSON.stringify(service));
+
+
 
       $window.location.reload();
 
@@ -351,3 +354,45 @@ app.controller("add_review", function($scope,$window, $http) {
 
   }
 })
+
+
+
+app.controller('searchCtrl', function($http,$scope,$window){
+
+  $scope.items;
+
+  $scope.search= function(searchData){
+    $http.post('/search',searchData).then(function successCallback(response){
+      console.log(searchData);
+      console.log(response.data.fail);
+
+  if(response.data.fail==null){
+    localStorage.setItem("searched", JSON.stringify(response.data.items));
+    console.log(searchData);
+    console.log(response.data.fail);
+    $window.location.href="/services_search";
+  }
+  else{
+    if(response.data.fail ==0){
+      alert("Please specify a criteria");
+    }
+    else{
+      alert("Please Fill the empty blanks");
+    }
+  }
+
+
+
+
+    }, function errorCallback(response){
+    console.log(response.data.success);
+    })
+  }
+});
+
+
+
+app.controller('viewSearch', function($http,$scope,$window){
+  var items = JSON.parse(localStorage.getItem("searched"));
+  $scope.items=items;
+});

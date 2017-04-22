@@ -20,7 +20,7 @@ var entertainmentSchema = mongoose.Schema({
     videos:[String],
     rating:[Number],
     actualRating:{type: Number, default: 0},
-    reviews: [{type: String, ref: 'Review'}]
+    reviews: [{type: mongoose.Schema.Types.Object, ref: 'Review'}]
 })
 
 var Entertainment = mongoose.model("entertainment", entertainmentSchema);

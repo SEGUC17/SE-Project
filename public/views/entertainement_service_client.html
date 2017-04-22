@@ -12,19 +12,22 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
 </style>
 
 <script>
-var myIndex = 0;
-carousel();
+var slideIndex = 1;
+showDivs(slideIndex);
 
-function carousel() {
-    var i;
-    var x = document.getElementsByClassName("mySlides");
-    for (i = 0; i < x.length; i++) {
-       x[i].style.display = "none";
-    }
-    myIndex++;
-    if (myIndex > x.length) {myIndex = 1}
-    x[myIndex-1].style.display = "block";
-    setTimeout(carousel, 2000); // Change image every 2 seconds
+function plusDivs(n) {
+  showDivs(slideIndex += n);
+}
+
+function showDivs(n) {
+  var i;
+  var x = document.getElementsByClassName("mySlides");
+  if (n > x.length) {slideIndex = 1}
+  if (n < 1) {slideIndex = x.length}
+  for (i = 0; i < x.length; i++) {
+     x[i].style.display = "none";
+  }
+  x[slideIndex-1].style.display = "block";
 }
 </script>
 <body class="w3-theme-l5" >
@@ -150,11 +153,13 @@ Booking
 
         <h2>Images</h2>
 
-    <div class="w3-content w3-section" style="max-width:500px">
-      <img class="mySlides" src="images/banner.jpg" style="width:500px">
-      <img class="mySlides" src="images/1.jpg" style="width:100%">
-      <img class="mySlides" src="images/banner.jpg" style="width:100%">
+        <div class="w3-content w3-display-container"><br><br><br><br><br>
+          <div ng-repeat ="(i,x) in service.images" >
+      <img class="mySlides" src="{{x}}" style="width:100%">
     </div>
+        <button class="w3-button w3-black w3-display-left" onclick="plusDivs(-1)">&#10094;</button>
+        <button class="w3-button w3-black w3-display-right" onclick="plusDivs(1)">&#10095;</button>
+      </div>
 
 
     </div>
@@ -169,10 +174,12 @@ Booking
 
       <div class="w3-container w3-card-2 w3-white w3-round w3-margin"><br>
         <h2>Reviews</h2>
-        <div ng-repeat="x in service.reviews" >
-        <p> {{x.text}}</p>
-        <br><br>
-      </div>
+        <br>
+
+        <div ng-repeat ="x in service.reviews track by $index"   class="w3-container w3-card-2 w3-white w3-round w3-margin"><br>
+          <p> {{x.text}}</p>
+        </div>
+
     </div>
 
 

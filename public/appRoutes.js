@@ -24,6 +24,11 @@ $routeProvider
         controller : 'getservices'
     })
 
+    .when('/services_search', {
+        templateUrl: 'views/entertainement_services_search.html',
+        controller : 'viewSearch'
+    })
+
     .when('/register_corporate', {
         templateUrl: 'views/register_corporate.html',
         controller : ''

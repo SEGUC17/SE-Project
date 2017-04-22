@@ -223,7 +223,7 @@ module.exports = {
                 console.log(err)
                 return res.json({success: false, error: "An unexpected error occured while saving the review"})
               }
-              res.json({success: true})
+              res.json({success: true, service : service})
             })
           })
 

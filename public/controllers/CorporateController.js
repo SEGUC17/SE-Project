@@ -39,7 +39,7 @@ app.controller("Login_Corporate", function($scope, $window,$http){
             var online=2;
             localStorage.setItem("corporate", JSON.stringify(corporate));
             localStorage.setItem("online", JSON.stringify(online));
-            $window.location.href = "/profile_corporate";
+            $window.location.href = "/";
           }
 
           console.log(response.data.success);
@@ -206,25 +206,34 @@ app.controller("Login_Corporate", function($scope, $window,$http){
 
 
 
-   app.controller("reportreview", function($scope,$window, $http) {
-     $scope.reportreview= function(regData){
-       $http({
-         method: 'POST',
-         url: '/corporate/reportReview',
-         data: "reviewID=" + regData._id,
-         headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-     }).then(function successCallback(response){
-         $window.location.reload();
-
-       }, function errorCallback(response) {//needs handling
-
-         console.log(response.data.success);
-
-
-     })
-
-     }
-   })
+  //  app.controller("reportreview", function($scope,$window, $http) {
+  //    $scope.reportreview= function(regData){
+   //
+  //   var service_corp = JSON.parse(localStorage.getItem("service_corp"));
+  //   var info;
+  //   info.id=service_corp._id;
+  //   info.reviewID=regData;
+  //   console.log(info);
+   //
+  //      $http({
+  //        method: 'POST',
+  //        url: '/corporate/reportReview',
+  //        data: info,
+  //        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+  //    }).then(function successCallback(response){
+  //       //  $window.location.reload();
+  //       console.log(regData);
+  //       console.log(response.data.success);
+  //       console.log(response.data.error);
+  //      }, function errorCallback(response) {//needs handling
+   //
+  //        console.log(response.data.success);
+   //
+   //
+  //    })
+   //
+  //    }
+  //  })
 
 
 

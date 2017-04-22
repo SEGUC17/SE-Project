@@ -55,8 +55,11 @@
   <div class="w3-row-padding">
     <div class="w3-col m2">
       <label><i class="fa fa-male"></i>Keyword</label>
-      <input class="w3-input w3-border" ng-model="searchData.search" type="text" placeholder="Search">
+      <input class="w3-input w3-border" ng-model="searchData.search" type="text" placeholder="Search" required>
     </div>
+
+
+
 
 
 
@@ -82,9 +85,9 @@
 
 <br><br>
 
-    <div ng-repeat ="(i,x) in services track by $index" class="w3-quarter w3-margin-bottom">
+    <div ng-repeat ="(i,x) in items track by $index" class="w3-quarter w3-margin-bottom">
 
-      <a ng-controller="getservice" ng-click="getservice(services[i])"</a> <img src="/images/enter.png" class="" style="width:200px;  cursor: pointer;"></a>
+      <a ng-controller="getservice" ng-click="getservice(items[i])"</a> <img src="/images/enter.png" class="" style="width:200px;  cursor: pointer;"></a>
 
       <div class="w3-container ">
         <h3>{{x.name}}</h3>

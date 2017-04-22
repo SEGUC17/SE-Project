@@ -48,7 +48,6 @@ module.exports = {
   },
   reportReview: function(req, res, next) {
     var reviewID = req.body.reviewID
-    if (reviewID) {
       Review.findOne({_id: reviewID}, function(err, review) {
         if (err) {
           res.json({success: false, error: "An unexpected error occured while retrieving the review"})
@@ -65,8 +64,7 @@ module.exports = {
           })
         }
       })
-    }
-    return res.json({success: false, error: "Invalid review ID received"})
+
   },
   SignUp: function (req, res) {
       var password = req.body.password;

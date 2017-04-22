@@ -250,7 +250,7 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 <br>
 					<div ng-repeat="(i,x) in entertainement_services_corp track by $index" class="w3-third w3-container w3-margin-bottom">
 
-				<button ng-controller="getCorpService" ng-click="getCorpService(entertainement_services_corp[i])" <img src="/images/enter.png" class="w3-circle" style="width:120px; height: 100px; cursor: pointer;"> </button>
+            <a ng-controller="getCorpService" ng-click="getCorpService(entertainement_services_corp[i])" </a> <img src="/images/enter.png" class="w3-circle" style="width:120px; height: 100px; cursor: pointer;"></a>
             <br><br>
             <p>Name :- {{x.name}}</p>
             <p>Rating :- {{x.actualRating}}</p>
