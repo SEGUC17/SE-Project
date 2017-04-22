@@ -58,7 +58,7 @@
 
 
     <div ng-repeat="(i,x) in corporates track by $index" ng-controller="getcorporates" class="w3-third w3-margin-bottom">
-      <button ng-controller="getcorporate" ng-click="getcorporate(corporates[i])" <img src="/images/enter.png" class="w3-circle" style="width:120px; height: 200px; cursor: pointer;"> </button>
+      <a ng-controller="getcorporate" ng-click="getcorporate(corporates[i])"</a> <img src="{{x.profileimage}}" class="" style="width:200px;  cursor: pointer;"></a>
       <div class="w3-container w3-white">
         <h3>{{x.name}}</h3>
 

@@ -157,7 +157,7 @@ module.exports = function(passport) {
                         next({success:false,error:"This name already exists!"})
                     }else{
                         console.log("alreadyhere");
-
+                        var default_pic = "/images/profile_client.png";
                         var salt = crypto.randomBytes(16).toString('hex');
                         var hash = crypto.pbkdf2Sync(password, salt, 1000, 64, 'sha512').toString('hex');
                         var corp = new corporate();
@@ -168,6 +168,7 @@ module.exports = function(passport) {
                         corp.type = req.body.type;
                         corp.request = true;
                         corp.Accepted = false;
+                        corp.profileimage =default_pic;
                         corp.local.salt = salt;
                         corp.local.hash = hash;
                         corp.save(function(err){
