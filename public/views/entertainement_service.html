@@ -153,8 +153,8 @@ function showDivs(n) {
           <button onclick="myFunction('Demo2')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-circle-o-notch fa-fw w3-margin-right"></i>Add Image</button>
           <div id="Demo2" class="w3-hide w3-container">
             <br>
-            <form    enctype="multipart/form-data">
-              <input type="file" id="uploadimage" name="file" accept="image/*"  required>
+            <form  ng-submit="addMedia(regData)" enctype="multipart/form-data">
+              <input type="file" id="uploadimage" ng-model= "regData.ProfileImage" name="ProfileImage" accept="image/*" required>
               <br>
               <input type="submit" value="Add" name="submit" class="btn btn-default">
               <br>
@@ -169,8 +169,8 @@ function showDivs(n) {
         <div class="w3-white">
           <button onclick="myFunction('Demo3')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-circle-o-notch fa-fw w3-margin-right"></i>Add Video</button>
           <div id="Demo3" class="w3-hide w3-container">
-            <form  enctype="multipart/form-data">
-              <input type="file" name="profileimage" accept="image/*">
+            <form ng-submit="addVideo(regData)" enctype="multipart/form-data">
+              <input type="file" name="ProfileVideo" accept="video/*">
               <input type="text" name="student" class="w3-hide" value='<%= student%>'>
               <input type="text" name="email" class="w3-hide" value='<%= student.email%>'>
               <br>

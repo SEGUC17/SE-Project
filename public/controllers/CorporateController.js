@@ -56,14 +56,15 @@ app.controller("Login_Corporate", function($scope, $window,$http){
 
 
 
-
    app.controller("profile_corporate", function($scope,$window, $http) {
      var corporate = JSON.parse(localStorage.getItem("corporate"));
      var online1 = JSON.parse(localStorage.getItem("online"));
      console.log(corporate);
      console.log(online1);
      $scope.corporate = corporate;
-    console.log(corporate.email);
+     console.log(corporate.email);
+
+
 
    })
 
@@ -196,13 +197,43 @@ app.controller("Login_Corporate", function($scope, $window,$http){
      }
    })
 
-   // Roshdy
+
 
 
    app.controller("service_corporate", function($scope,$window, $http) {
      var service_corp = JSON.parse(localStorage.getItem("service_corp"));
      console.log(service_corp);
      $scope.service_corp = service_corp;
+     var status;
+
+     $scope.addMedia = function(regData){
+       $http.post('/corporate/addMedia/file', regData).then(function successCallback(response){
+         var corporate=response.data.user;
+         localStorage.setItem("corporate", JSON.stringify(corporate));
+
+         $window.location.reload();
+
+       }
+      //  , function errorCallback(response) {//needs handling
+      //    console.log(response.data.success);
+      //  }
+     )
+      }
+
+      $scope.addVideo = function(regData){
+        $http.post('/corporate/addVideo/file', regData).then(function successCallback(response){
+          var corporate=response.data.user;
+          localStorage.setItem("corporate", JSON.stringify(corporate));
+
+          $window.location.reload();
+
+        }
+       //  , function errorCallback(response) {//needs handling
+       //    console.log(response.data.success);
+       //  }
+      )
+       }
+
    })
 
 
