@@ -18,7 +18,7 @@ module.exports = {
   checkClientAuthentication: function(req, res, next) {
     if (req.isAuthenticated()) {
       if (req.session.client)
-        return res.json({success: "Not authenticated"})
+        return res.json({success: " authenticated"})
     }
     else {
       return res.json({error: "Not authenticated"})

@@ -79,6 +79,8 @@ router.post('/client/service/rate', clientController.checkAuthentication, client
 //Administrator Routes
 router.post('/admin/login', adminController.login)
 
+router.post('/admin/check', adminController.checkAdminAuthentication)
+
 router.post('/admin/requests', adminController.checkAuthentication, adminController.getNewCorporateRequests);
 
 router.post('/admin/accept', adminController.checkAuthentication, adminController.acceptCorporate);
@@ -97,7 +99,7 @@ router.post('/admin/clients', adminController.checkAuthentication, adminControll
 
 router.post('/admin/remove', adminController.checkAuthentication, adminController.removeClient)
 
-router.get('/admin/reviews', adminController.checkAuthentication, adminController.getReportedReviews)
+router.post('/admin/reviews', adminController.checkAuthentication, adminController.getReportedReviews)
 
 router.post('/admin/review/remove', adminController.checkAuthentication, adminController.removeReview)
 

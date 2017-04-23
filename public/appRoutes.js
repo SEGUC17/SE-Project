@@ -102,6 +102,19 @@ $routeProvider
         controller : 'corporateprofile'
     })
 
+    .when('/admin5518j', {
+        templateUrl: 'views/admin/login_admin.html',
+        controller : ''
+    })
+
+    .when('/admin_page', {
+        templateUrl: 'views/admin/admin_page.html',
+        controller : '',
+        resolve: {
+        logincheck: checkAdminLoggedin
+      }
+    })
+
     .when('/401', {
         templateUrl: 'views/401.html',
         controller : ''
@@ -160,6 +173,28 @@ var checkCorporateLoggedin = function($q, $timeout, $http, $location, $rootScope
       localStorage.setItem("online", JSON.stringify(online));
     deferred.reject();
      $location.url('/401');
+  }
+
+  },function errorCallback(response){
+
+  })
+  ;
+
+  return deferred.promise;
+}
+
+
+
+var checkAdminLoggedin = function($q, $timeout, $http, $location, $rootScope) {
+  var deferred = $q.defer();
+  $http.post('/admin/check').then(function successCallback(response){
+
+  if(response.data.success){
+      deferred.resolve();
+  }
+  else{
+    deferred.reject();
+    $location.url('/401');
   }
 
   },function errorCallback(response){
