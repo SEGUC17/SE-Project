@@ -274,7 +274,7 @@ $http.post('/corporate/reportReview/', regData).then(function successCallback(re
      };
  }]);
 
- app.service('fileUpload', ['$http', function ($http) {
+ app.service('fileUpload', ['$http','$window', function ($http,$window) {
      this.uploadFileToUrl = function(file, uploadUrl, x){
          var fd = new FormData();
          if(x==0){
@@ -302,7 +302,7 @@ $http.post('/corporate/reportReview/', regData).then(function successCallback(re
               var corp = response.data.corp;
               localStorage.setItem("corporate", JSON.stringify(corp));
             }
-           //$window.location.reload();
+           $window.location.reload();
 
 
          }, function errorCallback(response) {//needs handling
@@ -314,7 +314,9 @@ $http.post('/corporate/reportReview/', regData).then(function successCallback(re
      }
  }]);
 
- app.controller('upload_image_service', ['$scope', 'fileUpload', function($scope, fileUpload){
+ app.controller('upload_image_service', ['$scope', 'fileUpload','$window' , function($scope, fileUpload, $window){
+
+
 
      $scope.uploadFile = function(){
          var file = $scope.myFile;
@@ -327,6 +329,8 @@ $http.post('/corporate/reportReview/', regData).then(function successCallback(re
          }
          else alert("No input File");
      };
+
+
 
  }]);
 
@@ -341,6 +345,8 @@ $http.post('/corporate/reportReview/', regData).then(function successCallback(re
          if(file) fileUpload.uploadFileToUrl(file, uploadUrl, 0);
          else alert("No input File");
      };
+
+
 
  }]);
 
