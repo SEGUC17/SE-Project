@@ -35,6 +35,7 @@ module.exports = function(passport) {
             var lastName = req.body.lastName
             var phone = req.body.phone
             var email = req.body.email
+            var nationalID = req.body.nationalID
             if (firstName && lastName && phone && email) {
               //Find clients with the given username or email
               Client.findOne({$or:[{"username":username}, {"email":email}]}, function(err, user){
@@ -52,6 +53,7 @@ module.exports = function(passport) {
                   client.lastName = lastName
                   client.email = email
                   client.phone = phone
+                  client.nationalID = nationalID
                   client.local.username = username
                   //Generate a salt and use it to hash the password
                   client.local.salt = crypto.randomBytes(16).toString('hex')
@@ -155,7 +157,7 @@ module.exports = function(passport) {
                         next({success:false,error:"This name already exists!"})
                     }else{
                         console.log("alreadyhere");
-
+                        var default_pic = "/images/profile_client.png";
                         var salt = crypto.randomBytes(16).toString('hex');
                         var hash = crypto.pbkdf2Sync(password, salt, 1000, 64, 'sha512').toString('hex');
                         var corp = new corporate();
@@ -166,6 +168,7 @@ module.exports = function(passport) {
                         corp.type = req.body.type;
                         corp.request = true;
                         corp.Accepted = false;
+                        corp.profileimage =default_pic;
                         corp.local.salt = salt;
                         corp.local.hash = hash;
                         corp.save(function(err){
@@ -193,6 +196,10 @@ module.exports = function(passport) {
                 console.log(err);
             }
             if(corp){
+              if(corp.Accepted==false){
+                var c=1;
+                return next({success:false,error:c})
+              }
                 //Validate that the entered password matches the stored one
                 if(corp.validPassword(corp.local.salt,password,corp.local.hash)){
                     return next(null,corp)

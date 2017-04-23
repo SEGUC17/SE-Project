@@ -7,6 +7,16 @@ function escapeRegex(text) {
 //Helps in comparing string by changing text to Reg. Expression
 module.exports ={
  search:function(req,res){
+
+   if(!(req.body.criteria)){
+     var fail=0;
+     res.json({fail:fail});
+   }
+  else if(!(req.body.search)){
+     var fail=1;
+     res.json({fail:fail});
+   }
+else{
 		var noMatch=null;
 		const text = new RegExp(escapeRegex(req.body.search), 'gi');
 		if(req.body.criteria == "name"){
@@ -81,5 +91,6 @@ module.exports ={
 			})
 		} }
 				} }}}
+}
 ,
 }

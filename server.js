@@ -5,18 +5,20 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var crypto = require('crypto');
 var passport = require('passport');
+var multer = require('multer');
+var fs = require('fs');
 var path = require('path');
 require('./config/passport')(passport);
-var DB_URI = "mongodb://localhost:27017/se-project";
+var DB_URI = "mongodb://localhost:27017/sea-project";
 var app = express();
 
 // Loading Angular Components ..
 app.use('/bower_components', express.static(__dirname + '/bower_components'));
-
+var stripe=require("stripe")("sk_test_gtcTf8YKE9yBoqxAup4XPAfV");
 app.set('view engine', 'ejs');
 
 // configure app
-app.use(bodyParser.urlencoded({extended:false}));
+app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json())
 app.use(express.static(__dirname+ '/public'));
 app.use(session({secret: 'ADSADS', cookie: { maxAge : 3600000 * 48 }}));

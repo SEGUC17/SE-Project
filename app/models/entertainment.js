@@ -1,4 +1,6 @@
 var mongoose = require('mongoose');
+var reservationTime=require('../models/reservationTime');
+
 
 var entertainmentSchema = mongoose.Schema({
     email:{
@@ -7,7 +9,7 @@ var entertainmentSchema = mongoose.Schema({
     },
     name:{
       type:String,
-      required:true
+      required:true,
     },
     phone:String,
     price:Number,
@@ -16,9 +18,13 @@ var entertainmentSchema = mongoose.Schema({
       required:true
     },
     type:String,
+    images:[String],
+    videos:[String],
     rating:[Number],
     actualRating:{type: Number, default: 0},
-    reviews: [{type: String, ref: 'Review'}]
+    reviews: [{type: mongoose.Schema.Types.Object, ref: 'Review'}],
+    reservations:[{type:mongoose.Schema.Types.Object,ref:'reservationTime'}]
+
 })
 
 var Entertainment = mongoose.model("entertainment", entertainmentSchema);

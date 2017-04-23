@@ -6,7 +6,40 @@ var adminController = require('./controllers/AdminController')
 var searchController = require('./controllers/SearchController')
 var rootController = require('./controllers/rootController')
 var passport = require('passport')
+var bodyParser = require('body-parser');
+var multer = require('multer')
+var fs = require('fs');
+var stripeController=require('./controllers/stripeController')
+router.use(bodyParser.json());
+router.use(bodyParser.urlencoded({ extended: true }));
 
+
+
+let storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'public/uploads/images')
+    },
+    filename: function (req, file, cb) {
+        let extArray = file.mimetype.split("/");
+        let extension = extArray[extArray.length - 1];
+        cb(null, file.fieldname + '-' + Date.now()+ '.' +extension)
+    }
+})
+
+
+let video_storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'public/uploads/videos')
+    },
+    filename: function (req, file, cb) {
+        let extArray = file.mimetype.split("/");
+        let extension = extArray[extArray.length - 1];
+        cb(null, file.fieldname + '-' + Date.now()+ '.' +extension)
+    }
+})
+
+var upload = multer({ storage: storage })
+var upload_video = multer({ storage: video_storage });
 //Get index page
 router.get('*',rootController.a);
 
@@ -16,6 +49,8 @@ router.post('/client/login/facebook', clientController.facebookLogin);
 router.post('/client/login/facebook/cb', clientController.facebookLogin);
 
 router.post('/client/signup', clientController.localSignup)
+
+router.post('/client/checkAuthentication', clientController.checkClientAuthentication)
 
 router.post('/client/login', clientController.localLogin);
 
@@ -42,10 +77,14 @@ router.post('/client/edit', clientController.checkAuthentication, clientControll
 
 router.post('/client/service/rate', clientController.checkAuthentication, clientController.rateService)
 
+router.post('/view_reservations', clientController.checkAuthentication,clientController.view_reservations);
+
 //Administrator Routes
 router.post('/admin/login', adminController.login)
 
-router.get('/admin/requests', adminController.checkAuthentication, adminController.getNewCorporateRequests);
+router.post('/admin/check', adminController.checkAdminAuthentication)
+
+router.post('/admin/requests', adminController.checkAuthentication, adminController.getNewCorporateRequests);
 
 router.post('/admin/accept', adminController.checkAuthentication, adminController.acceptCorporate);
 
@@ -63,11 +102,13 @@ router.post('/admin/clients', adminController.checkAuthentication, adminControll
 
 router.post('/admin/remove', adminController.checkAuthentication, adminController.removeClient)
 
-router.get('/admin/reviews', adminController.checkAuthentication, adminController.getReportedReviews)
+router.post('/admin/reviews', adminController.checkAuthentication, adminController.getReportedReviews)
 
 router.post('/admin/review/remove', adminController.checkAuthentication, adminController.removeReview)
 
 //Corporate Routes
+
+router.post('/corporate/checkAuthentication', corporateController.checkCorpAuthentication)
 
 router.post('/corporate/signup', corporateController.localSignUp);
 
@@ -77,9 +118,11 @@ router.post('/corporate/reportReview', corporateController.checkAuthentication, 
 
 router.post('/corporate/logout', corporateController.logout)
 
-router.post('/corporate/addMedia/file',corporateController.addMedia);
+router.post('/corporate/addimage/file', upload.single('file'), corporateController.addProfilePic);
 
-router.post('/corporate/addVideo/file',corporateController.addVideo);
+router.post('/corporate/addMedia/file', upload.single('file'), corporateController.addMedia);
+
+router.post('/corporate/addVideo/file', upload_video.single('file'), corporateController.addVideo);
 
 router.post('/corporate/announcments', corporateController.checkAuthentication, corporateController.getAnnouncments);
 
@@ -89,13 +132,15 @@ router.post('/corporate/service/add', corporateController.addService);
 
 router.post('/corporate/service/remove',corporateController.removeService);
 
-router.post('/corporate/service/price', corporateController.editServicePrice);
+// router.post('/corporate/service/price', corporateController.editServicePrice);
+//
+// router.post('/corporate/service/phone', corporateController.editServicePhone);
+//
+// router.post('/corporate/service/location', corporateController.editServiceLocation);
+//
+// router.post('/corporate/service/name',corporateController.editServiceName);
 
-router.post('/corporate/service/phone', corporateController.editServicePhone);
-
-router.post('/corporate/service/location', corporateController.editServiceLocation);
-
-router.post('/corporate/service/name',corporateController.editServiceName);
+router.post('/corporate/service/edit',corporateController.editService);
 
 router.post('/corporate/services', corporateController.getCorporationServices);
 
@@ -103,6 +148,14 @@ router.post('/corporate/service', corporateController.getService);
 
 //Search router
 router.post('/search', searchController.search)
+
+router.post('/charge',clientController.checkAuthentication,stripeController.charge)
+
+router.post('/book',clientController.checkAuthentication,clientController.book)
+
+router.post('/corporate/service/timing', corporateController.checkAuthentication, corporateController.addReservation);
+
+
 
 //export router
 

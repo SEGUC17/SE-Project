@@ -17,6 +17,13 @@
 		<!--// bootstrap-css -->
 		<!-- css -->
 		<link rel="stylesheet" href="css/style.css" type="text/css" media="all" />
+
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 		<!--// css -->
 		<!-- gallery -->
 		<link type="text/css" rel="stylesheet" href="css/cm-overlay.css" />
@@ -46,18 +53,90 @@
 
     <!-- JS -->
     <script src="libs/angular/angular.min.js"></script>
+    <script src="libs/angularUtils-pagination/dirPagination.js"></script>
     <script src="libs/angular-route/angular-route.min.js"></script>
+    <script src="libs/ng-file-upload-shim/ng-file-upload-shim.min.js"></script> <!-- for no html5 browsers support -->
+    <script src="libs/ng-file-upload/ng-file-upload.min.js"></script>
+
 
     <!-- ANGULAR CUSTOM -->
     <script src="controllers/ClientController.js"></script>
-    <script src="controllers/CorpMembers.js"></script>
+    <script src="controllers/CorporateController.js"></script>
+    <script src="controllers/AdminController.js"></script>
     <script src="appRoutes.js"></script>
     <script src="app.js"></script>
 </head>
-<body ng-app="MainApp">
+<body ng-app="MainApp" >
 
 
-    <!-- HEADER -->
+
+
+  <div class="jarallax banner" ng-controller = "main">
+    <div class="">
+      <!-- header -->
+      <div class="header">
+        <div class="container">
+          <nav ng-controller = "main" class="navbar navbar-default">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <div class="w3layouts-logo">
+                <h1><a href="/"><span>F</span>unzilla</a></h1>
+              </div>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div ng-if="online == 0" class="collapse navbar-collapse nav-wil" id="bs-example-navbar-collapse-1">
+              <nav>
+                <ul class="nav navbar-nav">
+                  <li class="active"><a href="/">Home</a></li>
+                  <li><a href="/services" >Play</a></li>
+                  <li><a href="/corporates" >Our Partners</a></li>
+                  <li><a href="/login_client" >Login</a></li>
+                  <li><a href="/register_client" >Register</a></li>
+                  <li><a href="/login_corporate" >Corporate</a></li>
+                </ul>
+              </nav>
+            </div>
+
+            <div ng-if="online == 1" class="collapse navbar-collapse nav-wil" id="bs-example-navbar-collapse-1">
+              <nav>
+                <ul class="nav navbar-nav">
+                  <li class="active"><a href="/">Home</a></li>
+                  <li><a href="/services" >Play</a></li>
+                  <li><a href="/corporates" >Our Partners</a></li>
+                  <li><a href="/profile_client" >My Account</a></li>
+                  <li><a ng-controller="logout_Client" ng-click="regClientlogout()" href="/" >Logout</a></li>
+                </ul>
+              </nav>
+            </div>
+
+
+            <div ng-if="online == 2" class="collapse navbar-collapse nav-wil" id="bs-example-navbar-collapse-1">
+              <nav>
+                <ul class="nav navbar-nav">
+                  <li class="active"><a href="/">Home</a></li>
+                  <li><a href="/services" >Play</a></li>
+                  <li><a href="/corporates" >Our Partners</a></li>
+                  <li><a href="/profile_corporate" >My Account</a></li>
+                  <li><a ng-controller="logout_Corporate" ng-click="regCorporatelogout()" href="/" >Logout</a></li>
+
+                </ul>
+              </nav>
+            </div>
+
+            <!-- /.navbar-collapse -->
+          </nav>
+        </div>
+      </div>
+
+    </div>
+  </div>
 
     <!-- ANGULAR DYNAMIC CONTENT -->
     <div ng-view></div>

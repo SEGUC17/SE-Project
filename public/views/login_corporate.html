@@ -5,7 +5,7 @@ License: Creative Commons Attribution 3.0 Unported
 License URL: http://creativecommons.org/licenses/by/3.0/
 -->
 <!DOCTYPE html>
-<html ng-app = "ClientApp" lang="en">
+<html lang="en">
 <head>
 	<title>Funzilla</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -60,34 +60,30 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 								<div class="main-w3l">
 									<div class="w3layouts-main">
-										<h2>Login</h2>
+										<h2>Login as a Corporate</h2>
 										<div class="content-agileits">
-											<form ng-submit= "regClient(regData)" data-toggle="validator" role="form" ng-controller = "Login_Client">
 
-												<div class="form-group w3layouts w3 w3l">
-													<input name="username" type="text" class="form-control" id="username" placeholder="Username"  data-error="Enter Your Username" ng-model = "regData.username" required>
+											<form ng-submit= "loginCorporate(logCorp)" data-toggle="validator" role="form" ng-controller = "Login_Corporate" >
+
+												<div class="form-group w3l agileinfo wthree w3-agileits">
+													<input name="email" type="email" class="form-control" id="email" placeholder="Email" data-error="This email address is invalid" ng-model="logCorp.email" required>
+
 													<div class="help-block with-errors"></div>
 												</div>
 
 
 
 												<div class="form-group w3layouts w3 w3l">
-													<input name="password" type="password" data-minlength="8" class="form-control" id="password" placeholder="Password" ng-model = "regData.password" required>
+													<input name="password" type="password" data-minlength="8" class="form-control" id="password" placeholder="Password" ng-model="logCorp.password"  required>
+
 
 												</div>
 												<div class="form-group">
 													<button type="submit" class="btn btn-lg">Login</button>
 												</div>
-
-
-												<p>Don't Have an Account ?<a href="/register_client">Register Now</a></p>
-												<p> <a href="/forget_password">Forget your Password</a></p>
-												<br><br><br>
+												<p>Do You want to have a free corporate Account ?<a href="/register_corporate">Register Now</a></p>
+												<br><br><br><br>
 											</form>
-										<button ng-controller="login_facebook" ng-click="login_facebook()" class="loginBtn loginBtn--facebook">
-												Login with Facebook
-											</button>
-
 
 										</div>
 									</div>
@@ -156,8 +152,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         imgHeight: 768
     })
 </script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
 <script src="js/jquery-1.10.2.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/validator.min.js"></script>
+<script src = "controllers/CorporateController.js"></script>
+
 </body>
 </html>

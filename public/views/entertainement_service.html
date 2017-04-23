@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html>
+<title>W3.CSS Template</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-blue-grey.css">
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans'>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
+</style>
+
+
+
+<body class="w3-theme-l5" >
+
+  <div class="jarallax banner">
+		<div class="wthree-different-dot">
+			<!-- //header -->
+			<div class="banner-top">
+				<div class="container">
+					<div class="slider">
+						<div class="callbacks_container">
+							<ul class="rslides callbacks callbacks1" id="slider4">
+								<li>
+
+									<div class="banner_text">
+										<h3>{{service_corp.name}}</h3>
+                    <h3>{{service_corp.actualRating}}</h3>
+                    <span style="font-size:300%;color:yellow;">&starf;</span><span style="font-size:300%;color:yellow;">&starf;</span><span style="font-size:300%;color:yellow;">&starf;</span><span style="font-size:300%;color:yellow;">&starf;</span><span style="font-size:300%;color:yellow;">&starf;</span>
+										<div class="w3-button">
+
+										</div>
+									</div>
+								</li>
+
+							</ul>
+						</div>
+						<script src="js/responsiveslides.min.js"></script>
+						<script>
+							// You can also use "$(window).load(function() {"
+							$(function () {
+							  // Slideshow 4
+							  $("#slider4").responsiveSlides({
+								auto: true,
+								pager:true,
+								nav:true,
+								speed: 500,
+								namespace: "callbacks",
+								before: function () {
+								  $('.events').append("<li>before event fired.</li>");
+								},
+								after: function () {
+								  $('.events').append("<li>after event fired.</li>");
+								}
+							  });
+
+							});
+						 </script>
+						<!--banner Slider starts Here-->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+<!-- Page Container -->
+<div class="w3-container w3-content" style="max-width:1400px;margin-top:80px">
+  <!-- The Grid -->
+  <div class="w3-row">
+    <!-- Left Column -->
+    <div class="w3-col m3">
+      <!-- Profile -->
+      <div class="w3-card-2 w3-round w3-white">
+        <div class="w3-container">
+         <h4 class="w3-center">{{service_corp.name}}</h4>
+         <p class="w3-center"><img src="/images/enter.png" class="w3-circle" style="width:200px" alt="Avatar"></p>
+         <hr>
+         <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i>Location :- {{service_corp.location}}</p>
+         <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i>{{service_corp.email}}</p>
+         <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i>Rating :- {{service_corp.actualRating}}</p>
+         <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i>Phone :- {{service_corp.phone}}</p>
+         <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i>Price :- {{service_corp.price}}</p>
+         <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i>Type :- {{service_corp.type}}</p>
+        </div>
+      </div>
+      <br>
+
+      <!-- Accordion -->
+      <div class="w3-card-2 w3-round">
+        <div class="w3-white">
+          <button onclick="myFunction('Demo1')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-circle-o-notch fa-fw w3-margin-right"></i>Edit Service</button>
+          <div id="Demo1" class="w3-hide w3-container">
+            <form ng-submit= "editservice(regData)" target="_blank" ng-controller = "editservice">
+                <div class="w3-section">
+                    <label>Name</label>
+                    <div class="form-group w3layouts w3 w3l">
+                      <input name="name" type="text" class="form-control" id="firstName" placeholder="Name" data-error="Enter the Name" ng-model= "regData.name" required>
+                      <div class="help-block with-errors"></div>
+                    </div>
+                </div>
+                <div class="w3-section">
+                    <label>Location</label>
+                    <div class="form-group agileinfo wthree w3-agileits agile">
+                      <input name="location" type="text" class="form-control" id="nationalID" placeholder="Location" data-error="Enter the location" ng-model= "regData.location" required>
+                      <div class="help-block with-errors"></div>
+                    </div>
+                </div>
+                <div class="w3-section">
+                    <label>Phone Number</label>
+                    <div class="form-group agileinfo wthree w3-agileits agile">
+                      <input name="phone" type="text" class="form-control" id="phone" placeholder="phone" data-error="Enter the phone" ng-model= "regData.phone" required>
+                      <div class="help-block with-errors"></div>
+                    </div>
+                </div>
+                <div class="w3-section">
+                    <label>Price</label>
+                    <div class="form-group agileinfo wthree w3-agileits agile">
+                      <input name="price" type="number" class="form-control" id="phone" placeholder="{{service_corp._id}}" data-error="Enter the Price" ng-model= "regData.price" required>
+                      <div class="help-block with-errors"></div>
+                    </div>
+                </div>
+                <button type="submit" class="w3-button w3-black w3-margin-bottom"><i class="fa fa-paper-plane w3-margin-right"></i>Add</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <br>
+
+      <div class="w3-card-2 w3-round">
+        <div class="w3-white">
+          <button onclick="myFunction('Demo2')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-circle-o-notch fa-fw w3-margin-right"></i>Add Image</button>
+          <div id="Demo2" class="w3-hide w3-container">
+            <br>
+
+            <div ng-controller = "upload_image_service">
+              <input type="file" file-model="myFile" name="file"  accept="image/*"  required>
+              <br>
+              <input ng-click="uploadFile()" type="submit" value="Add" name="submit"  class="btn btn-default">
+              <br>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+
+
+      <br>
+
+      <div class="w3-card-2 w3-round">
+        <div class="w3-white">
+          <button onclick="myFunction('Demo3')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-circle-o-notch fa-fw w3-margin-right"></i>Add Video</button>
+          <div id="Demo3" class="w3-hide w3-container">
+
+            <br>
+
+            <div ng-controller = "upload_video">
+              <input type="file" file-model="myFile"  name="file" accept="video/mp4,video/x-m4v,video/*"  required>
+              <br>
+              <input ng-click="uploadFile()" type="submit"  value="Add" name="submit" class="btn btn-default">
+              <br>
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+      <br>
+
+      <div class="w3-card-2 w3-round">
+        <div class="w3-white">
+          <button onclick="myFunction('Demo4')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-circle-o-notch fa-fw w3-margin-right"></i>Add Timings</button>
+          <div id="Demo4" class="w3-hide w3-container">
+
+            <br>
+
+            <div ng-controller = "addtime" ng-submit="addtime(regData)">
+              <p>Date</p>
+              <form>
+              <input type="date" name="date" min="2017-01-02" ng-model="regData.date" required>
+              <br><br>
+              <input name="startHour" type="number" min="0" max="23" class="form-control" id="startHour" placeholder="Hour" data-error="Enter the Hour" ng-model= "regData.startHour" required>
+              <br>
+              <input name="startMinute" type="number" min="0" max="59" class="form-control" id="startMinute" placeholder="Minute" data-error="Enter the Minute" ng-model= "regData.startMinute" required>
+              <br>
+              <input  type="submit"  value="Add" name="Submit" class="btn btn-default">
+              <br><br>
+            </form>
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+
+
+
+
+    <!-- End Left Column -->
+    </div>
+
+    <!-- Middle Column -->
+    <div class="w3-col m7">
+
+      <div class="w3-container w3-card-2 w3-white w3-round w3-margin"><br>
+
+        <div class="w3-container w3-card-2 w3-white w3-round w3-margin"><br>
+
+          <h2 class="w3-red w3-center">Images</h2>
+
+          <div class="w3-content w3-display-container"><br>
+            <div dir-paginate ="x in service_corp.images|itemsPerPage:1" pagination-id="cust">
+        <img class="mySlides" src="{{x}}" style="width:100%">
+      </div>
+          <div class="w3-center">
+          <dir-pagination-controls
+             direction-links="true"
+             boundary-links="true"
+             pagination-id="cust">
+          </dir-pagination-controls>
+        </div>
+        </div>
+
+
+      </div>
+
+
+      <div class="w3-container w3-card-2 w3-white w3-round w3-margin"><br>
+        <h2 class="w3-red w3-center">Videos</h2>
+
+
+        <div class="w3-content w3-display-container"><br>
+          <div dir-paginate ="x in service_corp.videos|itemsPerPage:1" pagination-id="rust">
+            <video width="600" controls>
+              <source src="{{x}}" type="video/mp4">
+              Your browser does not support HTML5 video.
+            </video>
+    </div>
+        <div class="w3-center">
+        <dir-pagination-controls
+           direction-links="true"
+           boundary-links="true"
+           pagination-id="rust">
+        </dir-pagination-controls>
+      </div>
+      </div>
+
+    </div>
+
+
+
+<div class="w3-container w3-card-2 w3-white w3-round w3-margin"><br>
+  <h2 class="w3-red w3-center">Reviews</h2>
+  <br>
+
+  <div dir-paginate ="(i,x) in service_corp.reviews|itemsPerPage:5 track by $index"  pagination-id="fust"   class="w3-container w3-card-2 w3-white w3-round w3-margin"><br>
+    <p> {{x.text}}</p>
+
+    <div ng-if="x.reported == false">
+    <button ng-controller="reportreview" ng-click="reportreview(x)" type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa "></i>Report</button>
+
+  </div>
+
+  <div ng-if="x.reported == true">
+    <button  type="button" disabled class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa "></i>Reported</button>
+</div>
+
+</div>
+
+<div class="w3-center">
+<dir-pagination-controls
+   direction-links="true"
+   boundary-links="true"
+    pagination-id="fust"
+    >
+</dir-pagination-controls>
+</div>
+
+<br>
+
+    <!-- End Middle Column -->
+    </div>
+    <h2 class="w3-blue w3-center">Available Timings</h2>
+    <div class="bs-component">
+                        <table class="table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Hour</th>
+                                    <th>Minute</th>
+                                    <th>Book</th>
+                                </tr>
+
+                            </thead>
+                            <tbody>
+                                <tr  dir-paginate="user in service_corp.reservations|itemsPerPage:10" pagination-id="zzzx">
+                                    <td>{{user.date}}</td>
+                                    <td>{{user.startHour}}</td>
+                                    <td>{{user.startMinute}}</td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="w3-center">
+                        <dir-pagination-controls
+                           direction-links="true"
+                           boundary-links="true"
+                           pagination-id="zzzx  "
+                            >
+                        </dir-pagination-controls>
+                      </div>
+                    </div>
+
+  </div>
+
+
+
+  <!-- End Grid -->
+  </div>
+
+<!-- End Page Container -->
+</div>
+<br>
+
+
+<script>
+// Accordion
+function myFunction(id) {
+    var x = document.getElementById(id);
+    if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+        x.previousElementSibling.className += " w3-theme-d1";
+    } else {
+        x.className = x.className.replace("w3-show", "");
+        x.previousElementSibling.className =
+        x.previousElementSibling.className.replace(" w3-theme-d1", "");
+    }
+}
+
+// Used to toggle the menu on smaller screens when clicking on the menu button
+function openNav() {
+    var x = document.getElementById("navDemo");
+    if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+    } else {
+        x.className = x.className.replace(" w3-show", "");
+    }
+}
+</script>
+
+</body>
+</html>

@@ -20,8 +20,8 @@ var CorporateSchema = mongoose.Schema({
     type: String,
     request:Boolean,
     Accepted:Boolean,
-    images:[],
-    videos:[],
+    profileimage:String,
+
     announcments: { data:[], time: []},
 })
 

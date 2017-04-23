@@ -12,12 +12,25 @@ module.exports = {
     }
     res.status(401).send('You are unauthorized to access this page')
   },
+
+  checkAdminAuthentication: function (req, res, next) {
+    if (req.session.admin) {
+       res.json({success: " authenticated"});
+    }
+    else{
+    res.json({error: "Not authenticated"})
+    }
+    res.status(401).send("You are unauthorized to access this page")
+  }
+  ,
+
+
   login:function(req,res){//bayna men esmaha
       admin.findOne({username:req.body.username,password:req.body.password},function (err,found) {
           if(found){
               req.session.admin=true;
               req.user = found
-              res.json({success:true});
+              res.json({success:true, admin:found});
           }
           else{
               res.json({success:false});
@@ -123,16 +136,7 @@ module.exports = {
                         if(err)
                             console.log(err);
                         else{
-                            Entertainment.find({email:req.user.local.email},function(err,Entertainments){
-                                if(err){
-                                    res.send(err)
-
-                                    //  console.log("karim");
-                                }
-                                else
-                                //      res.render('admin',{Entertainments});
-                                    res.json({success:true,Entertainments:Entertainments});
-                            })
+                          res.json({success:true});
                         }
                     })
                 }
@@ -158,11 +162,8 @@ module.exports = {
         if (err) {
           res.json({success: false, error: "Failed to retrieve reviews"})
         }
-        else if(reviews) {
-          res.json({success: true, reviews: reviews})
-        }
         else {
-          res.json({success: true, reviews: []})
+          res.json({success: true, reviews: reviews})
         }
       })
     },

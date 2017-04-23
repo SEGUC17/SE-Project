@@ -48,23 +48,54 @@
 <div class="w3-content" style="max-width:1532px;">
 
   <div class="w3-container w3-margin-top" id="rooms">
-    <h3>Corporates</h3>
-    <p>Here are our Coroporate partners</p>
+    <h3>Entertainment Services</h3>
+    <p>Book Entertainment at home is our slogan. We offer the best services in the for our lovely clients.</p>
   </div>
 
+  <div class="w3-row-padding">
+    <div class="w3-col m2">
+      <label><i class="fa fa-male"></i>Keyword</label>
+      <input class="w3-input w3-border" ng-model="searchData.search" type="text" placeholder="Search">
+    </div>
 
+
+
+    <div class="w3-col m2">
+      <label><i class="fa fa-male"></i>Filter by</label>
+      <br>
+      <select class="w3-select" name="option" ng-model="searchData.criteria" required>
+        <option value="name">Name</option>
+        <option value="location">Location</option>
+        <option value="type">Type</option>
+        <option value="price">Price</option>
+      </select>
+    </div>
+
+
+    <div class="w3-col m2">
+      <label><i class="fa fa-search"></i> Search</label>
+      <button <a ng-href='#here' ng-click='search(searchData)' ng-controller='searchCtrl' class="w3-button w3-block w3-black">Search </a> </button>
+    </div>
+  </div>
 
   <div class="w3-row-padding w3-padding-16">
 
+<br><br>
 
-    <div dir-paginate="(i,x) in corporates|itemsPerPage:10" ng-controller="getcorporates" class="w3-third w3-margin-bottom">
-      <a ng-controller="getcorporate" ng-click="getcorporate(x)"</a> <img src="{{x.profileimage}}" class="w3-circle" style="width:250px; height:240px;  cursor: pointer;"></a>
-      <div class="w3-container w3-white">
+    <div dir-paginate ="(i,x) in services|itemsPerPage:6" class="w3-third w3-margin-bottom">
+    
+      <a ng-controller="getservice" ng-click="getservice(x)"</a> <img src="/images/7.jpg" class="w3-circle" style="width:250px; height:240px;  cursor: pointer;"></a>
+
+      <div class="w3-container ">
         <h3>{{x.name}}</h3>
-
+        <h3>{{x.actualRating}}</h3>
+        <br>
       </div>
-    </div>
 
+
+
+
+</div>
 
   </div>
   <div class="w3-center">

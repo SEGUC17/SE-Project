@@ -5,7 +5,7 @@ License: Creative Commons Attribution 3.0 Unported
 License URL: http://creativecommons.org/licenses/by/3.0/
 -->
 <!DOCTYPE html>
-<html lang="en">
+<html ng-app = "ClientApp"lang="en">
 <head>
 	<title>Funzilla</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -47,38 +47,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- banner -->
 <div class="jarallax banner">
 	<div class="wthree-different-dot">
-		<!-- header -->
-		<div class="header">
-			<div class="container">
-				<nav class="navbar navbar-default">
-					<!-- Brand and toggle get grouped for better mobile display -->
-					<div class="navbar-header">
-						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-							<span class="sr-only">Toggle navigation</span>
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-						</button>
-						<div class="w3layouts-logo">
-							<h1><a href="index.html"><span>F</span>unzilla</a></h1>
-						</div>
-					</div>
 
-					<!-- Collect the nav links, forms, and other content for toggling -->
-					<div class="collapse navbar-collapse nav-wil" id="bs-example-navbar-collapse-1">
-						<nav>
-							<ul class="nav navbar-nav">
-								<li class="active"><a href="/">Home</a></li>
-								<li><a href="/services" >Play</a></li>
-								<li><a href="/login_client" >Login</a></li>
-								<li><a href="/register_client" >Register</a></li>
-							</ul>
-						</nav>
-					</div>
-					<!-- /.navbar-collapse -->
-				</nav>
-			</div>
-		</div>
 		<br><br><br><br>
 
 		<!-- //header -->
@@ -91,29 +60,37 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 								<div class="main-w3l">
 									<div class="w3layouts-main">
-										<h2>Login</h2>
+										<h2>Register</h2>
 										<div class="content-agileits">
-											<form action="/register" method="POST" data-toggle="validator" role="form">
+											<form ng-submit= "regClient(regData)" data-toggle="validator" role="form" ng-controller = "Register_Client" >
 												<div class="form-group w3layouts w3 w3l">
-													<input name="name" type="text" class="form-control" id="name" placeholder="Name" data-error="Enter Your Name" required>
+													<input name="firstName" type="text" class="form-control" id="firstName" placeholder="First Name" data-error="Enter Your First Name" ng-model = "regData.firstName" required>
 													<div class="help-block with-errors"></div>
 												</div>
 												<div class="form-group w3layouts w3 w3l">
-													<input name="username" type="text" class="form-control" id="username" placeholder="Username" data-error="Enter Your Username" required>
+													<input name="lastName" type="text" class="form-control" id="lastName" placeholder="Last Name" data-error="Enter Your Last Name" ng-model = "regData.lastName" required>
+													<div class="help-block with-errors"></div>
+												</div>
+												<div class="form-group w3layouts w3 w3l">
+													<input name="username" type="text" class="form-control" id="username" placeholder="Username" data-error="Enter Your Username" ng-model = "regData.username" required>
 													<div class="help-block with-errors"></div>
 												</div>
 												<div class="form-group w3l agileinfo wthree w3-agileits">
-													<input name="email" type="email" class="form-control" id="email" placeholder="Email" data-error="This email address is invalid" required>
+													<input name="email" type="email" class="form-control" id="email" placeholder="Email" data-error="This email address is invalid" ng-model = "regData.email" required>
 													<div class="help-block with-errors"></div>
 												</div>
 												<div class="form-group agileinfo wthree w3-agileits agile">
-													<input name="national_id" type="text" class="form-control" id="national_id" placeholder="National ID" data-error="Enter Your National ID" required>
+													<input name="nationalID" type="text" class="form-control" id="nationalID" placeholder="National ID" data-error="Enter Your National ID" ng-model = "regData.nationalID" required>
 													<div class="help-block with-errors"></div>
 												</div>
 
+												<div class="form-group agileinfo wthree w3-agileits agile">
+													<input name="phone" type="text" class="form-control" id="phone" placeholder="Phone" data-error="Enter Your Phone Number" ng-model = "regData.phone" required>
+													<div class="help-block with-errors"></div>
+												</div>
 
 												<div class="form-group w3layouts w3 w3l">
-													<input name="password" type="password" data-minlength="8" class="form-control" id="password" placeholder="Password" required>
+													<input name="password" type="password" data-minlength="8" class="form-control" id="password" placeholder="Password" ng-model = "regData.password" required>
 													<div class="help-block " style="color: yellow;">Minimum of 8 characters</div>
 												</div>
 

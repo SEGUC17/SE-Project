@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html>
+<title>W3.CSS Template</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-blue-grey.css">
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans'>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
+</style>
+
+<script>
+var slideIndex = 1;
+showDivs(slideIndex);
+
+function plusDivs(n) {
+  showDivs(slideIndex += n);
+}
+
+function showDivs(n) {
+  var i;
+  var x = document.getElementsByClassName("mySlides");
+  if (n > x.length) {slideIndex = 1}
+  if (n < 1) {slideIndex = x.length}
+  for (i = 0; i < x.length; i++) {
+     x[i].style.display = "none";
+  }
+  x[slideIndex-1].style.display = "block";
+}
+</script>
+<body class="w3-theme-l5" >
+
+  <div class="jarallax banner">
+		<div class="wthree-different-dot">
+			<!-- //header -->
+			<div class="banner-top">
+				<div class="container">
+					<div class="slider">
+						<div class="callbacks_container">
+							<ul class="rslides callbacks callbacks1" id="slider4">
+								<li>
+
+									<div class="banner_text">
+										<h3>{{service.name}}</h3>
+                    <h3>{{service.actualRating}}</h3>
+                    <span style="font-size:300%;color:yellow;">&starf;</span><span style="font-size:300%;color:yellow;">&starf;</span><span style="font-size:300%;color:yellow;">&starf;</span><span style="font-size:300%;color:yellow;">&starf;</span><span style="font-size:300%;color:yellow;">&starf;</span>
+										<div class="w3-button">
+
+										</div>
+									</div>
+								</li>
+
+							</ul>
+						</div>
+						<script src="js/responsiveslides.min.js"></script>
+						<script>
+							// You can also use "$(window).load(function() {"
+							$(function () {
+							  // Slideshow 4
+							  $("#slider4").responsiveSlides({
+								auto: true,
+								pager:true,
+								nav:true,
+								speed: 500,
+								namespace: "callbacks",
+								before: function () {
+								  $('.events').append("<li>before event fired.</li>");
+								},
+								after: function () {
+								  $('.events').append("<li>after event fired.</li>");
+								}
+							  });
+
+							});
+						 </script>
+						<!--banner Slider starts Here-->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+<!-- Page Container -->
+<div class="w3-container w3-content" style="max-width:1400px;margin-top:80px">
+  <!-- The Grid -->
+  <div class="w3-row">
+    <!-- Left Column -->
+    <div class="w3-col m3">
+      <!-- Profile -->
+      <div class="w3-card-2 w3-round w3-white">
+        <div class="w3-container">
+         <h4 class="w3-center">{{service_corp.name}}</h4>
+         <p class="w3-center"><img src="/images/enter.png" class="w3-circle" style="width:200px" alt="Avatar"></p>
+         <hr>
+         <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i>Location :- {{service.location}}</p>
+         <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i>{{service.email}}</p>
+         <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i>Rating :- {{service.actualRating}}</p>
+         <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i>Phone :- {{service.phone}}</p>
+         <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i>Price :- {{service.price}}</p>
+         <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i>Type :- {{service.type}}</p>
+        </div>
+      </div>
+      <br>
+
+
+      <div class="w3-card-2 w3-round">
+        <div class="w3-white">
+          <button onclick="myFunction('Demo3')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-circle-o-notch fa-fw w3-margin-right"></i>Rate Service</button>
+          <div id="Demo3" class="w3-hide w3-container">
+            <form ng-submit= "addrating(regData)" target="_blank" ng-controller = "add_rating">
+                <div class="w3-section">
+                    <label>Rating</label>
+                    <div class="form-group agileinfo wthree w3-agileits agile">
+                      <input name="rating" type="number" min="1" max="10" class="form-control" id="rating" placeholder="Rating" data-error="Enter the Rating" ng-model= "regData.rating" required>
+                      <div class="help-block with-errors"></div>
+                    </div>
+                </div>
+                <button type="submit" class="w3-button w3-black w3-margin-bottom"><i class="fa fa-paper-plane w3-margin-right"></i>Add</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <br>
+
+
+      <br>
+
+
+
+
+    <!-- End Left Column -->
+    </div>
+
+    <!-- Middle Column -->
+    <div class="w3-col m7">
+
+      <div class="w3-container w3-card-2 w3-white w3-round w3-margin"><br>
+
+        <h2 class="w3-red w3-center">Images</h2>
+
+        <div class="w3-content w3-display-container"><br>
+          <div dir-paginate ="x in service.images|itemsPerPage:1" pagination-id="cust">
+      <img class="mySlides" src="{{x}}" style="width:100%">
+    </div>
+        <div class="w3-center">
+        <dir-pagination-controls
+           direction-links="true"
+           boundary-links="true"
+           pagination-id="cust">
+        </dir-pagination-controls>
+      </div>
+      </div>
+
+
+    </div>
+
+
+    <div class="w3-container w3-card-2 w3-white w3-round w3-margin"><br>
+      <h2 class="w3-red w3-center">Videos</h2>
+
+
+      <div class="w3-content w3-display-container"><br>
+        <div dir-paginate ="x in service.videos|itemsPerPage:1" pagination-id="rust">
+          <video width="600" controls>
+            <source src="{{x}}" type="video/mp4">
+            Your browser does not support HTML5 video.
+          </video>
+  </div>
+      <div class="w3-center">
+      <dir-pagination-controls
+         direction-links="true"
+         boundary-links="true"
+         pagination-id="rust">
+      </dir-pagination-controls>
+    </div>
+    </div>
+
+  </div>
+
+
+
+      <div class="w3-container w3-card-2 w3-white w3-round w3-margin"><br>
+        <h2 class="w3-center w3-red">Reviews</h2>
+        <br>
+
+        <div dir-paginate ="x in service.reviews|itemsPerPage:5 track by $index" pagination-id="fust"  class="w3-container w3-card-2 w3-white w3-round w3-margin"><br>
+          <p> {{x.text}}</p>
+        </div>
+
+        <div class="w3-center">
+        <dir-pagination-controls
+           direction-links="true"
+           boundary-links="true"
+           pagination-id="fust"
+            >
+        </dir-pagination-controls>
+        </div>
+
+    </div>
+
+
+    <div class="w3-row-padding">
+      <div class="w3-col m12">
+        <div class="w3-card-2 w3-round w3-white">
+          <div class="w3-container w3-padding">
+            <form ng-submit= "addreview(regData)" target="_blank" ng-controller = "add_review">
+            <div class="w3-section">
+                <div class="form-group w3layouts w3 w3l">
+                  <input name="text" type="text" class="form-control" id="text" placeholder="Review" data-error="Enter Your Review" ng-model= "regData.text" required>
+                  <div class="help-block with-errors"></div>
+                </div>
+            </div>
+            <button type="submit" class="w3-button w3-black w3-margin-bottom"><i class="fa fa-paper-plane w3-margin-right"></i>Post</button>
+          </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <br>
+
+
+    <h2 class="w3-blue w3-center">Available Timings</h2>
+    <div class="bs-component" ng-controller="reserve">
+                        <table class="table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Hour</th>
+                                    <th>Minute</th>
+                                    <th>Book</th>
+                                </tr>
+
+                            </thead>
+                            <tbody>
+                                <tr  dir-paginate="user in service.reservations|itemsPerPage:10" pagination-id="zzzx">
+                                    <td>{{user.date}}</td>
+                                    <td>{{user.startHour}}</td>
+                                    <td>{{user.startMinute}}</td>
+                                    <td><button ng-click="reserve(user)" type="submit" class="w3-button w3-black w3-margin-bottom"><i class="fa fa-paper-plane w3-margin-right"></i>Book</button></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="w3-center">
+                        <dir-pagination-controls
+                           direction-links="true"
+                           boundary-links="true"
+                           pagination-id="zzzx  "
+                            >
+                        </dir-pagination-controls>
+                      </div>
+                    </div>
+
+
+
+
+
+    <!-- End Middle Column -->
+    </div>
+
+
+
+  <!-- End Grid -->
+  </div>
+
+<!-- End Page Container -->
+</div>
+<br>
+
+
+<script>
+// Accordion
+function myFunction(id) {
+    var x = document.getElementById(id);
+    if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+        x.previousElementSibling.className += " w3-theme-d1";
+    } else {
+        x.className = x.className.replace("w3-show", "");
+        x.previousElementSibling.className =
+        x.previousElementSibling.className.replace(" w3-theme-d1", "");
+    }
+}
+
+// Used to toggle the menu on smaller screens when clicking on the menu button
+function openNav() {
+    var x = document.getElementById("navDemo");
+    if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+    } else {
+        x.className = x.className.replace(" w3-show", "");
+    }
+}
+</script>
+
+</body>
+</html>

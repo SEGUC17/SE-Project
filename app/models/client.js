@@ -19,7 +19,9 @@ var ClientSchema = mongoose.Schema({
       id: String,
       token: String
   },
-  recoveryToken: String //To be used for password recovery
+  recoveryToken: String,
+  balance:{type:Number ,
+            default:0} //To be used for password recovery
 });
 
 ClientSchema.methods.validPassword = function(salt, password, hash) {
