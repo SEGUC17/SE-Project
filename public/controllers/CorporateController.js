@@ -321,7 +321,10 @@ $http.post('/corporate/reportReview/', regData).then(function successCallback(re
          console.log('file is ' );
          console.dir(file);
          var uploadUrl = "/corporate/addMedia/file";
-         if(file) fileUpload.uploadFileToUrl(file, uploadUrl, 0);
+         if(file){
+           fileUpload.uploadFileToUrl(file, uploadUrl, 0);
+
+         }
          else alert("No input File");
      };
 
