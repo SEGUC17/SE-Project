@@ -115,11 +115,39 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 					<p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i>Name : {{client.firstName }} {{client.lastName }}</p>
 					<p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i>Phone : {{client.phone}}</p>
 					<p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i>National ID : {{client.nationalID}}</p>
-					<p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i>Username : {{client.username}}</p>
+					<p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i>Username : {{client.local.username}}</p>
 					<p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i>Email : {{client.email}}</p>
+          <p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i>Balance : {{client.balance}} EGP</p>
 					<hr>
 				</div>
 			</div><br>
+
+      <div class="w3-container">
+
+
+        <h3>Add Balance</h3>
+        <button onclick="myFunction('Demo4')" class="w3-btn-block w3-left-align">Change Avatar</button>
+        <div id="Demo4" class="w3-hide w3-container">
+          <h3 style="margin-bottom:40px;"></h3>
+
+          <form action="/charge" method="POST">
+            <input name="chargeAmount" type="number" min="1" max="10" value="" class="form-control" id="charge" placeholder="chargeAmount" data-error="Enter the Rating" required>
+          <script src="https://checkout.stripe.com/checkout.js"
+
+                   class="stripe-button ng-controller="reserve" ng-click="reserve()""
+                   data-key="pk_test_BUJCHabcusGo0VmmgM0yUoo2"
+                   data-name="Charge Amount"
+                   data-amount=document.getElementById('charge').value
+                   data-description="nothing"
+                   data-locale="auto"
+                   data-currency="egp"
+                   >
+
+          </script>
+        </form>
+
+        </div>
+      </div>
 			<!-- End Left Column -->
 		</div>
 
@@ -166,6 +194,48 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 
 
     </div>
+
+
+
+
+    <div class="w3-container w3-card-2 w3-white w3-margin-bottom">
+      <h2 class="w3-text-grey w3-padding-16"><i class="fa  fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i></h2>
+
+      <h2 class="w3-blue w3-center">My Reservations</h2>
+      <div class="bs-component" ng-controller="reservations_client">
+                          <table class="table table-striped table-hover">
+                              <thead>
+                                  <tr>
+                                      <th>Date</th>
+                                      <th>Hour</th>
+                                      <th>Minutes</th>
+                                      <th>Name</th>
+                                      <th>Price</th>
+                                  </tr>
+
+                              </thead>
+                              <tbody>
+                                  <tr  dir-paginate="user in reservations|itemsPerPage:5" pagination-id="zzzxzz">
+                                      <td>{{user.reservationTime.date}}</td>
+                                      <td>{{user.reservationTime.startHour}}</td>
+                                      <td>{{user.reservationTime.startMinute}}</td>
+                                      <td>{{user.name}}</td>
+                                      <td>{{user.price}}</td>
+                                      <td></td>
+                                  </tr>
+                              </tbody>
+                          </table>
+                          <div class="w3-center">
+                          <dir-pagination-controls
+                             direction-links="true"
+                             boundary-links="true"
+                             pagination-id="zzzxzz"
+                              >
+                          </dir-pagination-controls>
+                        </div>
+                      </div>
+
+  </div>
 
 
 

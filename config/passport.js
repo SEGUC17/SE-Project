@@ -196,6 +196,10 @@ module.exports = function(passport) {
                 console.log(err);
             }
             if(corp){
+              if(corp.Accepted==false){
+                var c=1;
+                return next({success:false,error:c})
+              }
                 //Validate that the entered password matches the stored one
                 if(corp.validPassword(corp.local.salt,password,corp.local.hash)){
                     return next(null,corp)

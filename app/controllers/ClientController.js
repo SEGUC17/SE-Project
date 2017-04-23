@@ -5,7 +5,8 @@ var Client = require('../models/client')
 var Entertainment = require('../models/entertainment')
 var Review = require('../models/review')
 var corporate = require('../models/corporate')
-
+var reservationTime=require('../models/reservationTime')
+var reservation=require('../models/reservation1');
 module.exports = {
   //Checks if the user is authenticated before accessing any protected client routes
   checkAuthentication: function(req, res, next) {
@@ -316,7 +317,7 @@ module.exports = {
 
    },
    getAllCorporates:function(req, res){
-    corporate.find({} ,function(err, corporates){
+    corporate.find({Accepted:true} ,function(err, corporates){
           if(err)
             res.json({success: false, error: "enexpected error"}) //res.send(err.message);
           else
@@ -349,4 +350,82 @@ module.exports = {
           res.json({success: true, Entertainments: Entertainments});
         })
     },
+    book:function(req,res){
+      var RT=new reservationTime({date:req.body.date,startHour:req.body.startHour,startMinute:req.body.startMinute, booked:true});
+      console.log(RT);
+      var c=new Client();
+      var service_price=req.body.price
+      var balance=req.body.balance
+      var time=new reservationTime();
+      if(balance>service_price){
+          var RT=new reservationTime({date:req.body.date,startHour:req.body.startHour,startMinute:req.body.startMinute, booked:true});
+        var reservation1=new reservation({email:req.user.email,price:service_price,_id:req.body.Entid,name:req.body.name});
+        reservation1.reservationTime=RT;
+        reservation1.save();
+        reservationTime.findOne({_id:req.body.reserveId},function (err,Res) {
+          time=Res;
+          console.log(Res)
+          console.log(time)
+          Res.booked=true;
+          Res.save();
+
+        })
+        var newBalance=parseFloat(balance)-parseFloat(service_price);
+        Client.findOne({email:req.user.email},function(err,Clients){
+          Clients.balance=newBalance;
+          c=Clients;
+          Clients.save();
+        })
+
+
+
+
+          var etsh = new reservationTime();
+
+        Entertainment.findOne({ _id: req.body.Entid}, function (err, service) {
+            if (err)
+              res.json({success: false, error: "Error occured while finding the services"})
+            else{
+
+              for (var i = 0; i < service.reservations.length; i++) {
+                if(service.reservations[i]._id == req.body.reserveId){
+                  etsh.date=service.reservations[i].date;
+                  etsh.startHour=service.reservations[i].startHour;
+                  etsh.startMinute=service.reservations[i].startMinute;
+                  etsh.booked=true;
+                  etsh._id=service.reservations[i]._id;
+                  service.reservations.splice(i, 1);
+                  break;
+                }
+              }
+
+              service.save(function(err) {
+                if (err) {
+                  res.json({success: false, error: "An unexpected error has occuredzz"})
+                }
+                else {
+                  console.log(service.reservations);
+                  res.json({success: true, Entertainments: service})
+                }
+              })
+
+            }
+        })
+        }
+        else{
+          res.json({success:22});
+        }
+
+      },
+
+  view_reservations:function(req,res){
+	reservation.find({email:req.user.email},function(err,ress){
+	if(err){
+	res.json({success:false, error:"No reservations for you"});
+	}
+	else{
+	res.json({success:true,reservations:ress});
+	}
+	})
+    }
 }

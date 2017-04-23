@@ -397,3 +397,58 @@ app.controller('viewSearch', function($http,$scope,$window){
   var items = JSON.parse(localStorage.getItem("searched"));
   $scope.items=items;
 });
+
+
+app.controller("reserve", function($scope,$window, $http) {
+  console.log("hi");
+  $scope.reserve= function(regData){
+
+    var service_corp = JSON.parse(localStorage.getItem("service_any"));
+    var client = JSON.parse(localStorage.getItem("client"));
+    regData.reserveId=regData._id;
+    regData.Entid = service_corp._id;
+    regData.price= service_corp.price;
+    regData.name= service_corp.name;
+    regData.balance=client.balance;
+
+    $http.post('/book', regData).then(function successCallback(response){
+
+      if(response.data.success==22){
+        alert("You don't have enough Money");
+      }
+
+    var newBalance=parseFloat(client.balance)-parseFloat(regData.price);
+     var service_any = response.data.Entertainments;
+     client.balance=newBalance;
+     localStorage.setItem("service_any", JSON.stringify(service_any));
+     localStorage.setItem("client", JSON.stringify(client));
+
+     $window.location.reload();
+
+    }, function errorCallback(response) {//needs handling
+
+      console.log(response.data.success);
+
+
+  })
+
+  }
+})
+
+
+
+app.controller("reservations_client", function($scope,$window, $http) {
+
+
+  $http.post("/view_reservations").then(function successCallback(response){
+      var y = response.data.reservations;
+      $scope.reservations = y;
+      console.log(y);
+    }, function errorCallback(response) {//needs handling
+
+
+
+  })
+
+
+})

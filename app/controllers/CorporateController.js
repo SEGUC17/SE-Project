@@ -9,6 +9,8 @@ var path = require('path');
 var Client = require('../models/client')
 var Entertainment = require('../models/entertainment')
 var admin = require('../models/admin')
+var ReservationTime=require('../models/reservationTime');
+
 
 
 module.exports = {
@@ -473,6 +475,44 @@ res.status(401).send("You are unauthorized to access this page")
       }
 
     },
+    addReservation:function(req,res){
+        //console.log("addreservation");
+
+        var Time=new ReservationTime({date:req.body.date,startHour:req.body.startHour,startMinute:req.body.startMinute});
+       // console.log(Time);
+        console.log("I am now here");
+        console.log(req.body.id);
+        Entertainment.findOne({"_id":req.body.id},function(err,success) {
+            if (err) {
+                console.log("couldnt find anythign");
+                res.json({success: false, error: "error in creating new Reservation Time"});
+            }
+
+            else
+            {
+                if(success){
+                    console.log(success);
+                    Time.save(function(err){
+                        console.log("time saved");
+                    });
+                    success.reservations.push(Time);
+                    success.save(function (err) {
+                        console.log("saved");
+                        res.json({success: true,Entertainments: success});
+                    })
+
+                }
+                else{
+                    console.log("error found");
+                }
+
+
+            }
+
+        })
+    }
+
+
 
 
 }

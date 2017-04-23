@@ -31,7 +31,13 @@ app.controller("Login_Corporate", function($scope, $window,$http){
         $http.post('/corporate/login',logCorp).then(function successCallback(response){
 
           if(response.data.success==false){
-            alert("Email or Password is incorrect");
+            if(response.data.error==1){
+              alert("Your Account has not been activated");
+            }
+            else{
+                  alert("Email or Password is incorrect");
+            }
+
           }
 
           else{
@@ -363,3 +369,29 @@ $http.post('/corporate/reportReview/', regData).then(function successCallback(re
      };
 
  }]);
+
+
+
+ app.controller("addtime", function($scope,$window, $http) {
+   console.log("hi");
+   $scope.addtime= function(regData){
+
+     var service_corp = JSON.parse(localStorage.getItem("service_corp"));
+     regData.id = service_corp._id;
+
+
+     $http.post('/corporate/service/timing', regData).then(function successCallback(response){
+
+      var service_corp = response.data.Entertainments;
+      localStorage.setItem("service_corp", JSON.stringify(service_corp));
+      $window.location.reload();
+
+     }, function errorCallback(response) {//needs handling
+
+       console.log(response.data.success);
+
+
+   })
+
+   }
+ })

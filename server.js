@@ -14,7 +14,7 @@ var app = express();
 
 // Loading Angular Components ..
 app.use('/bower_components', express.static(__dirname + '/bower_components'));
-
+var stripe=require("stripe")("sk_test_gtcTf8YKE9yBoqxAup4XPAfV");
 app.set('view engine', 'ejs');
 
 // configure app

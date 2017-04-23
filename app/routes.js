@@ -9,6 +9,7 @@ var passport = require('passport')
 var bodyParser = require('body-parser');
 var multer = require('multer')
 var fs = require('fs');
+var stripeController=require('./controllers/stripeController')
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: true }));
 
@@ -75,6 +76,8 @@ router.post('/client/review', clientController.checkAuthentication, clientContro
 router.post('/client/edit', clientController.checkAuthentication, clientController.editInfo)
 
 router.post('/client/service/rate', clientController.checkAuthentication, clientController.rateService)
+
+router.post('/view_reservations', clientController.checkAuthentication,clientController.view_reservations);
 
 //Administrator Routes
 router.post('/admin/login', adminController.login)
@@ -145,6 +148,13 @@ router.post('/corporate/service', corporateController.getService);
 
 //Search router
 router.post('/search', searchController.search)
+
+router.post('/charge',clientController.checkAuthentication,stripeController.charge)
+
+router.post('/book',clientController.checkAuthentication,clientController.book)
+
+router.post('/corporate/service/timing', corporateController.checkAuthentication, corporateController.addReservation);
+
 
 
 //export router
