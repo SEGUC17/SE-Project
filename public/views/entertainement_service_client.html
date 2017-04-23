@@ -102,7 +102,7 @@ function showDivs(n) {
          <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i>Rating :- {{service.actualRating}}</p>
          <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i>Phone :- {{service.phone}}</p>
          <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i>Price :- {{service.price}}</p>
-         <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i>Type :- {{service.type}}</p>
+         <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i>Type :- {{service.reservations}}</p>
         </div>
       </div>
       <br>
@@ -133,7 +133,37 @@ function showDivs(n) {
           <button onclick="myFunction('Demo2')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-circle-o-notch fa-fw w3-margin-right"></i>Book Service</button>
           <div id="Demo2" class="w3-hide w3-container">
 
-Booking
+              <form  method="post" action="/charge">
+                  <div class="w3-section">
+                      <label>Available Dates</label>
+                      <div class="form-group agileinfo wthree w3-agileits agile" ng-repeat="(i,x) in service.reservations track by $index" >
+                          <label for="radio">{{x.date}} {{x.startHour}}:{{x.startMinute}}</label>
+                          <input id="radio" name="date" type="radio" value="{{x.date}}" onclick="karim()"  >
+                          <input type="hidden" value="{{x.startHour}}"name="startHour">
+                          <input type="hidden" value="{{x.startMinute}}"name="startMinute">
+                          <div class="help-block with-errors"></div>
+                      </div>
+                      <div>
+                          <script  src="https://checkout.stripe.com/checkout.js"
+                                   class="stripe-button"
+                                   data-key="pk_test_BUJCHabcusGo0VmmgM0yUoo2"
+                                   data-name={{service.name}}
+                                   data-amount={{service.price}}
+                                   data-description="nothing"
+                                   data-locale="auto"
+                                   data-currency="egp">
+
+
+                          </script>
+                          <input type="text" name="chargeAmount" value={{service.price}}>
+                          <input type="text" name="id"  value="{{service._id}}">
+                          <input type="text" name="email" value="{{service.email}}">
+                          <input type="text" id="text1" >
+
+                      </div>
+                  </div>
+
+                  </form>
 
           </div>
         </div>
@@ -141,7 +171,13 @@ Booking
       <br>
 
 
+        <script type="text/javascript">
+           function karim(id){
 
+               var $radio = $('input[name=rating]:checked');
+               document.getElementById("text1").value=$radio.val();
+           }
+        </script>
 
     <!-- End Left Column -->
     </div>

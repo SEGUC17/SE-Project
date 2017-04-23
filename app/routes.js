@@ -6,7 +6,7 @@ var adminController = require('./controllers/AdminController')
 var searchController = require('./controllers/SearchController')
 var rootController = require('./controllers/rootController')
 var passport = require('passport')
-
+var stripeController=require('./controllers/stripeController')
 //Get index page
 router.get('*',rootController.a);
 
@@ -102,10 +102,10 @@ router.post('/corporate/service/edit',corporateController.editService);
 router.post('/corporate/services', corporateController.getCorporationServices);
 
 router.post('/corporate/service', corporateController.getService);
-
+router.post('/corporate/service/timing',corporateController.addReservation);
 //Search router
 router.post('/search', searchController.search)
-
+router.post('/charge',stripeController.charge)
 //export router
 
 module.exports = router;

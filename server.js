@@ -9,7 +9,7 @@ var path = require('path');
 require('./config/passport')(passport);
 var DB_URI = "mongodb://localhost:27017/sea-project";
 var app = express();
-
+var stripe=require("stripe")("sk_test_gtcTf8YKE9yBoqxAup4XPAfV");
 // Loading Angular Components ..
 app.use('/bower_components', express.static(__dirname + '/bower_components'));
 

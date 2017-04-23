@@ -264,3 +264,24 @@ app.controller("Login_Corporate", function($scope, $window,$http){
 
      }
    })
+app.controller("add_reservation", function($scope,$window, $http) {
+    $scope.add_timing= function(regTime){
+        var service_corp = JSON.parse(localStorage.getItem("service_corp"));
+        console.log(service_corp);
+        regTime.id = service_corp._id;
+
+        console.log("I am here!!")
+        $http.post('/corporate/service/timing', regTime).then(function successCallback(response){
+            var service_corp = response.data.Entertainments;
+            localStorage.setItem("service_corp", JSON.stringify(service_corp));
+            $window.location.reload();
+
+        }, function errorCallback(response) {//needs handling
+
+            console.log(response.data.success);
+
+
+        })
+
+    }
+})

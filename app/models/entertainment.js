@@ -1,5 +1,5 @@
-var mongoose = require('mongoose');
-
+var mongoose = require('mongoose')
+var reservationTime=require('../models/reservationTime');
 var entertainmentSchema = mongoose.Schema({
     email:{
       type:String,
@@ -20,7 +20,8 @@ var entertainmentSchema = mongoose.Schema({
     videos:[String],
     rating:[Number],
     actualRating:{type: Number, default: 0},
-    reviews: [{type: mongoose.Schema.Types.Object, ref: 'Review'}]
+    reviews: [{type: mongoose.Schema.Types.Object, ref: 'Review'}],
+    reservations:[{type:mongoose.Schema.Types.Object,ref:'reservationTime'}]
 })
 
 var Entertainment = mongoose.model("entertainment", entertainmentSchema);

@@ -11,7 +11,7 @@
 html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
 </style>
 
-<script>
+    <script>
 var slideIndex = 1;
 showDivs(slideIndex);
 
@@ -181,6 +181,25 @@ function showDivs(n) {
         </div>
       </div>
       <br>
+        <div class="w3-card-2 w3-round">
+        <div class="w3-white " ng-controller="add_reservation">
+            <button onclick="myFunction('Demo4')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-circle-o-notch fa-fw w3-margin-right"></i>Add Available Timings</button>
+            <div id="Demo4" class="w3-hide w3-container">
+                <br>
+                <form    enctype="multipart/form-data" ng-submit="add_timing(regTime)">
+
+                        <input name="date" type="date" class="form-control" id="date" placeholder="date" data-error="Enter Your date" ng-model= "regTime.date" required>
+                        <input name="startHour" type="number" min="0" max="23" placeholder="hour" ng-model="regTime.startHour">
+                        <input name="startMinute" type="number" min="0" max="59" placeholder="minute" ng-model="regTime.startMinute">
+                        <input name="name" type="text"  value="{{service_corp._id}}">
+                        <button type="submit" class="w3-button w3-black w3-margin-bottom"><i class="fa fa-paper-plane w3-margin-right"></i>Add</button>
+
+
+                    </form>
+                </form>
+            </div>
+        </div>
+    </div>
 
 
 
@@ -210,9 +229,36 @@ function showDivs(n) {
     <div class="w3-container w3-card-2 w3-white w3-round w3-margin"><br>
       <h2>Videos</h2>
 
-  </div>
 
 
+    </div>
+
+        <div class="w3-container w3-card-2 w3-white w3-round w3-margin"><br>
+
+            <h2>Timings</h2>
+
+            <div class="w3-content w3-display-container"><br><br><br><br><br>
+                <div ng-repeat ="(i,x) in service_corp.reservations track by $index" >
+
+                       <a id="p1" >Date:{{x.date}}</a>
+                       </br>
+
+                       Time:{{x.startHour}}:{{x.startMinute}}</p>
+
+                    <p>Booked:{{x.booked}}</p>
+                </div>
+
+                <button class="w3-button w3-black w3-display-left" onclick="plusDivs(-1)">&#10094;</button>
+                <button class="w3-button w3-black w3-display-right" onclick="plusDivs(1)">&#10095;</button>
+            </div>
+
+
+        </div>
+
+        <p><script type="javascript">
+            var date=x.date;
+            document.getElementById("p1").innerHTML ="Date"+date;
+        </script>
 
 <div class="w3-container w3-card-2 w3-white w3-round w3-margin"><br>
   <h2>Reviews</h2>
