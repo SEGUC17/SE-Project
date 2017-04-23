@@ -87,13 +87,14 @@ module.exports= {
                 x=parseFloat(x)+parseFloat(chargeAmount);
                 Client.balance=parseFloat(x);
                 console.log(Client.balance)
-                Client.save(function(err,success){
+                Client.save(function(err){
                   if(err){
                     console.log("error in saving");
                   }
                   else{
-                    res.redirect('/profile_client')
+                    res.redirect("/profile_client")
                   }
+
                 });
                 console.log("saved");
                 }   )

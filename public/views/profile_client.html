@@ -131,14 +131,12 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
           <h3 style="margin-bottom:40px;"></h3>
 
           <form action="/charge" method="POST">
-            <input name="chargeAmount" type="number" min="10" max="1000" value="" class="form-control" id="charge" placeholder="chargeAmount" data-error="Enter the Rating" required><br>
+            <input name="chargeAmount" type="number" min="10" max="1000" value="" class="form-control" id="charge" placeholder="chargeAmount" data-error="Enter the Amount" required><br>
          <script src="https://checkout.stripe.com/checkout.js"
-
                    class="stripe-button"
                    data-key="pk_test_BUJCHabcusGo0VmmgM0yUoo2"
                    data-name="Charge Amount"
-                   data-amount=document.getElementById('charge').value
-                   data-description="nothing"
+                   data-description={{client.name}}
                    data-locale="auto"
                    data-currency="egp"
                    >
