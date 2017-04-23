@@ -9,7 +9,7 @@ var multer = require('multer');
 var fs = require('fs');
 var path = require('path');
 require('./config/passport')(passport);
-var DB_URI = "mongodb://localhost:27017/sea-project";
+var DB_URI = "mongodb://localhost:27017/se-project";
 var app = express();
 
 // Loading Angular Components ..

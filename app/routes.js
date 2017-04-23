@@ -54,6 +54,8 @@ router.post('/client/checkAuthentication', clientController.checkClientAuthentic
 
 router.post('/client/login', clientController.localLogin);
 
+router.post('/client/infoo', clientController.checkAuthentication, clientController.client_info);
+
 router.post('/client/logout', clientController.logout)
 
 router.post('/client/recover', clientController.recoverPassword)
@@ -146,6 +148,8 @@ router.post('/corporate/services', corporateController.getCorporationServices);
 
 router.post('/corporate/service', corporateController.getService);
 
+router.post('/corporate/infoo', corporateController.corpservice);
+
 //Search router
 router.post('/search', searchController.search)
 
@@ -155,6 +159,7 @@ router.post('/book',clientController.checkAuthentication,clientController.book)
 
 router.post('/corporate/service/timing', corporateController.checkAuthentication, corporateController.addReservation);
 
+router.post('/check_online', rootController.check)
 
 
 //export router

@@ -126,7 +126,7 @@ res.status(401).send("You are unauthorized to access this page")
   localSignUp: function(req, res,next) {
           passport.authenticate('corporate-signup', function(err, user) {
               if (err) {
-                  res.json(err)
+                  res.json({success: false})
               }
               else if(user){
                   req.login(user, function(err) {
@@ -135,7 +135,7 @@ res.status(401).send("You are unauthorized to access this page")
                           res.json({success: false, error: "An unexpected error has occured1"})
                       }
                       else {
-                          req.session.corporate = true
+                          //req.session.corporate = true
                           res.json({success: true, user: req.user})
                       }
                   })
@@ -510,7 +510,21 @@ res.status(401).send("You are unauthorized to access this page")
             }
 
         })
+    },
+
+
+    corpservice:function(req,res){
+    Corporate.findOne({"local.email" : req.user.local.email},function(err,ress){
+    if(err){
+    res.json({success:false, error:"No reservations for you"});
     }
+    else{
+    res.json({success:true,corporate:ress});
+    }
+    })
+      }
+
+
 
 
 

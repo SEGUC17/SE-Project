@@ -31,7 +31,7 @@ module.exports = {
     //Use the passport authentication strategy in config/passport.js
     passport.authenticate('local-signup', function(err, user) {
       if (err) {
-        res.json(err)
+        res.json({success:false})
       }
       else if(user){
         //Log the user in via passport
@@ -427,5 +427,16 @@ module.exports = {
 	res.json({success:true,reservations:ress});
 	}
 	})
-    }
+},
+
+client_info:function(req,res){
+Client.findOne({email:req.user.email},function(err,ress){
+if(err){
+res.json({success:false, error:"No reservations for you"});
+}
+else{
+res.json({success:true,client:ress});
+}
+})
+  }
 }

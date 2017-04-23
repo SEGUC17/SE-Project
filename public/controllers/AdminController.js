@@ -84,7 +84,7 @@ app.controller("adminClients", function($scope,$window, $http) {
 
 app.controller("login_admin", function($scope,$window, $http) {
 
-  
+
 
 
   $scope.regAdmin= function(regData){
@@ -177,3 +177,21 @@ app.controller("admin_service", function($scope,$window, $http) { // admin accep
 
 
 });
+
+
+
+app.controller("online_check", function($scope,$window, $http) {
+
+
+  $http.post("/check_online").then(function successCallback(response){
+      var y = response.data.online;
+      $scope.online = y;
+      console.log(y);
+    }, function errorCallback(response) {//needs handling
+
+
+
+  })
+
+
+})

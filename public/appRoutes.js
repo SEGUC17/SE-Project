@@ -63,7 +63,7 @@ $routeProvider
 
     .when('/profile_client', {
         templateUrl: 'views/profile_client.html',
-        controller : 'profile_client',
+        controller : 'clientinfoo',
         resolve: {
         logincheck: checkClientLoggedin
       }
@@ -81,15 +81,10 @@ $routeProvider
 
     .when('/profile_corporate', {
         templateUrl: 'views/profile_corporate.html',
-        controller : 'profile_corporate',
+        controller : 'corpinfoo',
         resolve: {
         logincheck: checkCorporateLoggedin
       }
-    })
-
-    .when('/Admin_Views_CorporateRequests', {
-        templateUrl: 'views/admin_Corporate_requests.html',
-        controller : 'AORCorp'
     })
 
     .when('/corporates', {

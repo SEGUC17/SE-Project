@@ -7,7 +7,8 @@ app.controller("Register_Client", function($scope,$window, $http) {
   $scope.regClient= function(regData){
     $http.post('/client/signup',regData).then(function successCallback(response){
 
-      if(response.data.success== false){
+      if(response.data.success==false){
+
         alert("Email or username already taken");
       }
 
@@ -416,7 +417,7 @@ app.controller("reserve", function($scope,$window, $http) {
       if(response.data.success==22){
         alert("You don't have enough Money");
       }
-
+else{
     var newBalance=parseFloat(client.balance)-parseFloat(regData.price);
      var service_any = response.data.Entertainments;
      client.balance=newBalance;
@@ -424,6 +425,7 @@ app.controller("reserve", function($scope,$window, $http) {
      localStorage.setItem("client", JSON.stringify(client));
 
      $window.location.reload();
+   }
 
     }, function errorCallback(response) {//needs handling
 
@@ -443,6 +445,22 @@ app.controller("reservations_client", function($scope,$window, $http) {
   $http.post("/view_reservations").then(function successCallback(response){
       var y = response.data.reservations;
       $scope.reservations = y;
+      console.log(y);
+    }, function errorCallback(response) {//needs handling
+
+
+
+  })
+
+
+})
+
+app.controller("clientinfoo", function($scope,$window, $http) {
+
+
+  $http.post("/client/infoo").then(function successCallback(response){
+      var y = response.data.client;
+      $scope.client = y;
       console.log(y);
     }, function errorCallback(response) {//needs handling
 

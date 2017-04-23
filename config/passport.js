@@ -35,10 +35,11 @@ module.exports = function(passport) {
             var lastName = req.body.lastName
             var phone = req.body.phone
             var email = req.body.email
+            console.log(username)
             var nationalID = req.body.nationalID
             if (firstName && lastName && phone && email) {
               //Find clients with the given username or email
-              Client.findOne({$or:[{"username":username}, {"email":email}]}, function(err, user){
+              Client.findOne({$or:[{"local.username":username}, {"email":email}]}, function(err, user){
                 if (err) {
                   console.log(err)
                   next({success: false, error: "An unexpected error has occured"})

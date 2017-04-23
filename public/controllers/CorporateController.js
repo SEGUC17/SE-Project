@@ -395,3 +395,21 @@ $http.post('/corporate/reportReview/', regData).then(function successCallback(re
 
    }
  })
+
+
+
+ app.controller("corpinfoo", function($scope,$window, $http) {
+
+
+   $http.post("/corporate/infoo").then(function successCallback(response){
+       var y = response.data.corporate;
+       $scope.corporate = y;
+       console.log(y);
+     }, function errorCallback(response) {//needs handling
+
+
+
+   })
+
+
+ })
