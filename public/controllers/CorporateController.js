@@ -1,4 +1,4 @@
-var app = angular.module("CorporateApp", []);
+var app = angular.module("CorporateApp", ['ngFileUpload']);
 
 app.controller("Register_Corporate", function($scope, $window, $http){
   var status;
@@ -206,34 +206,25 @@ app.controller("Login_Corporate", function($scope, $window,$http){
 
 
 
-  //  app.controller("reportreview", function($scope,$window, $http) {
-  //    $scope.reportreview= function(regData){
-   //
-  //   var service_corp = JSON.parse(localStorage.getItem("service_corp"));
-  //   var info;
-  //   info.id=service_corp._id;
-  //   info.reviewID=regData;
-  //   console.log(info);
-   //
-  //      $http({
-  //        method: 'POST',
-  //        url: '/corporate/reportReview',
-  //        data: info,
-  //        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-  //    }).then(function successCallback(response){
-  //       //  $window.location.reload();
-  //       console.log(regData);
-  //       console.log(response.data.success);
-  //       console.log(response.data.error);
-  //      }, function errorCallback(response) {//needs handling
-   //
-  //        console.log(response.data.success);
-   //
-   //
-  //    })
-   //
-  //    }
-  //  })
+   app.controller("reportreview", function($scope,$window, $http) {
+     $scope.reportreview= function(regData){
+    regData.reviewID=regData._id
+    var service_corp = JSON.parse(localStorage.getItem("service_corp"));
+    regData.id=service_corp._id;
+    console.log(regData);
+$http.post('/corporate/reportReview/', regData).then(function successCallback(response){
+
+       localStorage.setItem("service_corp", JSON.stringify(response.data.Entertainments));
+           $window.location.reload();
+       }, function errorCallback(response) {//needs handling
+
+         console.log(response.data.success);
+
+
+     })
+
+     }
+   })
 
 
 
@@ -264,3 +255,102 @@ app.controller("Login_Corporate", function($scope, $window,$http){
 
      }
    })
+
+
+
+   app.directive('fileModel', ['$parse', function ($parse) {
+     return {
+         restrict: 'A',
+         link: function(scope, element, attrs) {
+             var model = $parse(attrs.fileModel);
+             var modelSetter = model.assign;
+
+             element.bind('change', function(){
+                 scope.$apply(function(){
+                     modelSetter(scope, element[0].files[0]);
+                 });
+             });
+         }
+     };
+ }]);
+
+ app.service('fileUpload', ['$http', function ($http) {
+     this.uploadFileToUrl = function(file, uploadUrl, x){
+         var fd = new FormData();
+         if(x==0){
+           var service_corp = JSON.parse(localStorage.getItem("service_corp"));
+            fd.append('id', service_corp._id);
+         }
+         else{
+           var service_corp = JSON.parse(localStorage.getItem("corporate"));
+           fd.append('id', service_corp._id);
+         }
+
+         fd.append('file', file);
+
+         $http.post(uploadUrl, fd, {
+             transformRequest: angular.identity,
+             headers: {'Content-Type': undefined}
+         }).then(function successCallback(response){
+
+           if(x==0){
+           var service_corp = response.data.Entertainments;
+           localStorage.setItem("service_corp", JSON.stringify(service_corp));
+            }
+
+            else{
+              var corp = response.data.corp;
+              localStorage.setItem("corporate", JSON.stringify(corp));
+            }
+           //$window.location.reload();
+
+
+         }, function errorCallback(response) {//needs handling
+
+           console.log(response.data.success);
+
+
+       })
+     }
+ }]);
+
+ app.controller('upload_image_service', ['$scope', 'fileUpload', function($scope, fileUpload){
+
+     $scope.uploadFile = function(){
+         var file = $scope.myFile;
+         console.log('file is ' );
+         console.dir(file);
+         var uploadUrl = "/corporate/addMedia/file";
+         if(file) fileUpload.uploadFileToUrl(file, uploadUrl, 0);
+         else alert("No input File");
+     };
+
+ }]);
+
+
+ app.controller('upload_video', ['$scope', 'fileUpload', function($scope, fileUpload){
+
+     $scope.uploadFile = function(){
+         var file = $scope.myFile;
+         console.log('file is ' );
+         console.dir(file);
+         var uploadUrl = "/corporate/addVideo/file";
+         if(file) fileUpload.uploadFileToUrl(file, uploadUrl, 0);
+         else alert("No input File");
+     };
+
+ }]);
+
+
+ app.controller('upload_profile_picture', ['$scope', 'fileUpload', function($scope, fileUpload){
+
+     $scope.uploadFile = function(){
+         var file = $scope.myFile;
+         console.log('file is ');
+         console.dir(file);
+         var uploadUrl = "/corporate/addimage/file";
+         if(file) fileUpload.uploadFileToUrl(file, uploadUrl, 1);
+         else alert("No input File");
+     };
+
+ }]);

@@ -1,5 +1,6 @@
 var app = angular.module("ClientApp", []);
 
+
 app.controller("Register_Client", function($scope,$window, $http) {
   var client = localStorage.getItem("client");
   console.log(client);

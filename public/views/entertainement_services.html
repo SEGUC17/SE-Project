@@ -82,9 +82,9 @@
 
 <br><br>
 
-    <div ng-repeat ="(i,x) in services track by $index" class="w3-quarter w3-margin-bottom">
+    <div dir-paginate ="(i,x) in services|itemsPerPage:6" class="w3-third w3-margin-bottom">
 
-      <a ng-controller="getservice" ng-click="getservice(services[i])"</a> <img src="/images/enter.png" class="" style="width:200px;  cursor: pointer;"></a>
+      <a ng-controller="getservice" ng-click="getservice(x)"</a> <img src="/images/7.jpg" class="w3-circle" style="width:250px; height:240px;  cursor: pointer;"></a>
 
       <div class="w3-container ">
         <h3>{{x.name}}</h3>
@@ -95,7 +95,15 @@
 
 
 
+
+
   </div>
+  <div class="w3-center">
+  <dir-pagination-controls
+     direction-links="true"
+     boundary-links="true" >
+  </dir-pagination-controls>
+</div>
 </div>
 
 </body>

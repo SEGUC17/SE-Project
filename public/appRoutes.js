@@ -41,12 +41,18 @@ $routeProvider
 
     .when('/entertainement_service', {
         templateUrl: 'views/entertainement_service.html',
-        controller : 'service_corporate'
+        controller : 'service_corporate',
+        resolve: {
+        logincheck: checkCorporateLoggedin
+      }
     })
 
     .when('/entertainement_service_client', {
         templateUrl: 'views/entertainement_service_client.html',
-        controller : 'serviceprofile'
+        controller : 'serviceprofile',
+        resolve: {
+        logincheck: checkClientLoggedin
+      }
     })
 
     .when('/entertainement_service_visitor', {
@@ -57,7 +63,10 @@ $routeProvider
 
     .when('/profile_client', {
         templateUrl: 'views/profile_client.html',
-        controller : 'profile_client'
+        controller : 'profile_client',
+        resolve: {
+        logincheck: checkClientLoggedin
+      }
     })
 
     .when('/forget_password', {
@@ -72,7 +81,10 @@ $routeProvider
 
     .when('/profile_corporate', {
         templateUrl: 'views/profile_corporate.html',
-        controller : 'profile_corporate'
+        controller : 'profile_corporate',
+        resolve: {
+        logincheck: checkCorporateLoggedin
+      }
     })
 
     .when('/Admin_Views_CorporateRequests', {
@@ -90,8 +102,70 @@ $routeProvider
         controller : 'corporateprofile'
     })
 
+    .when('/401', {
+        templateUrl: 'views/401.html',
+        controller : ''
+    })
+
+    .otherwise({
+      templateUrl: 'views/404.html',
+    })
 
 
 $locationProvider.html5Mode(true);
 
 }]);
+
+
+
+
+var checkClientLoggedin = function($q, $timeout, $http, $location, $rootScope) {
+  var deferred = $q.defer();
+  $http.post('/client/checkAuthentication').then(function successCallback(response){
+
+  if(response.data.success){
+    var online =1;
+      localStorage.setItem("online", JSON.stringify(online));
+      deferred.resolve();
+
+  }
+  else{
+    var online =0;
+      localStorage.setItem("online", JSON.stringify(online));
+    deferred.reject();
+      $location.url('/401');
+  }
+
+  },function errorCallback(response){
+
+  })
+  ;
+
+  return deferred.promise;
+}
+
+
+
+var checkCorporateLoggedin = function($q, $timeout, $http, $location, $rootScope) {
+  var deferred = $q.defer();
+  $http.post('/corporate/checkAuthentication').then(function successCallback(response){
+
+  if(response.data.success){
+    var online =2;
+      localStorage.setItem("online", JSON.stringify(online));
+      deferred.resolve();
+  }
+  else{
+    var online =0;
+      localStorage.setItem("online", JSON.stringify(online));
+    deferred.reject();
+     $location.url('/401');
+  }
+
+  },function errorCallback(response){
+
+  })
+  ;
+
+  return deferred.promise;
+}

@@ -128,14 +128,12 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 				<button onclick="myFunction('Demo4')" class="w3-btn-block w3-left-align">Change Avatar</button>
 				<div id="Demo4" class="w3-hide w3-container">
 					<h3 style="margin-bottom:40px;"></h3>
-					<form  enctype="multipart/form-data">
-						<input type="file" name="profileimage" accept="image/*">
-						<input type="text" name="student" class="w3-hide" value='<%= student%>'>
-						<input type="text" name="email" class="w3-hide" value='<%= student.email%>'>
-						<br>
-						<input type="submit" value="Change" name="submit" class="btn btn-default">
-						<br>
-					</form>
+          <div ng-controller = "upload_profile_picture">
+            <input type="file" file-model="myFile" id="uploadfile" name="file" accept="image/*"  required>
+            <br>
+            <input ng-click="uploadFile()" type="submit" id="upload" value="Add" name="submit" class="btn btn-default">
+            <br>
+          </div>
 				</div>
 <br><br>
 
@@ -205,10 +203,17 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 				<h2 class="w3-text-grey w3-padding-16"><i class="fa fa-certificate fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Announcements</h2>
 
 
-        <div ng-repeat ="x in corporate.announcments.time track by $index"   class="w3-container w3-card-2 w3-white w3-round w3-margin"><br>
-          <h5>{{x}}</h5>
-          <p>{{corporate.announcments.data[$index]}}</p>
+        <div dir-paginate ="x in corporate.announcments.data|itemsPerPage:3 track by $index " pagination-id="cust"   class="w3-container w3-card-2 w3-white w3-round w3-margin"><br>
+          <p>{{x}}</p>
         </div>
+        <div class="w3-center">
+        <dir-pagination-controls
+           direction-links="true"
+           boundary-links="true"
+           pagination-id="cust"
+            >
+        </dir-pagination-controls>
+      </div>
 
 
         <div class="w3-row-padding">
@@ -248,19 +253,28 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 
 				<div class="w3-row-padding">
 <br>
-					<div ng-repeat="(i,x) in entertainement_services_corp track by $index" class="w3-third w3-container w3-margin-bottom">
+					<div dir-paginate="(i,x) in entertainement_services_corp|itemsPerPage:6 track by $index" pagination-id="fust" class="w3-third w3-container w3-margin-bottom">
 
-            <a ng-controller="getCorpService" ng-click="getCorpService(entertainement_services_corp[i])" </a> <img src="/images/enter.png" class="w3-circle" style="width:120px; height: 100px; cursor: pointer;"></a>
+            <a ng-controller="getCorpService" ng-click="getCorpService(x)" </a> <img src="/images/enter.png" class="w3-circle" style="width:120px; height: 100px; cursor: pointer;"></a>
             <br><br>
             <p>Name :- {{x.name}}</p>
             <p>Rating :- {{x.actualRating}}</p>
 
-            <button ng-controller="removeservice" ng-click="removeservice(entertainement_services_corp[i])" class="w3-button w3-black w3-margin-bottom"><i class="fa fa-paper-plane w3-margin-right"></i>Remove</button>
+            <button ng-controller="removeservice" ng-click="removeservice(x)" class="w3-button w3-black w3-margin-bottom"><i class="fa fa-paper-plane w3-margin-right"></i>Remove</button>
 
 
 					</div>
 
 				</div>
+
+        <div class="w3-center">
+        <dir-pagination-controls
+           direction-links="true"
+           boundary-links="true"
+           pagination-id="fust"
+            >
+        </dir-pagination-controls>
+      </div>
 			</div>
 
 

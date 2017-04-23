@@ -4,50 +4,39 @@ var Review  = require('../models/review')
 var crypto = require('crypto')
 var passport = require('passport')
 var multer = require('multer')
+var fs = require('fs');
+var path = require('path');
 var Client = require('../models/client')
 var Entertainment = require('../models/entertainment')
 var admin = require('../models/admin')
 
 
-//Define media storage directories
-var storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'public/uploads/images')
-  },
-  filename: function (req, file, cb) {
-    cb(null, file.fieldname + '-' + Date.now() + '.jpg')
-  }
-})
-
-var video_storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'public/uploads/videos')
-  },
-  filename: function (req, file, cb) {
-    cb(null, file.fieldname + '-' + Date.now() + '.m4v')
-  }
-})
-
-var upload = multer({ storage: storage }).single('ProfileImage');
-var video_upload = multer({ storage: video_storage }).single('ProfileVideo');
-
-
-
-
 module.exports = {
   checkAuthentication: function(req, res, next) {
-    if (req.isAuthenticated()) {
-      if (req.session.corporate)
-        return next()
-    }
-    else {
-      return res.json({error: "Not authenticated"})
-    }
-    res.status(401).send("You are unauthorized to access this page")
+  if (req.isAuthenticated()) {
+    if (req.session.corporate)
+      return next()
+  }
+  else {
+    return res.json({error: "Not authenticated"})
+  }
+  res.status(401).send("You are unauthorized to access this page")
 
-  },
+},
+checkCorpAuthentication: function(req, res, next) {
+if (req.isAuthenticated()) {
+  if (req.session.corporate)
+    return res.json({success: " authenticated"})
+}
+else {
+  return res.json({error: "Not authenticated"})
+}
+res.status(401).send("You are unauthorized to access this page")
+
+},
   reportReview: function(req, res, next) {
     var reviewID = req.body.reviewID
+    var id= req.body.id
       Review.findOne({_id: reviewID}, function(err, review) {
         if (err) {
           res.json({success: false, error: "An unexpected error occured while retrieving the review"})
@@ -59,7 +48,47 @@ module.exports = {
               res.json({success: false, error: "An unexpected error occured while updating the review"})
             }
             else {
-              res.json({success: true})
+
+              var review = new Review();
+
+              Entertainment.findOne({email: req.user.local.email, _id:id}, function (err, service) {
+                  if (err)
+                    res.json({success: false, error: "Error occured while finding the services"})
+                  else{
+
+                    for (var i = 0; i < service.reviews.length; i++) {
+                      if(service.reviews[i]._id == reviewID){
+                        review.reported=true;
+                        review._service=service.reviews[i]._service;
+                        review._creator=service.reviews[i]._creator;
+                        review.text=service.reviews[i].text;
+                        review._id=service.reviews[i]._id;
+                        service.reviews[i]=review;
+                        service.reviews.splice(i, 1);
+                        service.reviews.splice(i, 0, review);
+                        break;
+                      }
+                    }
+
+                    service.save(function(err) {
+                      if (err) {
+                        res.json({success: false, error: "An unexpected error has occuredzz"})
+                      }
+                      else {
+                        console.log(service.reviews);
+                        res.json({success: true, Entertainments: service})
+                      }
+                    })
+
+                  }
+              })
+
+
+
+
+
+
+
             }
           })
         }
@@ -146,7 +175,7 @@ module.exports = {
   },
     // Media Adding to corporate's Entertainment
     addMedia:function(req, res){
-     upload(req, res, function (err) {
+
        Entertainment.findOne({"email": req.user.local.email, _id:req.body.id}, function(err, entertainment){
          if(err){
              res.send(err.message);
@@ -177,7 +206,7 @@ module.exports = {
           console.log(entertainment)
           console.log("Debugg")
           // Pushing Image Name String
-          entertainment.images.push(new_image)
+          entertainment.images.push(file)
           //Saving the new image to Corporate
           entertainment.save()
           //  console.log(req.file);
@@ -186,7 +215,7 @@ module.exports = {
             success: true,
             message: 'Image Uploaded',
             id: req.body.id,
-            image: new_image
+            Entertainments: entertainment
           })
             //  res.render('media', {loggedin,uploaded,corp});
 
@@ -196,13 +225,69 @@ module.exports = {
    })
 
 
-     })
+
 
    },
 
 
+
+   addProfilePic:function(req, res){
+
+      Corporate.findOne({"_id": req.body.id}, function(err, corp){
+        if(err){
+            res.send(err.message);
+            res.json({success: false, error: "Error occured while finding the services"})
+        }else {
+          var uploaded = false;
+          var loggedin = true;
+          if (err) {
+            // An error occurred when uploading
+            console.log('Error while Uploading media.')
+            res.json({
+              success: false,
+              message: 'Uploading failed'
+            })
+           //  return res.end("Error uploading file.");
+          }
+         //  var result =  req.file.path;
+         //  console.log(result)
+
+         var new_image = req.file.filename;
+         var file = '/uploads/images/' + req.file.filename;
+           //  console.log(__dirname+'/../')
+        console.log(file)
+
+         uploaded = true;
+         console.log(req.user.local.email)
+
+         // Pushing Image Name String
+         console.log(corp);
+         corp.profileimage=file
+         //Saving the new image to Corporate
+         corp.save()
+         //  console.log(req.file);
+         //Checking Using Postman..
+         res.json({
+           success: true,
+           message: 'Image Uploaded',
+           id: req.body.id,
+           corp: corp
+         })
+           //  res.render('media', {loggedin,uploaded,corp});
+
+
+
+        }
+  })
+
+
+
+
+  },
+
+
    addVideo:function(req, res){
-      video_upload(req, res, function (err) {
+
         Entertainment.findOne({"email": req.user.local.email, _id:req.body.id}, function(err, entertainment){
           if(err){
               res.send(err.message);
@@ -226,7 +311,7 @@ module.exports = {
 
             uploaded = true;
             // Pushing Video Name String
-            entertainment.videos.push(new_video)
+            entertainment.videos.push(file)
             //Saving the new Video to Corporate
             entertainment.save()
            //  console.log(req.file);
@@ -236,14 +321,13 @@ module.exports = {
               success: true,
               message: 'Video Uploaded',
               id: req.body.id,
-              video: new_video
+              Entertainments: entertainment
             })
             // res.render('media', {loggedin,uploaded,corp});
           }
         })
 
 
-      })
 
     },
 
@@ -275,7 +359,7 @@ module.exports = {
           console.log('new Announcments of this corporate is valid.')
           var data = req.body.userinput;
           var test_time = new Date()
-          var time_result = test_time.toLocaleDateString()
+          var time_result = test_time.toLocaleString()
           corp.announcments.data.push(data);
           corp.announcments.time.push(time_result);
           corp.save()

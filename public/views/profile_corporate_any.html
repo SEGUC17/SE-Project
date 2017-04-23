@@ -136,16 +136,20 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 				<h2 class="w3-text-grey w3-padding-16"><i class="fa fa-certificate fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Announcements</h2>
 
 
-        <div ng-repeat ="x in corporatet.announcments.time track by $index"   class="w3-container w3-card-2 w3-white w3-round w3-margin"><br>
-          <h5>{{x}}</h5>
-          <p>{{corporatet.announcments.data[$index]}}</p>
+        <div  dir-paginate ="x in corporatet.announcments.data|itemsPerPage:3 track by $index" class="w3-container w3-card-2 w3-white w3-round w3-margin"><br>
+          <p>{{x}}</p>
         </div>
-
+        <div class="w3-center">
+        <dir-pagination-controls
+           direction-links="true"
+           boundary-links="true"
+            >
+        </dir-pagination-controls>
+      </div>
 
 
 <br>
 
-    </div>
 
 
 

@@ -15,6 +15,16 @@ module.exports = {
     }
     res.status(401).send("You are unauthorized to access this page")
   },
+  checkClientAuthentication: function(req, res, next) {
+    if (req.isAuthenticated()) {
+      if (req.session.client)
+        return res.json({success: "Not authenticated"})
+    }
+    else {
+      return res.json({error: "Not authenticated"})
+    }
+    res.status(401).send("You are unauthorized to access this page")
+  },
   //Handles client sign up with regular username, email and password
   localSignup: function(req, res, next) {
     //Use the passport authentication strategy in config/passport.js

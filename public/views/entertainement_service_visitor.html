@@ -94,7 +94,7 @@ function showDivs(n) {
       <!-- Profile -->
       <div class="w3-card-2 w3-round w3-white">
         <div class="w3-container">
-         <h4 class="w3-center">{{service_corp.name}}</h4>
+         <h4 class="w3-center">{{service.name}}</h4>
          <p class="w3-center"><img src="/images/enter.png" class="w3-circle" style="width:200px" alt="Avatar"></p>
          <hr>
          <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i>Location :- {{service.location}}</p>
@@ -121,14 +121,19 @@ function showDivs(n) {
 
       <div class="w3-container w3-card-2 w3-white w3-round w3-margin"><br>
 
-        <h2>Images</h2>
+        <h2 class="w3-red w3-center">Images</h2>
 
-        <div class="w3-content w3-display-container"><br><br><br><br><br>
-          <div ng-repeat ="(i,x) in service.images" >
+        <div class="w3-content w3-display-container"><br>
+          <div dir-paginate ="x in service.images|itemsPerPage:1" pagination-id="cust">
       <img class="mySlides" src="{{x}}" style="width:100%">
     </div>
-        <button class="w3-button w3-black w3-display-left" onclick="plusDivs(-1)">&#10094;</button>
-        <button class="w3-button w3-black w3-display-right" onclick="plusDivs(1)">&#10095;</button>
+        <div class="w3-center">
+        <dir-pagination-controls
+           direction-links="true"
+           boundary-links="true"
+           pagination-id="cust">
+        </dir-pagination-controls>
+      </div>
       </div>
 
 
@@ -136,18 +141,44 @@ function showDivs(n) {
 
 
     <div class="w3-container w3-card-2 w3-white w3-round w3-margin"><br>
-      <h2>Videos</h2>
+      <h2 class="w3-red w3-center">Videos</h2>
+
+
+      <div class="w3-content w3-display-container"><br>
+        <div dir-paginate ="x in service.videos|itemsPerPage:1" pagination-id="rust">
+          <video width="600" controls>
+            <source src="{{x}}" type="video/mp4">
+            Your browser does not support HTML5 video.
+          </video>
+  </div>
+      <div class="w3-center">
+      <dir-pagination-controls
+         direction-links="true"
+         boundary-links="true"
+         pagination-id="rust">
+      </dir-pagination-controls>
+    </div>
+    </div>
 
   </div>
 
 
 
   <div class="w3-container w3-card-2 w3-white w3-round w3-margin"><br>
-    <h2>Reviews</h2>
+    <h2 class="w3-center w3-red">Reviews</h2>
     <br>
 
-    <div ng-repeat ="x in service.reviews track by $index"   class="w3-container w3-card-2 w3-white w3-round w3-margin"><br>
+    <div dir-paginate ="x in service.reviews|itemsPerPage:5 track by $index" pagination-id="fust"  class="w3-container w3-card-2 w3-white w3-round w3-margin"><br>
       <p> {{x.text}}</p>
+    </div>
+
+    <div class="w3-center">
+    <dir-pagination-controls
+       direction-links="true"
+       boundary-links="true"
+       pagination-id="fust">
+        >
+    </dir-pagination-controls>
     </div>
 
 </div>
