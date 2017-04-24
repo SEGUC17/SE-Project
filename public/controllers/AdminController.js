@@ -15,7 +15,7 @@ app.controller("AORCorp", function($scope,$window, $http) { // admin accept or r
       console.log(response.statusText);
       if(response.statusText == "OK"){
         console.log("yes");
-        $window.location.reload();
+       $window.location.reload();
       }
     })
     }

@@ -19,7 +19,7 @@ $routeProvider
         controller : ''
     })
 
-    .when('/services', {
+    .when('/services/:id', {
         templateUrl: 'views/entertainement_services.html',
         controller : 'servicesCtrl'
     })
@@ -89,7 +89,7 @@ $routeProvider
       }
     })
 
-    .when('/corporates', {
+    .when('/corporates/:id', {
         templateUrl: 'views/corporates.html',
         controller : 'corpsCtrl'
     })
@@ -150,6 +150,9 @@ var checkClientLoggedin = function($q, $timeout, $http, $location, $rootScope) {
   for(i; i<url.length;i++){
     id+=url.charAt(i);
   }
+
+
+
 
 
   $http.post("/check_online").then(function successCallback(response){
@@ -280,83 +283,109 @@ var checkcorp = function($q, $timeout, $http, $location, $rootScope) {
   }
 
 
-  $http.post("/check_online").then(function successCallback(response){
+  var req2 = {
+   method: 'POST',
+   url: '/checkcorpfound',
+   data: "id="+id,
+   headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+  }
 
-      var y = response.data.online;
 
-      if(type==1){
-        if(y==0 || y==1){
+  $http({
+    method: 'POST',
+    url: '/checkcorpfound',
+    data: "id="+id,
+    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+  }).then(function(response){
+      if(response.data.success==false){
         deferred.reject();
-        $location.url('/profile_corporate_any/'+id);
-        }
-        else{
+        $location.url('/404');
+      }
+      else{
+        $http.post("/check_online").then(function successCallback(response){
 
-          var req = {
-           method: 'POST',
-           url: '/corporate/checkcorpin',
-           data: "id=" + id,
-           headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-          }
+            var y = response.data.online;
 
-
-          $http({
-            method: 'POST',
-            url: '/corporate/checkcorpin',
-            data: "id=" + id,
-            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-          }).then(function(response){
-              if(response.data.success==false){
-                deferred.reject();
-                $location.url('/profile_corporate_any/'+id);
+            if(type==1){
+              if(y==0 || y==1){
+              deferred.reject();
+              $location.url('/profile_corporate_any/'+id);
               }
               else{
-                deferred.resolve();
+
+                var req = {
+                 method: 'POST',
+                 url: '/corporate/checkcorpin',
+                 data: "id=" + id,
+                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                }
+
+
+                $http({
+                  method: 'POST',
+                  url: '/corporate/checkcorpin',
+                  data: "id=" + id,
+                  headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                }).then(function(response){
+                    if(response.data.success==false){
+                      deferred.reject();
+                      $location.url('/profile_corporate_any/'+id);
+                    }
+                    else{
+                      deferred.resolve();
+                    }
+
+                   console.log(response);
+                   });
+
               }
-
-             console.log(response);
-             });
-
-        }
-      }
-      else if(type==2){
-        if(y==0 || y==1){
-          deferred.resolve();
-        }
-        else{
-          var req = {
-           method: 'POST',
-           url: '/corporate/checkcorpin',
-           data: "id=" + id,
-           headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-          }
-
-
-          $http({
-            method: 'POST',
-            url: '/corporate/checkcorpin',
-            data: "id=" + id,
-            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-          }).then(function(response){
-              if(response.data.success==false){
+            }
+            else if(type==2){
+              if(y==0 || y==1){
                 deferred.resolve();
               }
               else{
-                deferred.reject();
-                $location.url('/profile_corporate/'+id);
+                var req = {
+                 method: 'POST',
+                 url: '/corporate/checkcorpin',
+                 data: "id=" + id,
+                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                }
+
+
+                $http({
+                  method: 'POST',
+                  url: '/corporate/checkcorpin',
+                  data: "id=" + id,
+                  headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                }).then(function(response){
+                    if(response.data.success==false){
+                      deferred.resolve();
+                    }
+                    else{
+                      deferred.reject();
+                      $location.url('/profile_corporate/'+id);
+                    }
+
+                   console.log(response);
+                   });
+
               }
+            }
 
-             console.log(response);
-             });
 
-        }
+          }, function errorCallback(response) {//needs handling
+
+
+
+        })
       }
 
+     console.log(response);
+     });
 
-    }, function errorCallback(response) {//needs handling
 
 
-
-  })
 
   return deferred.promise;
 }
@@ -382,6 +411,8 @@ var entservice = function($q, $timeout, $http, $location, $rootScope, $window) {
     id+=url.charAt(i);
   }
 
+
+
   if(url === "/entertainement_service_client/"+id){
     type=1;
   }
@@ -393,18 +424,125 @@ var entservice = function($q, $timeout, $http, $location, $rootScope, $window) {
   }
 
 
+  var req = {
+   method: 'POST',
+   url: '/checkentfound',
+   data:"id="+id,
+   headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+  }
 
-  $http.post("/check_online").then(function successCallback(response){
-      var y = response.data.online;
+
+  $http({
+    method: 'POST',
+    url: '/checkentfound',
+    data:"id="+id,
+    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+  }).then(function(response){
+
+    if(response.data.success==false){
+      deferred.reject();
+      $location.url('/404');
+    }
+    else{
+      $http.post("/check_online").then(function successCallback(response){
+          var y = response.data.online;
 
 
-      if(type==1){
+          if(type==1){
 
-      if(y==0){
+          if(y==0){
+              deferred.reject();
+            $location.url('/entertainement_service_visitor/'+id);
+          }
+          else if(y==2){
+
+            var req = {
+             method: 'POST',
+             url: '/corporate/checkservice',
+             data: "id=" + id,
+             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            }
+
+
+            $http({
+              method: 'POST',
+              url: '/corporate/checkservice',
+              data: "id=" + id,
+              headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            }).then(function(response){
+                if(response.data.success==false){
+                  deferred.reject();
+                  $location.url('/entertainement_service_visitor/'+id);
+                }
+                else{
+                  deferred.reject();
+                  $location.url('/entertainement_service/'+id);
+                }
+
+               console.log(response);
+               });
+
+          }
+          else{
+            deferred.resolve();
+          }
+        }
+
+
+        else if(type==2){
+
+        if(y==1){
+            deferred.reject();
+          $location.url('/entertainement_service_client/'+id);
+        }
+        else if(y==2){
+
+
+              var req = {
+               method: 'POST',
+               url: '/corporate/checkservice',
+               data: "id=" + id,
+               headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+              }
+
+
+              $http({
+                method: 'POST',
+                url: '/corporate/checkservice',
+                data: "id=" + id,
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+              }).then(function(response){
+                  if(response.data.success==false){
+                    deferred.resolve();
+                  }
+                  else{
+                    deferred.reject();
+                    $location.url('/entertainement_service/'+id);
+                  }
+
+                 console.log(response);
+                 });
+
+        }
+        else{
+          deferred.resolve();
+        }
+
+      }
+
+
+      else if(type==3){
+
+      if(y==1){
+          deferred.reject();
+        $location.url('/entertainement_service_client/'+id);
+      }
+      else if(y==0){
           deferred.reject();
         $location.url('/entertainement_service_visitor/'+id);
       }
-      else if(y==2){
+      else{
+
 
         var req = {
          method: 'POST',
@@ -425,113 +563,33 @@ var entservice = function($q, $timeout, $http, $location, $rootScope, $window) {
               $location.url('/entertainement_service_visitor/'+id);
             }
             else{
-              deferred.reject();
-              $location.url('/entertainement_service/'+id);
+              deferred.resolve();
             }
 
            console.log(response);
            });
 
+
+
+
       }
-      else{
-        deferred.resolve();
-      }
     }
 
 
-    else if(type==2){
 
-    if(y==1){
-        deferred.reject();
-      $location.url('/entertainement_service_client/'+id);
-    }
-    else if(y==2){
+        }, function errorCallback(response) {//needs handling
 
 
-          var req = {
-           method: 'POST',
-           url: '/corporate/checkservice',
-           data: "id=" + id,
-           headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-          }
 
-
-          $http({
-            method: 'POST',
-            url: '/corporate/checkservice',
-            data: "id=" + id,
-            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-          }).then(function(response){
-              if(response.data.success==false){
-                deferred.resolve();
-              }
-              else{
-                deferred.reject();
-                $location.url('/entertainement_service/'+id);
-              }
-
-             console.log(response);
-             });
-
-    }
-    else{
-      deferred.resolve();
+      })
     }
 
-  }
-
-
-  else if(type==3){
-
-  if(y==1){
-      deferred.reject();
-    $location.url('/entertainement_service_client/'+id);
-  }
-  else if(y==0){
-      deferred.reject();
-    $location.url('/entertainement_service_visitor/'+id);
-  }
-  else{
-
-
-    var req = {
-     method: 'POST',
-     url: '/corporate/checkservice',
-     data: "id=" + id,
-     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-    }
-
-
-    $http({
-      method: 'POST',
-      url: '/corporate/checkservice',
-      data: "id=" + id,
-      headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-    }).then(function(response){
-        if(response.data.success==false){
-          deferred.reject();
-          $location.url('/entertainement_service_visitor/'+id);
-        }
-        else{
-          deferred.resolve();
-        }
-
-       console.log(response);
-       });
+     console.log(response);
+     });
 
 
 
 
-  }
-}
-
-
-
-    }, function errorCallback(response) {//needs handling
-
-
-
-  })
 
   return deferred.promise;
 }

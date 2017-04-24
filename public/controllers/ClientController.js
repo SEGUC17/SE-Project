@@ -249,11 +249,13 @@ app.controller("corporateprofile", function($scope,$window, $http) {
 
 
 
-app.controller("getservices", function($scope,$window, $http) {
+app.controller("getservices", function($scope,$window, $http,$routeParams) {
 
   $http.post('/client/services').then(function successCallback(response){
 
+
     $scope.services = response.data.Entertainments;
+
 
   }, function errorCallback(response) {//needs handling
     console.log(response.data.success);

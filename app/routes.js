@@ -169,6 +169,10 @@ router.post('/corporate/checkcorpin', corporateController.checkAuthentication, c
 
 router.post('/checkclientin', corporateController.checkclientin)
 
+router.post('/checkcorpfound', corporateController.checkcorpfound)
+
+router.post('/checkentfound', corporateController.checkentfound)
+
 
 
 //export router

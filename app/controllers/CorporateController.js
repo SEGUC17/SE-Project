@@ -578,4 +578,40 @@ else{
 })
 },
 
+
+checkcorpfound:function(req,res){
+Corporate.findOne({"_id":req.body.id},function(err,ress){
+if(err){
+res.json({success:false, error:"No reservations for you"});
+}
+else{
+  if(ress){
+    res.json({success:true});
+  }
+  else{
+    res.json({success:false});
+  }
+
+}
+})
+},
+
+
+checkentfound:function(req,res){
+Entertainment.findOne({"_id":req.body.id},function(err,ress){
+if(err){
+res.json({success:false, error:"No reservations for you"});
+}
+else{
+  if(ress){
+    res.json({success:true});
+  }
+  else{
+    res.json({success:false});
+  }
+
+}
+})
+},
+
 }

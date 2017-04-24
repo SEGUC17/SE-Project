@@ -56,8 +56,7 @@
 
   <div class="w3-row-padding w3-padding-16">
 
-
-    <div dir-paginate="(i,x) in corporates|itemsPerPage:10" class="w3-third w3-margin-bottom">
+    <div dir-paginate="(i,x) in corporates|itemsPerPage:6" current-page="pageid" class="w3-third w3-margin-bottom">
       <a ng-controller="getcorporate" ng-click="getcorporate(x)" </a> <img src="{{x.profileimage}}" class="w3-circle" style="width:250px; height:240px;  cursor: pointer;"></a>
       <div class="w3-container w3-white">
         <h3>{{x.name}}</h3>
@@ -70,7 +69,9 @@
   <div class="w3-center">
   <dir-pagination-controls
      direction-links="true"
-     boundary-links="true" >
+     boundary-links="true"
+     on-page-change="new(newPageNumber, oldPageNumber)"
+     >
   </dir-pagination-controls>
 </div>
 </div>

@@ -444,10 +444,8 @@ $http.post('/corporate/reportReview/', regData).then(function successCallback(re
 
 
 
- app.controller("corpsCtrl", function($scope,$window, $http,$routeParams) {
+ app.controller("corpsCtrl", function($scope,$window, $http,$routeParams,$location) {
 
- var id= $routeParams.id;
- console.log(id);
 
  var req = {
   method: 'POST',
@@ -462,9 +460,14 @@ $http.post('/corporate/reportReview/', regData).then(function successCallback(re
    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
  }).then(function(response){
     $scope.corporates = response.data.corp;
-
+    $scope.pageid= $routeParams.id;
     console.log(response);
     });
+
+    $scope.new = function(newpage,oldpage){
+      $location.url('/corporates/'+newpage);
+
+    };
 
 
  })
@@ -501,10 +504,8 @@ $http.post('/corporate/reportReview/', regData).then(function successCallback(re
 
 
 
- app.controller("servicesCtrl", function($scope,$window, $http,$routeParams) {
+ app.controller("servicesCtrl", function($scope,$window, $http,$routeParams,  $location) {
 
- var id= $routeParams.id;
- console.log(id);
 
  var req = {
   method: 'POST',
@@ -519,9 +520,16 @@ $http.post('/corporate/reportReview/', regData).then(function successCallback(re
    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
  }).then(function(response){
     $scope.services = response.data.Entertainments;
-
+    $scope.pageid= $routeParams.id;
     console.log(response);
     });
+
+    $scope.new = function(newpage,oldpage){
+      $location.url('/services/'+newpage);
+
+    };
+
+
 
 
  })

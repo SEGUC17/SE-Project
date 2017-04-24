@@ -82,7 +82,7 @@
 
 <br><br>
 
-    <div ng-controller="online_check" dir-paginate ="(i,x) in services|itemsPerPage:6" class="w3-third w3-margin-bottom">
+    <div ng-controller="online_check" dir-paginate ="(i,x) in services|itemsPerPage:6" current-page="pageid"   class="w3-third w3-margin-bottom">
 
       <a  ng-controller="getservice" ng-click="getservice(x)"</a> <img src="/images/7.jpg" class="w3-circle" style="width:250px; height:240px;  cursor: pointer;"></a>
 
@@ -101,7 +101,9 @@
   <div class="w3-center">
   <dir-pagination-controls
      direction-links="true"
-     boundary-links="true" >
+     boundary-links="true"
+     on-page-change="new(newPageNumber, oldPageNumber)"
+      >
   </dir-pagination-controls>
 </div>
 </div>
