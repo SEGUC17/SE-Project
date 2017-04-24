@@ -103,18 +103,18 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 
 			<div class="w3-white w3-text-grey w3-card-4">
 				<div class="w3-display-container w3-center">
-					<img src="{{corporatet.profileimage}}" style="width:250px; height:240px;" alt="Avatar" class="w3-circle w3-center">
+					<img src="{{corporate.profileimage}}" style="width:250px; height:240px;" alt="Avatar" class="w3-circle w3-center">
 					<br>
 					<div class="w3-display-bottomleft w3-container w3-text-black">
 					</div>
 				</div>
 				<br><br>
 				<div class="w3-container">
-					<p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i>Name : {{corporatet.name}} </p>
-					<p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i>Phone : {{corporatet.phone}}</p>
-					<p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i>Address : {{corporatet.address}}</p>
-					<p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i>Type : {{corporatet.type}}</p>
-					<p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i>Email : {{corporatet.local.email}}</p>
+					<p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i>Name : {{corporate.name}} </p>
+					<p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i>Phone : {{corporate.phone}}</p>
+					<p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i>Address : {{corporate.address}}</p>
+					<p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i>Type : {{corporate.type}}</p>
+					<p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i>Email : {{corporate.local.email}}</p>
 					<hr>
 				</div>
 			</div><br>
@@ -136,7 +136,7 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 				<h2 class="w3-text-grey w3-padding-16"><i class="fa fa-certificate fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Announcements</h2>
 
 
-        <div  dir-paginate ="x in corporatet.announcments.data|itemsPerPage:3 track by $index" class="w3-container w3-card-2 w3-white w3-round w3-margin"><br>
+        <div  dir-paginate ="x in corporate.announcments.data|itemsPerPage:3 track by $index" class="w3-container w3-card-2 w3-white w3-round w3-margin"><br>
           <p>{{x}}</p>
         </div>
         <div class="w3-center">

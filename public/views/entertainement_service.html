@@ -26,8 +26,8 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
 								<li>
 
 									<div class="banner_text">
-										<h3>{{service_corp.name}}</h3>
-                    <h3>{{service_corp.actualRating}}</h3>
+										<h3>{{service.name}}</h3>
+                    <h3>{{service.actualRating}}</h3>
                     <span style="font-size:300%;color:yellow;">&starf;</span><span style="font-size:300%;color:yellow;">&starf;</span><span style="font-size:300%;color:yellow;">&starf;</span><span style="font-size:300%;color:yellow;">&starf;</span><span style="font-size:300%;color:yellow;">&starf;</span>
 										<div class="w3-button">
 
@@ -77,15 +77,15 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
       <!-- Profile -->
       <div class="w3-card-2 w3-round w3-white">
         <div class="w3-container">
-         <h4 class="w3-center">{{service_corp.name}}</h4>
+         <h4 class="w3-center">{{service.name}}</h4>
          <p class="w3-center"><img src="/images/7.jpg" class="w3-circle" style="width:200px; height:200px;" alt="Avatar"></p>
          <hr>
-         <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i>Location :- {{service_corp.location}}</p>
-         <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i>{{service_corp.email}}</p>
-         <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i>Rating :- {{service_corp.actualRating}}</p>
-         <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i>Phone :- {{service_corp.phone}}</p>
-         <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i>Price :- {{service_corp.price}}</p>
-         <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i>Type :- {{service_corp.type}}</p>
+         <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i>Location :- {{service.location}}</p>
+         <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i>{{service.email}}</p>
+         <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i>Rating :- {{service.actualRating}}</p>
+         <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i>Phone :- {{service.phone}}</p>
+         <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i>Price :- {{service.price}}</p>
+         <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i>Type :- {{service.type}}</p>
         </div>
       </div>
       <br>
@@ -120,7 +120,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
                 <div class="w3-section">
                     <label>Price</label>
                     <div class="form-group agileinfo wthree w3-agileits agile">
-                      <input name="price" type="number" class="form-control" id="phone" placeholder="{{service_corp._id}}" data-error="Enter the Price" ng-model= "regData.price" required>
+                      <input name="price" type="number" class="form-control" id="phone" placeholder="{{service._id}}" data-error="Enter the Price" ng-model= "regData.price" required>
                       <div class="help-block with-errors"></div>
                     </div>
                 </div>
@@ -214,7 +214,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
           <h2 class="w3-red w3-center">Images</h2>
 
           <div class="w3-content w3-display-container"><br>
-            <div dir-paginate ="x in service_corp.images|itemsPerPage:1" pagination-id="cust">
+            <div dir-paginate ="x in service.images|itemsPerPage:1" pagination-id="cust">
         <img class="mySlides" src="{{x}}" style="width:100%">
       </div>
           <div class="w3-center">
@@ -235,7 +235,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
 
 
         <div class="w3-content w3-display-container"><br>
-          <div dir-paginate ="x in service_corp.videos|itemsPerPage:1" pagination-id="rust">
+          <div dir-paginate ="x in service.videos|itemsPerPage:1" pagination-id="rust">
             <video width="600" controls>
               <source src="{{x}}" type="video/mp4">
               Your browser does not support HTML5 video.
@@ -258,7 +258,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
   <h2 class="w3-red w3-center">Reviews</h2>
   <br>
 
-  <div dir-paginate ="(i,x) in service_corp.reviews|itemsPerPage:5 track by $index"  pagination-id="fust"   class="w3-container w3-card-2 w3-white w3-round w3-margin"><br>
+  <div dir-paginate ="(i,x) in service.reviews|itemsPerPage:5 track by $index"  pagination-id="fust"   class="w3-container w3-card-2 w3-white w3-round w3-margin"><br>
     <p> {{x.text}}</p>
 
     <div ng-if="x.reported == false">
@@ -293,12 +293,11 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
                                     <th>Date</th>
                                     <th>Hour</th>
                                     <th>Minute</th>
-                                    <th>Book</th>
                                 </tr>
 
                             </thead>
                             <tbody>
-                                <tr  dir-paginate="user in service_corp.reservations|itemsPerPage:10" pagination-id="zzzx">
+                                <tr  dir-paginate="user in service.reservations|itemsPerPage:10" pagination-id="zzzx">
                                     <td>{{user.date}}</td>
                                     <td>{{user.startHour}}</td>
                                     <td>{{user.startMinute}}</td>

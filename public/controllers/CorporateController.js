@@ -189,8 +189,8 @@ app.controller("Login_Corporate", function($scope, $window,$http){
 
        var service_corp=response.data.Entertainments;
        console.log(service_corp);
-       localStorage.setItem("service_corp", JSON.stringify(service_corp));
-      $window.location.href = "/entertainement_service";
+       localStorage.setItem("service", JSON.stringify(service_corp));
+      $window.location.href = "/entertainement_service/"+regData._id;
 
        }, function errorCallback(response) {//needs handling
 
@@ -205,7 +205,7 @@ app.controller("Login_Corporate", function($scope, $window,$http){
 
 
    app.controller("service_corporate", function($scope,$window, $http) {
-     var service_corp = JSON.parse(localStorage.getItem("service_corp"));
+     var service_corp = JSON.parse(localStorage.getItem("service"));
      console.log(service_corp);
      $scope.service_corp = service_corp;
    })
@@ -215,12 +215,12 @@ app.controller("Login_Corporate", function($scope, $window,$http){
    app.controller("reportreview", function($scope,$window, $http) {
      $scope.reportreview= function(regData){
     regData.reviewID=regData._id
-    var service_corp = JSON.parse(localStorage.getItem("service_corp"));
+    var service_corp = JSON.parse(localStorage.getItem("service"));
     regData.id=service_corp._id;
     console.log(regData);
 $http.post('/corporate/reportReview/', regData).then(function successCallback(response){
 
-       localStorage.setItem("service_corp", JSON.stringify(response.data.Entertainments));
+       localStorage.setItem("service", JSON.stringify(response.data.Entertainments));
            $window.location.reload();
        }, function errorCallback(response) {//needs handling
 
@@ -241,7 +241,7 @@ $http.post('/corporate/reportReview/', regData).then(function successCallback(re
      console.log("hi");
      $scope.editservice= function(regData){
 
-       var service_corp = JSON.parse(localStorage.getItem("service_corp"));
+       var service_corp = JSON.parse(localStorage.getItem("service"));
 
        regData.id = service_corp._id;
 
@@ -249,7 +249,7 @@ $http.post('/corporate/reportReview/', regData).then(function successCallback(re
        $http.post('/corporate/service/edit', regData).then(function successCallback(response){
 
          var service_corp = response.data.Entertainments;
-        localStorage.setItem("service_corp", JSON.stringify(service_corp));
+        localStorage.setItem("service", JSON.stringify(service_corp));
         $window.location.reload();
 
        }, function errorCallback(response) {//needs handling
@@ -284,7 +284,7 @@ $http.post('/corporate/reportReview/', regData).then(function successCallback(re
      this.uploadFileToUrl = function(file, uploadUrl, x){
          var fd = new FormData();
          if(x==0){
-           var service_corp = JSON.parse(localStorage.getItem("service_corp"));
+           var service_corp = JSON.parse(localStorage.getItem("service"));
             fd.append('id', service_corp._id);
          }
          else{
@@ -301,7 +301,7 @@ $http.post('/corporate/reportReview/', regData).then(function successCallback(re
 
            if(x==0){
            var service_corp = response.data.Entertainments;
-           localStorage.setItem("service_corp", JSON.stringify(service_corp));
+           localStorage.setItem("service", JSON.stringify(service_corp));
             }
 
             else{
@@ -376,14 +376,14 @@ $http.post('/corporate/reportReview/', regData).then(function successCallback(re
    console.log("hi");
    $scope.addtime= function(regData){
 
-     var service_corp = JSON.parse(localStorage.getItem("service_corp"));
+     var service_corp = JSON.parse(localStorage.getItem("service"));
      regData.id = service_corp._id;
 
 
      $http.post('/corporate/service/timing', regData).then(function successCallback(response){
 
       var service_corp = response.data.Entertainments;
-      localStorage.setItem("service_corp", JSON.stringify(service_corp));
+      localStorage.setItem("service", JSON.stringify(service_corp));
       $window.location.reload();
 
      }, function errorCallback(response) {//needs handling
@@ -410,6 +410,118 @@ $http.post('/corporate/reportReview/', regData).then(function successCallback(re
 
 
    })
+
+
+ })
+
+
+ app.controller("EntCtrl", function($scope,$window, $http,$routeParams) {
+
+ var id= $routeParams.id;
+ console.log(id);
+
+ var req = {
+  method: 'POST',
+  url: '/client/service',
+  data: "id=" + id,
+  headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+ }
+
+
+ $http({
+   method: 'POST',
+   url: '/client/service',
+   data: "id=" + id,
+   headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+ }).then(function(response){
+    $scope.service = response.data.Entertainments;
+    localStorage.setItem("service", JSON.stringify(response.data.Entertainments));
+    console.log(response);
+    });
+
+
+ })
+
+
+
+ app.controller("corpsCtrl", function($scope,$window, $http,$routeParams) {
+
+ var id= $routeParams.id;
+ console.log(id);
+
+ var req = {
+  method: 'POST',
+  url: '/client/corporates',
+  headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+ }
+
+
+ $http({
+   method: 'POST',
+   url: '/client/corporates',
+   headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+ }).then(function(response){
+    $scope.corporates = response.data.corp;
+
+    console.log(response);
+    });
+
+
+ })
+
+
+ app.controller("corCtrl", function($scope,$window, $http,$routeParams) {
+
+ var id= $routeParams.id;
+ console.log(id);
+
+ var req = {
+  method: 'POST',
+  url: '/client/corporate',
+  data: "_id=" + id,
+  headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+ }
+
+
+ $http({
+   method: 'POST',
+   url: '/client/corporate',
+   data: "_id=" + id,
+   headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+ }).then(function(response){
+    $scope.corporate = response.data.corporate;
+    localStorage.setItem("corporate", JSON.stringify(response.data.corporate));
+    console.log(response.data.error);
+    });
+
+
+ })
+
+
+
+
+
+ app.controller("servicesCtrl", function($scope,$window, $http,$routeParams) {
+
+ var id= $routeParams.id;
+ console.log(id);
+
+ var req = {
+  method: 'POST',
+  url: '/client/services',
+  headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+ }
+
+
+ $http({
+   method: 'POST',
+   url: '/client/services',
+   headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+ }).then(function(response){
+    $scope.services = response.data.Entertainments;
+
+    console.log(response);
+    });
 
 
  })

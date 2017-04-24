@@ -221,10 +221,10 @@ app.controller("getcorporate", function($scope,$window, $http) {
 
     var corporate=response.data.corporate;
     console.log(corporate);
-    localStorage.setItem("corporate_any", JSON.stringify(corporate));
+    localStorage.setItem("corporate", JSON.stringify(corporate));
 
 
-        $window.location.href = "/profile_corporate_any";
+        $window.location.href = "/profile_corporate_any/"+regData._id;
 
 
     }, function errorCallback(response) {//needs handling
@@ -239,7 +239,7 @@ app.controller("getcorporate", function($scope,$window, $http) {
 
 
 app.controller("corporateprofile", function($scope,$window, $http) {
-  var corporate = JSON.parse(localStorage.getItem("corporate_any"));
+  var corporate = JSON.parse(localStorage.getItem("corporate"));
   console.log(corporate);
   $scope.corporatet = corporate;
 })
@@ -278,15 +278,15 @@ app.controller("getservice", function($scope,$window, $http) {
 
     var service=response.data.Entertainments;
     console.log(service);
-    localStorage.setItem("service_any", JSON.stringify(service));
+    localStorage.setItem("service", JSON.stringify(service));
 
     var online = JSON.parse(localStorage.getItem("online"));
 
     if(online==1){
-      $window.location.href = "/entertainement_service_client";
+      $window.location.href = "/entertainement_service_client/"+regData._id;
     }
     else{
-      $window.location.href = "/entertainement_service_visitor";
+      $window.location.href = "/entertainement_service_visitor/"+regData._id;
     }
 
 
@@ -302,7 +302,7 @@ app.controller("getservice", function($scope,$window, $http) {
 
 
 app.controller("serviceprofile", function($scope,$window, $http) {
-  var service = JSON.parse(localStorage.getItem("service_any"));
+  var service = JSON.parse(localStorage.getItem("service"));
   console.log(service);
   $scope.service = service;
 })
@@ -310,13 +310,13 @@ app.controller("serviceprofile", function($scope,$window, $http) {
 
 app.controller("add_rating", function($scope,$window, $http) {
   $scope.addrating= function(regData){
-    var service = JSON.parse(localStorage.getItem("service_any"));
+    var service = JSON.parse(localStorage.getItem("service"));
     regData.id=service._id;
     console.log(service._id);
     $http.post('/client/service/rate', regData).then(function successCallback(response){
 
 
-      localStorage.setItem("service_any", JSON.stringify(response.data.Entertainments));
+      localStorage.setItem("service", JSON.stringify(response.data.Entertainments));
       console.log(response.data.success);
       $window.location.reload();
 
@@ -334,13 +334,13 @@ app.controller("add_rating", function($scope,$window, $http) {
 
 app.controller("add_review", function($scope,$window, $http) {
   $scope.addreview= function(regData){
-    var service = JSON.parse(localStorage.getItem("service_any"));
+    var service = JSON.parse(localStorage.getItem("service"));
     regData.entertainment=service._id;
     console.log(service._id);
     $http.post('/client/review', regData).then(function successCallback(response){
       console.log(response.data.success);
 
-      localStorage.setItem("service_any", JSON.stringify(response.data.service));
+      localStorage.setItem("service", JSON.stringify(response.data.service));
 
 
 
@@ -404,7 +404,7 @@ app.controller("reserve", function($scope,$window, $http) {
   console.log("hi");
   $scope.reserve= function(regData){
 
-    var service_corp = JSON.parse(localStorage.getItem("service_any"));
+    var service_corp = JSON.parse(localStorage.getItem("service"));
     var client = JSON.parse(localStorage.getItem("client"));
     regData.reserveId=regData._id;
     regData.Entid = service_corp._id;
@@ -421,7 +421,7 @@ else{
     var newBalance=parseFloat(client.balance)-parseFloat(regData.price);
      var service_any = response.data.Entertainments;
      client.balance=newBalance;
-     localStorage.setItem("service_any", JSON.stringify(service_any));
+     localStorage.setItem("service", JSON.stringify(service_any));
      localStorage.setItem("client", JSON.stringify(client));
 
      $window.location.reload();

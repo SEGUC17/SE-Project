@@ -522,11 +522,60 @@ res.status(401).send("You are unauthorized to access this page")
     res.json({success:true,corporate:ress});
     }
     })
-      }
+  },
+
+  checkservice:function(req,res){
+  Entertainment.findOne({"email" : req.user.local.email, "_id":req.body.id},function(err,ress){
+  if(err){
+  res.json({success:false, error:"No reservations for you"});
+  }
+  else{
+    if(ress){
+      res.json({success:true});
+    }
+    else{
+      res.json({success:false});
+    }
+
+  }
+  })
+},
+
+
+checkcorpin:function(req,res){
+Corporate.findOne({"local.email" : req.user.local.email, "_id":req.body.id},function(err,ress){
+if(err){
+res.json({success:false, error:"No reservations for you"});
+}
+else{
+  if(ress){
+    res.json({success:true});
+  }
+  else{
+    res.json({success:false});
+  }
+
+}
+})
+},
 
 
 
+checkclientin:function(req,res){
+Client.findOne({"email" : req.user.email, "_id":req.body.id},function(err,ress){
+if(err){
+res.json({success:false, error:"No reservations for you"});
+}
+else{
+  if(ress){
+    res.json({success:true});
+  }
+  else{
+    res.json({success:false});
+  }
 
-
+}
+})
+},
 
 }

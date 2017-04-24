@@ -81,6 +81,8 @@ router.post('/client/service/rate', clientController.checkAuthentication, client
 
 router.post('/view_reservations', clientController.checkAuthentication,clientController.view_reservations);
 
+
+
 //Administrator Routes
 router.post('/admin/login', adminController.login)
 
@@ -160,6 +162,13 @@ router.post('/book',clientController.checkAuthentication,clientController.book)
 router.post('/corporate/service/timing', corporateController.checkAuthentication, corporateController.addReservation);
 
 router.post('/check_online', rootController.check)
+
+router.post('/corporate/checkservice', corporateController.checkAuthentication, corporateController.checkservice);
+
+router.post('/corporate/checkcorpin', corporateController.checkAuthentication, corporateController.checkcorpin);
+
+router.post('/checkclientin', corporateController.checkclientin)
+
 
 
 //export router

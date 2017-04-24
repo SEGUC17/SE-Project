@@ -21,12 +21,36 @@ $routeProvider
 
     .when('/services', {
         templateUrl: 'views/entertainement_services.html',
-        controller : 'getservices'
+        controller : 'servicesCtrl'
     })
 
     .when('/services_search', {
         templateUrl: 'views/entertainement_services_search.html',
         controller : 'viewSearch'
+    })
+
+    .when('/entertainement_service_visitor/:id', {
+        templateUrl: 'views/entertainement_service_visitor.html',
+        controller : 'EntCtrl',
+        resolve: {
+        loginccheck: entservice
+      }
+    })
+
+    .when('/entertainement_service_client/:id', {
+        templateUrl: 'views/entertainement_service_client.html',
+        controller : 'EntCtrl',
+        resolve: {
+        loginccheck: entservice
+      }
+    })
+
+    .when('/entertainement_service/:id', {
+        templateUrl: 'views/entertainement_service.html',
+        controller : 'EntCtrl',
+        resolve: {
+        loginccheck: entservice
+      }
     })
 
     .when('/register_corporate', {
@@ -39,29 +63,7 @@ $routeProvider
         controller : ''
     })
 
-    .when('/entertainement_service', {
-        templateUrl: 'views/entertainement_service.html',
-        controller : 'service_corporate',
-        resolve: {
-        logincheck: checkCorporateLoggedin
-      }
-    })
-
-    .when('/entertainement_service_client', {
-        templateUrl: 'views/entertainement_service_client.html',
-        controller : 'serviceprofile',
-        resolve: {
-        logincheck: checkClientLoggedin
-      }
-    })
-
-    .when('/entertainement_service_visitor', {
-        templateUrl: 'views/entertainement_service_visitor.html',
-        controller : 'serviceprofile'
-    })
-
-
-    .when('/profile_client', {
+    .when('/profile_client/:id', {
         templateUrl: 'views/profile_client.html',
         controller : 'clientinfoo',
         resolve: {
@@ -79,22 +81,25 @@ $routeProvider
         controller : ''
     })
 
-    .when('/profile_corporate', {
+    .when('/profile_corporate/:id', {
         templateUrl: 'views/profile_corporate.html',
-        controller : 'corpinfoo',
+        controller : 'corCtrl',
         resolve: {
-        logincheck: checkCorporateLoggedin
+        logincheck: checkcorp
       }
     })
 
     .when('/corporates', {
         templateUrl: 'views/corporates.html',
-        controller : 'getcorporates'
+        controller : 'corpsCtrl'
     })
 
-    .when('/profile_corporate_any', {
+    .when('/profile_corporate_any/:id', {
         templateUrl: 'views/profile_corporate_any.html',
-        controller : 'corporateprofile'
+        controller : 'corCtrl',
+        resolve: {
+        logincheck: checkcorp
+      }
     })
 
     .when('/admin5518j', {
@@ -128,26 +133,73 @@ $locationProvider.html5Mode(true);
 
 
 var checkClientLoggedin = function($q, $timeout, $http, $location, $rootScope) {
+
   var deferred = $q.defer();
-  $http.post('/client/checkAuthentication').then(function successCallback(response){
+  var url = $location.path();
+  var id ="";
+  var type=0;
 
-  if(response.data.success){
-    var online =1;
-      localStorage.setItem("online", JSON.stringify(online));
-      deferred.resolve();
-
-  }
-  else{
-    var online =0;
-      localStorage.setItem("online", JSON.stringify(online));
-    deferred.reject();
-      $location.url('/401');
+  var i=1;
+  for(i; i<url.length;i++){
+    if(url.charAt(i)=='/'){
+      i++
+      break
+    }
   }
 
-  },function errorCallback(response){
+  for(i; i<url.length;i++){
+    id+=url.charAt(i);
+  }
+
+
+  $http.post("/check_online").then(function successCallback(response){
+
+      var y = response.data.online;
+
+        if(y==0 || y==2){
+        deferred.reject();
+        $location.url('/401');
+        }
+        else{
+
+          var req = {
+           method: 'POST',
+           url: '/checkclientin',
+           data: "id=" + id,
+           headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+          }
+
+
+          $http({
+            method: 'POST',
+            url: '/checkclientin',
+            data: "id=" + id,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+          }).then(function(response){
+              if(response.data.success==false){
+                deferred.reject();
+                $location.url('/401');
+              }
+              else{
+                deferred.resolve();
+              }
+
+             console.log(response);
+             });
+
+        }
+
+
+
+
+    }, function errorCallback(response) {//needs handling
+
+
 
   })
-  ;
+
+
+
 
   return deferred.promise;
 }
@@ -196,6 +248,290 @@ var checkAdminLoggedin = function($q, $timeout, $http, $location, $rootScope) {
 
   })
   ;
+
+  return deferred.promise;
+}
+
+
+var checkcorp = function($q, $timeout, $http, $location, $rootScope) {
+
+  var deferred = $q.defer();
+  var url = $location.path();
+  var id ="";
+  var type=0;
+
+  var i=1;
+  for(i; i<url.length;i++){
+    if(url.charAt(i)=='/'){
+      i++
+      break
+    }
+  }
+
+  for(i; i<url.length;i++){
+    id+=url.charAt(i);
+  }
+
+  if(url === "/profile_corporate/"+id){
+    type=1;
+  }
+  else if(url === "/profile_corporate_any/"+id){
+    type=2;
+  }
+
+
+  $http.post("/check_online").then(function successCallback(response){
+
+      var y = response.data.online;
+
+      if(type==1){
+        if(y==0 || y==1){
+        deferred.reject();
+        $location.url('/profile_corporate_any/'+id);
+        }
+        else{
+
+          var req = {
+           method: 'POST',
+           url: '/corporate/checkcorpin',
+           data: "id=" + id,
+           headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+          }
+
+
+          $http({
+            method: 'POST',
+            url: '/corporate/checkcorpin',
+            data: "id=" + id,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+          }).then(function(response){
+              if(response.data.success==false){
+                deferred.reject();
+                $location.url('/profile_corporate_any/'+id);
+              }
+              else{
+                deferred.resolve();
+              }
+
+             console.log(response);
+             });
+
+        }
+      }
+      else if(type==2){
+        if(y==0 || y==1){
+          deferred.resolve();
+        }
+        else{
+          var req = {
+           method: 'POST',
+           url: '/corporate/checkcorpin',
+           data: "id=" + id,
+           headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+          }
+
+
+          $http({
+            method: 'POST',
+            url: '/corporate/checkcorpin',
+            data: "id=" + id,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+          }).then(function(response){
+              if(response.data.success==false){
+                deferred.resolve();
+              }
+              else{
+                deferred.reject();
+                $location.url('/profile_corporate/'+id);
+              }
+
+             console.log(response);
+             });
+
+        }
+      }
+
+
+    }, function errorCallback(response) {//needs handling
+
+
+
+  })
+
+  return deferred.promise;
+}
+
+
+
+
+var entservice = function($q, $timeout, $http, $location, $rootScope, $window) {
+  var deferred = $q.defer();
+  var url = $location.path();
+  var id ="";
+  var type=0;
+
+  var i=1;
+  for(i; i<url.length;i++){
+    if(url.charAt(i)=='/'){
+      i++
+      break
+    }
+  }
+
+  for(i; i<url.length;i++){
+    id+=url.charAt(i);
+  }
+
+  if(url === "/entertainement_service_client/"+id){
+    type=1;
+  }
+  else if(url === "/entertainement_service_visitor/"+id){
+    type=2;
+  }
+  else if(url === "/entertainement_service/"+id){
+    type=3;
+  }
+
+
+
+  $http.post("/check_online").then(function successCallback(response){
+      var y = response.data.online;
+
+
+      if(type==1){
+
+      if(y==0){
+          deferred.reject();
+        $location.url('/entertainement_service_visitor/'+id);
+      }
+      else if(y==2){
+
+        var req = {
+         method: 'POST',
+         url: '/corporate/checkservice',
+         data: "id=" + id,
+         headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }
+
+
+        $http({
+          method: 'POST',
+          url: '/corporate/checkservice',
+          data: "id=" + id,
+          headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).then(function(response){
+            if(response.data.success==false){
+              deferred.reject();
+              $location.url('/entertainement_service_visitor/'+id);
+            }
+            else{
+              deferred.reject();
+              $location.url('/entertainement_service/'+id);
+            }
+
+           console.log(response);
+           });
+
+      }
+      else{
+        deferred.resolve();
+      }
+    }
+
+
+    else if(type==2){
+
+    if(y==1){
+        deferred.reject();
+      $location.url('/entertainement_service_client/'+id);
+    }
+    else if(y==2){
+
+
+          var req = {
+           method: 'POST',
+           url: '/corporate/checkservice',
+           data: "id=" + id,
+           headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+          }
+
+
+          $http({
+            method: 'POST',
+            url: '/corporate/checkservice',
+            data: "id=" + id,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+          }).then(function(response){
+              if(response.data.success==false){
+                deferred.resolve();
+              }
+              else{
+                deferred.reject();
+                $location.url('/entertainement_service/'+id);
+              }
+
+             console.log(response);
+             });
+
+    }
+    else{
+      deferred.resolve();
+    }
+
+  }
+
+
+  else if(type==3){
+
+  if(y==1){
+      deferred.reject();
+    $location.url('/entertainement_service_client/'+id);
+  }
+  else if(y==0){
+      deferred.reject();
+    $location.url('/entertainement_service_visitor/'+id);
+  }
+  else{
+
+
+    var req = {
+     method: 'POST',
+     url: '/corporate/checkservice',
+     data: "id=" + id,
+     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+    }
+
+
+    $http({
+      method: 'POST',
+      url: '/corporate/checkservice',
+      data: "id=" + id,
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+    }).then(function(response){
+        if(response.data.success==false){
+          deferred.reject();
+          $location.url('/entertainement_service_visitor/'+id);
+        }
+        else{
+          deferred.resolve();
+        }
+
+       console.log(response);
+       });
+
+
+
+
+  }
+}
+
+
+
+    }, function errorCallback(response) {//needs handling
+
+
+
+  })
 
   return deferred.promise;
 }
