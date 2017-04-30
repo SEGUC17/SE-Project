@@ -92,7 +92,8 @@ module.exports= {
                     console.log("error in saving");
                   }
                   else{
-                    res.redirect("/profile_client")
+                    var url="/profile_client/"+Client._id;
+                    res.redirect(url)
                   }
 
                 });

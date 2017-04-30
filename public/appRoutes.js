@@ -8,6 +8,15 @@ $routeProvider
         controller : ''
     })
 
+    .when('/v1/', {
+      templateUrl: 'app/views/login.html',
+      controller: 'loginchatCtrl'
+    })
+    .when('/v1/ChatRoom', {
+      templateUrl: 'app/views/chatRoom.html',
+      controller: 'chatRoomCtrl'
+    })
+
     // nerds page that will use the NerdController
     .when('/register_client', {
         templateUrl: 'views/register_client.html',
