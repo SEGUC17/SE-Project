@@ -14,5 +14,8 @@
     "stripe-angular": "^1.0.2",
     "lightbox2": "~2.8.1",
     "angular-resource": "~1.4.1"
+  },
+  "resolutions": {
+    "angular": ">1.2.0"
   }
 }
