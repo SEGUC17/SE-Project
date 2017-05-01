@@ -15,12 +15,13 @@ module.exports = {
 
   checkAdminAuthentication: function (req, res, next) {
     if (req.session.admin) {
-       res.json({success: " authenticated"});
+    return res.json({success: " authenticated"});
     }
     else{
-    res.json({error: "Not authenticated"})
+    return res.json({error: "Not authenticated"})
     }
-    res.status(401).send("You are unauthorized to access this page")
+    res.status(401).send('You are unauthorized to access this page')
+
   }
   ,
 
